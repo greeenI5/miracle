@@ -41,7 +41,7 @@ time, mark, audio, video {
 
 body {
 	line-height: 1.6;
-	font-family: "Noto Sans KR", sans-serif;
+	font-family: "Noto Sans KR", sans-serif !important;
 	font-size: 18px;
 	color: var(--black);
 	overflow: hidden;

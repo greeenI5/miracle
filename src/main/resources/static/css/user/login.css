@@ -103,7 +103,7 @@ button {
     background-color: var(--sub-grey);
 }
 
-.error-msg {
+#error-msg {
 	/* display: none; */
 	color : var(--logo-red);
 	font-size : 14px;
