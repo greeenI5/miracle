@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
+<head>
+	<link rel="stylesheet" href="/css/notice/notice.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<meta charset="UTF-8">
+<title>Notice</title>
+</head>
+<main>
+	 <div class="content">
+        <!-- Left section -->
+        <div class="left-section">
+            <h2>HOME > 공지사항</h2>
+            <div class="notice-list">
+                <!-- 공지사항 목록을 나열 -->
+                <div class="notice-item">
+                    <h1>공지사항</h1>
+                    <p>공지사항</p>
+                </div>
+                <div class="notice-item">
+                    <h3>게시판</h3>
+                    <h3><i class="ri-add-box-line"></i>게시판 추가</h3>
+                </div>
+                <!-- 필요에 따라 추가 -->
+            </div>
+        </div>
+
+        <!-- Right section -->
+        <div class="right-section">
+            <div class="content_main_box">
+                <h4>공지사항</h4>
+                <p>메인 콘텐츠 내용...</p>
+            </div>
+        </div>
+    </div>
+</main>
+</html>
