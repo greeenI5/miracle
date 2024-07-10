@@ -1,0 +1,96 @@
+@charset "UTF-8";
+
+#header {
+    height: 70px;
+    width: 100%;
+    background-color: var(--main-navy);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    box-sizing: border-box;
+    z-index: 1000;
+}
+
+#header .logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+#header .user-info {
+    display: flex;
+    align-items: center;
+}
+#header > .header-right > .user-info > a > i {
+	font-size: 35px;
+    margin : 0px 5px;
+    color: white;
+}
+#header > .header-right > .user-info > i{
+    font-size: 35px;
+    margin : 0px 5px;
+}
+
+#header .username {
+    margin-right: 10px;
+    color: white;
+}
+
+
+#sidebar {
+	height: 100%;
+    width: 90px;
+    background-color: var(--sub-grey);
+    color: var(--main-navy);
+    box-sizing: border-box;
+    position: fixed;
+    top: 70px;
+    left: 0;
+    overflow-y: auto;
+    z-index: 1000;
+}
+
+#sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+#sidebar ul li {
+    padding: 10px 0px;
+    flex-direction: row;
+}
+
+#sidebar > ul > li > a {
+    color: var(--main-navy);
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#sidebar > ul > li > a > i {
+	height: 40px;
+}
+#sidebar > ul > li > a > i::before{
+	font-size: 30px;
+}
+
+#sidebar > ul > li > a > span{
+	font-size: 14px;
+	font-weight: bold;
+}
+
+#sidebar ul li:hover {
+    background-color:var(--sub-navy);
+}
+
+main {
+    margin-top: 70px;
+    margin-left: 90px;
+    padding: 20px;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
