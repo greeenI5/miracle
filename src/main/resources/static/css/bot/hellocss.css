@@ -1,0 +1,83 @@
+@charset "UTF-8";
+.bot-container{
+    display: grid;
+    width: 362px;
+    border: solid var(--sub-navy) 2px;
+    border-radius: 5.5px;
+    position: fixed;
+	top : 20%;
+    right: 50%;
+	
+}
+
+.bot-container>header>#c-header{
+	width: 100%;
+	justify-content: space-between;
+    align-items: center;
+    height: 38px;
+    background-color:var(--sub-navy);
+    color: white;
+    padding: 0 15px;
+    border-radius: 3px 3px 0 0;
+}
+
+.bot-menu{
+	width: 100%;
+	justify-content: space-between;
+}
+
+.bot-menu>div>a{
+	color: white;
+}
+
+#b-icon{
+	display:flex;
+	width:24px;
+	height:24px;
+	background-size: cover;
+	background-image: url('/images/bot/chatbot.png')
+}
+
+.bot-container>main{
+	width: 100%;
+    height: 450px;
+	background-color:white;
+}
+
+.bot-container>footer{
+    border-top: solid var(--main-navy) 1.5px;
+    background-color: #fff;
+	border-radius: 3px;
+	padding: 0;
+	margin: 0;
+}
+
+.btm{
+	width: 100%;
+    display: inline-flex;
+    position: relative;
+    align-items: center;
+}
+
+input{
+    width: 310px;
+    height: 35px;
+    border: none;
+    position: relative;
+}
+
+input:focus {
+    outline: none;
+}
+
+.btn-send{
+	
+    width: 40px;
+    height: 30px;
+    background-size: contain;
+    background-color: white;
+    border: none;
+    background-image: url('/images/bot/send-plane.png');
+    padding-top: 40px;
+    
+}
