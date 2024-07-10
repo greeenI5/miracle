@@ -1,0 +1,280 @@
+img { vertical-align: top; } /* 이미지 요소들의 수직 정렬을 상단으로 설정 */
+
+
+/*/////////////////////////////////////////////////////////
+////////////////////// btn css ////////////////////////////
+/////////////////////////////////////////////////////////*/
+.clickBtn {
+  width: 70px; /* 너비 */
+  height: 35px; /* 높이 */
+  border-radius: 10%; /* 테두리 반경 */
+  font-size: 15px; /* 글꼴 크기 */
+  font-weight: 600; /* 글꼴 두께 */
+  border: none; /* 테두리 없음 */
+  background: var(--sub-navy); /* 배경색 */
+  margin-right: 30px; /* 오른쪽 마진 */
+}
+
+/*/////////////////////////////////////////////////////////
+/////////////////////// header ////////////////////////////
+/////////////////////////////////////////////////////////*/
+header {
+  border-bottom: 1px solid #e4e4e4; /* 아래쪽 테두리 */
+  display: flex; /* 플렉스 박스로 설정 */
+  padding: 10px; /* 안쪽 여백 */
+  height: 7%; /* 높이 */
+  box-sizing: border-box; /* 테두리와 안쪽 여백 포함 */
+}
+header > h1 {
+  display: inline-block; /* 인라인 블록 요소로 설정 */
+  height: 100%; /* 높이 */
+  flex-grow: 1; /* 자동 증가 */
+}
+.fa-calendar-check { color: #fa709a; margin-right: 2%; vertical-align: middle; } /* Font Awesome 캘린더 아이콘 스타일 */
+header > h1 > span {
+  color: #a7a7a7; /* 글자 색상 */
+  font-size: 24px; /* 글꼴 크기 */
+  font-weight: 400; /* 글꼴 두께 */
+  vertical-align: bottom; /* 수직 정렬 */
+}
+.calendar_title {
+  margin: 0 auto; /* 가운데 정렬 */
+  flex-grow: 1; /* 자동 증가 */
+}
+.calendar_title .prev , .next {
+  width: 30px; /* 너비 */
+  height: 100%; /* 높이 */
+  cursor: pointer; /* 커서 타입 */
+  border: none; /* 테두리 없음 */
+  font-size: 20px; /* 글꼴 크기 */
+  outline: none; /* 아웃라인 없음 */
+  color: #5c5c5c; /* 글자 색상 */
+}
+.calendar_title .current-year-month {
+  font-size: 24px; /* 글꼴 크기 */
+  vertical-align: middle; /* 수직 정렬 */
+  color: var(--main-navy); /* 글자 색상 */
+  display: inline-block; /* 인라인 블록 요소로 설정 */
+  margin: 0 20px; /* 여백 */
+}
+
+/*/////////////////////////////////////////////////////////
+//////////////////// content left /////////////////////////
+/////////////////////////////////////////////////////////*/
+.content-left {
+  float: left; /* 왼쪽으로 띄우기 */
+  box-sizing: border-box; /* 테두리와 안쪽 여백 포함 */
+  width: 20%; /* 너비 */
+}
+.left-main {
+  margin-top: 20%; /* 위쪽 마진 */
+}
+.left-main .main-wrap {
+  text-align: center; /* 텍스트 가운데 정렬 */
+  font-weight: 700; /* 글꼴 두께 */
+}
+.left-main .main-wrap .main-day {
+  padding: 10% 0; /* 안쪽 여백 */
+  font-size: 30px; /* 글꼴 크기 */
+  color: var(--main-navy); /* 글자 색상 */
+}
+.left-main .main-wrap .main-date {
+  margin: 10% 0; /* 바깥쪽 여백 */
+  font-size: 80px; /* 글꼴 크기 */
+  color: var(--main-navy); /* 글자 색상 */
+}
+.left-main .todo-wrap {
+  padding: 20% 0 10% 10%; /* 안쪽 여백 */
+}
+.left-main .todo-wrap .todo-title {
+  font-size: 40px; /* 글꼴 크기 */
+  font-weight: 600; /* 글꼴 두께 */
+  margin-bottom: 10%; /* 아래쪽 마진 */
+  color: #5c5c5c; /* 글자 색상 */
+}
+.left-main .todo-wrap .input-form .input-box {
+  width: 90%; /* 너비 */
+  height: 50px; /* 높이 */
+  font-size: 20px; /* 글꼴 크기 */
+  border: 0; /* 테두리 없음 */
+  border-bottom: 2px dashed var(--main-navy); /* 아래쪽 테두리 */
+  margin-bottom: 30px; /* 아래쪽 마진 */
+  outline-style: none; /* 아웃라인 스타일 없음 */
+}
+
+/*/////////////////////////////////////////////////////////
+//////////////////// content right ////////////////////////
+/////////////////////////////////////////////////////////*/
+.content-right {
+  float: left; /* 오른쪽으로 띄우기 */
+  box-sizing: border-box; /* 테두리와 안쪽 여백 포함 */
+  width: 60%; /* 너비 */
+}
+.content-right .day-of-week {
+  border: 1px solid var(--main-navy); /* 캘린더상단테두리 */
+  background: var(--sub-navy); /* 배경색 */
+  width: 100%; /* 너비 */
+  height: 100%; /* 높이 */
+}
+.content-right .day-of-week .dayHeader {
+  display: inline-block; /* 인라인 블록 요소로 설정 */
+  width: calc(100% / 7.2); /* 너비 계산 */
+  height: 100%; /* 높이 */
+  text-align: center; /* 텍스트 가운데 정렬 */
+  padding: 1%; /* 안쪽 여백 */
+  box-sizing: border-box; /* 테두리와 안쪽 여백 포함 */
+  font-weight: 600; /* 글꼴 두께 */
+  font-size: 18px; /* 글꼴 크기 */
+}
+.content-right .day-of-week .dayHeader.sun { 
+	color: #f02f2f; /* 일요일 글자 색상 */
+} 
+.content-right .day-of-week .dayHeader.sat { 
+	color: #2208e7; /* 토요일 글자 색상 */
+} 
+
+/*/////////////////////////////////////////////////////////
+/////////////////// calendar body /////////////////////////
+/////////////////////////////////////////////////////////*/
+#weekly > div {
+  box-sizing: border-box; /* 테두리와 안쪽 여백 포함 */
+  text-align: center; /* 텍스트 가운데 정렬 */
+  width: calc(100% / 7); /* 너비 계산 */
+  height: 130px; /* 높이 */
+  display: inline-block; /* 인라인 블록 요소로 설정 */
+  border-bottom: 1px solid var(--main-navy); /* 아래쪽 테두리 */
+  vertical-align: top; /* 수직 정렬 */
+  padding: 1%; /* 안쪽 여백 */
+  color: var(--main-navy); /* 글자 색상 */
+  overflow-y: auto; /* 수직 스크롤바 */
+}
+#weekly > div.active {
+  background: var(--sub-navy); /* 활성화된 요소 배경색 */
+}
+#weekly > div + div {
+  border-left: 1px solid var(--main-navy); /* 왼쪽 테두리 */
+}
+.calendar-body #weekly > div:first-child { 
+	border-left: 1px solid var(--main-navy)
+	} /* 첫 번째 요소 왼쪽 테두리 */
+.calendar-body #weekly > div:last-child { 
+	border-right: 1px solid var(--main-navy)
+	} /* 마지막 요소 오른쪽 테두리 */
+
+/*/////////////////////////////////////////////////////////
+//////////////////////// todoList /////////////////////////
+/////////////////////////////////////////////////////////*/
+.todoList {
+  margin-top: 10%; /* 위쪽 마진 */
+  font-size: 20px; /* 글꼴 크기 */
+}
+.todoList > li { position: relative; } /* 상대적 위치 지정 */
+.todoList > li > span {
+  white-space: nowrap; /* 줄 바꿈 없음 */
+  width: 70%; /* 너비 */
+  overflow: hidden; /* 넘침 처리 */
+  display: block; /* 블록 요소로 설정 */
+  text-overflow: ellipsis; /* 넘침 시 생략 부호(...) */
+}
+.todoList > li+li {
+  margin-top: 5%; /* 리스트 아이템 간의 위쪽 마진 */
+}
+
+.todoList > li > .del-data {
+  position: absolute; /* 절대 위치 설정 */
+  top: 0; /* 위쪽 여백 */
+  right: 5%; /* 오른쪽 여백 */
+  width: 20%; /* 너비 */
+  height: 25px; /* 높이 */
+  background: none; /* 배경 없음 */
+  border: none; /* 테두리 없음 */
+  font-size: 0px; /* 글꼴 크기 0 */
+}
+
+.todoList > li > .del-data::after,
+.todoList > li > .del-data::before {
+  content: ''; /* 가상 요소 내용 없음 */
+  position: absolute; /* 절대 위치 설정 */
+  top: 0; /* 위쪽 여백 */
+  left: 50%; /* 왼쪽 여백 */
+  display: block; /* 블록 요소로 설정 */
+  width: 4px; /* 너비 */
+  height: 18px; /* 높이 */
+  background: var(--main-navy); /* 배경색 */
+}
+
+.todoList > li > .del-data::after,
+.closed::after {
+  transform: rotate(45deg); /* 회전 */
+}
+
+.todoList > li > .del-data::before,
+.closed::before {
+  transform: rotate(-45deg); /* 회전 */
+}
+
+.showList {
+  display: none; /* 숨김 */
+  position: absolute; /* 절대 위치 설정 */
+  top: 50%; /* 위쪽 위치 */
+  left: 50%; /* 왼쪽 위치 */
+  transform: translate(-50%, -50%); /* 이동 및 중앙 정렬 */
+  background: var(--main-navy); /* 배경색 */
+  width: 400px; /* 너비 */
+  height: 300px; /* 높이 */
+  z-index: 1; /* z-index 설정 */
+  border-radius: 20px; /* 테두리 반경 */
+  overflow: hidden; /* 넘침 처리 */
+}
+
+.closed {
+  position: absolute; /* 절대 위치 설정 */
+  top: 5%; /* 위쪽 여백 */
+  right: 5%; /* 오른쪽 여백 */
+  width: 40px; /* 너비 */
+  height: 40px; /* 높이 */
+  font-size: 0; /* 글꼴 크기 0 */
+  background: none; /* 배경 없음 */
+  border: none; /* 테두리 없음 */
+}
+
+.closed::after,
+.closed::before {
+  content: ''; /* 가상 요소 내용 없음 */
+  position: absolute; /* 절대 위치 설정 */
+  top: 14%; /* 위쪽 여백 */
+  right: 44%; /* 오른쪽 여백 */
+  width: 3px; /* 너비 */
+  height: 25px; /* 높이 */
+  background: #fff; /* 배경색 */
+}
+
+.listText {
+  position: absolute; /* 절대 위치 설정 */
+  top: 50%; /* 위쪽 위치 */
+  left: 50%; /* 왼쪽 위치 */
+  transform: translate(-50%, -50%); /* 이동 및 중앙 정렬 */
+  word-break: break-all; /* 단어 단위로 줄 바꿈 */
+  width: 70%; /* 너비 */
+  font-size: 20px; /* 글꼴 크기 */
+  color: #fff; /* 글자 색상 */
+}
+
+.createDate {
+  position: absolute; /* 절대 위치 설정 */
+  bottom: 7%; /* 아래쪽 여백 */
+  right: 7%; /* 오른쪽 여백 */
+  font-size: 20px; /* 글꼴 크기 */
+  color: var(--main-grey); /* 글자 색상 */
+}
+
+.bgblack {
+  display: none; /* 숨김 */
+  background: #acacac; /* 배경색 */
+  opacity: 0.6; /* 투명도 */
+  position: absolute; /* 절대 위치 설정 */
+  left: 0; /* 왼쪽 위치 */
+  right: 0; /* 오른쪽 위치 */
+  top: 0; /* 위쪽 위치 */
+  bottom: 0; /* 아래쪽 위치 */
+}
