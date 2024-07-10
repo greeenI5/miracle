@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
+<head>
+    <link rel="stylesheet" href="/css/mypage/mypage.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>MyPage</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // 저장 버튼 클릭 시 AJAX 요청을 통해 프로필 정보 저장
+            $('#save-button').click(function() {
+                var editNameValue = $('#edit-name').val();
+                var editDepartmentValue = $('#edit-department').val();
+                var editEmailValue = $('#edit-email').val();
+                var editDepartmentNumberValue = $('#edit-department-number').val();
+                var editPhoneValue = $('#edit-phone').val();
+
+                // AJAX 요청 구성
+                $.ajax({
+                    url: '/save-profile',  // 실제 요청할 URL 입력
+                    type: 'POST',
+                    data: {
+                        name: editNameValue,
+                        department: editDepartmentValue,
+                        email: editEmailValue,
+                        departmentNumber: editDepartmentNumberValue,
+                        phone: editPhoneValue
+                    },
+                    success: function(response) {
+                        // 서버로부터 성공적인 응답을 받았을 때 처리
+                        $('#profile-name').text('이름: ' + editNameValue);
+                        $('#profile-department').text('부서: ' + editDepartmentValue);
+                        $('#profile-email').text('이메일: ' + editEmailValue);
+                        $('#profile-department-number').text('부서번호: ' + editDepartmentNumberValue);
+                        $('#profile-phone').text('핸드폰: ' + editPhoneValue);
+
+                        // 입력값 초기화
+                        $('#edit-name, #edit-department, #edit-email, #edit-department-number, #edit-phone, #edit-password').val('');
+
+                        // 입력 필드 숨기기
+                        $('.edit-fields').hide();
+
+                        alert('프로필이 저장되었습니다.');
+                    },
+                    error: function() {
+                        alert('프로필 저장에 실패했습니다.');
+                    }
+                });
+            });
+
+            // 수정 버튼 클릭 시 입력 필드 보이기
+            $('#fix-button').click(function() {
+                $('.edit-fields').show();
+            });
+
+            // 프로필 사진 변경 처리
+            $('#edit-photo').change(function(e) {
+                var file = e.target.files[0];
+                var reader = new FileReader();
+                reader.onload = function() {
+                    $('#profile-img').attr('src', reader.result);
+                }
+                reader.readAsDataURL(file);
+            });
+
+            // 비밀번호 수정 버튼 클릭 시 비밀번호 입력란 토글
+            $('#edit-password-button').click(function() {
+                var passwordField = $('#edit-password');
+                var isVisible = passwordField.css('display') !== 'none';
+
+                if (!isVisible) {
+                    passwordField.show().focus();
+                    $(this).text('비밀번호 취소');
+                } else {
+                    passwordField.hide();
+                    $(this).text('비밀번호 수정');
+                    passwordField.val(''); // 비밀번호 입력란 초기화
+                }
+            });
+        });
+    </script>
+</head>
+<main>
+    <div class="profile">
+        <h1>프로필 수정</h1>
+        <img id="profile-img" src="images/user/basic_profile.jpg" alt="프로필 사진">
+        <input id="edit-photo" type="file" accept="image/*">
+        <p>
+            <span id="profile-name">이름:</span>
+            <input type="text" id="edit-name" class="edit-fields" placeholder="이름을 입력하세요">
+        </p>       
+        <p>
+            <span id="profile-department">부서:</span>
+            <input type="text" id="edit-department" class="edit-fields" placeholder="부서명을 입력하세요">
+        </p>
+        <p>
+            <span>직급:</span>
+            <span>사원</span>
+        </p>
+        <p>
+            <span id="profile-email">이메일:</span>
+            <input type="email" id="edit-email" class="edit-fields" placeholder="이메일을 입력하세요">
+        </p>
+        <p>
+            <span>비밀번호:</span>
+            <input id="edit-password" type="password" style="display: none;" placeholder="비밀번호를 입력하세요">
+            <button id="edit-password-button">비밀번호 수정</button>
+        </p>
+        <p>
+            <span id="profile-department-number">부서번호:</span>
+            <input type="text" id="edit-department-number" class="edit-fields" placeholder="부서번호를 입력하세요">
+        </p>
+        <p>
+            <span id="profile-phone">핸드폰:</span>
+            <input type="tel" id="edit-phone" class="edit-fields" placeholder="핸드폰 번호를 입력하세요">
+        </p>
+        <br>
+        <button id="save-button" style="background-color: #2E3D86; color: white;">저장</button>
+        <button id="fix-button">수정</button>
+    </div>
+</main>
+</html>
