@@ -11,5 +11,10 @@ public class HrController {
 		return "views/emp/hrm";
 	}
 	
+	@GetMapping("/hr/{no}")
+	public String detail() {
+		return "views/emp/detail";
+	}
+	
 	
 }
