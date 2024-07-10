@@ -1,0 +1,159 @@
+@charset "UTF-8";
+main {
+    font-family: "Noto Sans KR", sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0px;
+}
+
+.orgChart {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+.orgChart ul {
+    padding-top: 20px;
+    position: relative;
+    list-style-type: none;
+    margin: 0;
+}
+
+.orgChart ul::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    border-left: 1px solid #ccc;
+    width: 0;
+    height: 20px;
+}
+
+.orgChart li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 5px 0 5px;
+    position: relative;
+}
+
+.orgChart li::before, .orgChart li::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    border-top: 1px solid #ccc;
+    width: 50%;
+    height: 20px;
+}
+
+.orgChart li::before {
+    left: -50%;
+    border-right: 1px solid #ccc;
+}
+
+.orgChart li::after {
+    right: -50%;
+    border-left: 1px solid #ccc;
+}
+
+.orgChart li:only-child::before, .orgChart li:only-child::after {
+    display: none;
+}
+
+.orgChart li:only-child {
+    padding-top: 0;
+}
+
+.orgChart li:first-child::before, .orgChart li:last-child::after {
+    border: 0 none;
+}
+
+.orgChart li:last-child::before {
+    border-right: 1px solid #ccc;
+}
+
+.orgChart li:first-child::after {
+    border-left: 1px solid #ccc;
+}
+
+.title {
+    position: absolute;
+    top: 120px; /* 원하는 위치로 조정 */
+    left: 175px; /* 원하는 위치로 조정 */
+    font-size: 36px;
+    font-weight: bold;
+}
+
+.orgChart .company, .depName, .teamName, .emp {
+	font-size : 24px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display: inline-block;
+    position: relative;
+    padding : 5px;
+    top: -1px;
+    width: 200px; /* 고정된 너비를 설정합니다 */
+    margin: 0 10px; /* 좌우 여백을 설정합니다 */
+    text-align: center; /* 텍스트를 가운데 정렬합니다 */
+    box-sizing: border-box; /* 패딩과 border가 요소의 전체 크기에 포함되도록 box-sizing 속성을 설정합니다 */
+}
+
+.companyName{
+	font-size : 14px;
+}
+
+.bar{
+	padding : 0 10px;
+}
+
+.empRank{
+	font-size : 18px;
+}
+
+.empName{
+	color : var(--main-navy);
+	font-weight: bold;
+}
+
+.orgChart .company, .depName, .teamName {
+    background-color: var(--main-navy);
+    opacity: 0.8;
+    color : #fff;
+}
+
+.orgChart .emp {
+    background-color: #fff;
+}
+
+.orgChart ul ul::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    border-left: 1px solid #ccc;
+    width: 0;
+    height: 20px;
+}
+
+.orgChart ul ul ul::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    border-left: 1px solid #ccc;
+    width: 0;
+    height: 20px;
+}
+
+.orgChart ul ul {
+    display: flex;
+    justify-content: center;
+}
+
+.orgChart ul ul li {
+    margin: 0 10px;
+}
