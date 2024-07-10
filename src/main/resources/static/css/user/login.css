@@ -1,0 +1,111 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: var(--main-navy);
+}
+
+i {
+	font-size : 20px;
+	color: white;
+}
+::placeholder, select {
+    color: white;
+    font-family: "Noto Sans KR", sans-serif;
+    letter-spacing: 1px;
+}
+button {
+	font-family: "Noto Sans KR", sans-serif;
+}
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-box {
+    background-color: #2B3879;
+    padding: 30px;
+    border-radius: 8px;
+    color: white;
+    text-align: center;
+    width: 400px;
+    height: 450px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.logo::before{
+	content:"";
+	display:block;
+	width: 40px;
+    height: 9px;
+    background-color: var(--logo-red);
+    margin-left: 95px;
+}
+.logo {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.form-group label {
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding-left: 5px;
+}
+
+.form-group i {
+    position: absolute;
+    left: 10px;
+    pointer-events: none;
+}
+
+.form-group select,
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    padding-left: 30px;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: #2B3879;
+    color: white;
+    border: 2px solid white;
+}
+
+.login-button {
+    background-color: white;
+    color: var(--main-navy);
+    border: none;
+    border-radius: 20px;
+    padding: 10px 0;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.login-button:hover {
+    background-color: var(--sub-grey);
+}
+
+.error-msg {
+	/* display: none; */
+	color : var(--logo-red);
+	font-size : 14px;
+	margin-bottom : 10px;
+}
