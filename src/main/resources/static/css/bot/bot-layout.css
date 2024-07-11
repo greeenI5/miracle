@@ -1,0 +1,162 @@
+@charset "UTF-8";
+.bot-container{
+    display: grid;
+    width: 362px;
+    border: solid var(--sub-navy) 2px;
+    border-radius: 5.5px;
+    position: fixed;
+	top : 20%;
+    right: 50%;
+    box-shadow: 0 3px 3px 0 rgb(0 0 0 / 30%);
+	
+}
+
+.bot-container>header>#c-header{
+	width: 100%;
+	justify-content: space-between;
+    align-items: center;
+    height: 38px;
+    background-color:var(--sub-navy);
+    color: white;
+    padding: 0 15px;
+    border-radius: 3px 3px 0 0;
+    font-size: 24px;
+}
+
+.bot-menu{
+	width: 100%;
+	justify-content: space-between;
+}
+
+.bot-menu>div>a>i{
+	color: white;
+}
+
+
+#b-icon{
+	display:flex;
+	align-items: center;
+	margin-top: 3px;
+	width:30px;
+	height:30px;
+	background-size: cover;
+	background-image: url('/images/bot/chatbot.png')
+	
+}
+
+.bot-container>main{
+	width: 100%;
+    height: 450px;
+	background-color:white;
+	margin-top: 10px;
+	
+}
+.chat-top{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 10px;
+}
+
+#current_date{
+	display: flex;
+	justify-content: center;
+	width: 180px;
+	background-color: var(--main-navy);
+	border-radius: 80px;
+	font-size: 14px;
+	color: white;
+}
+
+.message-container{
+	display: flex;
+}
+
+#icon img{
+	width: 30px;
+	height: 30px;
+	margin: 0 10px;
+	
+}
+
+.message{
+	display: flex;
+	flex-direction: column;
+	background-color: var(--sub-navy);
+	color: #333333;
+	max-width:270px;
+	padding: 6px 10px;
+	text-align: left;
+	letter-spacing: -0.5px;
+	margin-bottom: 5px;
+	border-radius: 5px;
+	box-shadow: 0 1px 1px 0 rgb(0 0 0 / 10%);
+	font-size: 14px;
+}
+
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    align-items:flex-start;
+    gap: 5px; /* 버튼 사이의 간격 설정 */
+    margin-top: 10px; /* 상단 여백 */
+    margin-left: 40px;
+}
+/* 버튼 스타일링 */
+.category {
+	width: 150px;
+    background-color: white; /* 배경색 */
+    color: #333333; /* 글자색 */
+    padding: 10px 10px; /* 여백 */
+    text-align: center; /* 텍스트 가운데 정렬 */
+    text-decoration: none; /* 텍스트 밑줄 제거 */
+    display: inline-block; /* 인라인 블록 요소로 설정 */
+    font-size: 14px; /* 폰트 크기 */
+    cursor: pointer; /* 마우스 커서 변경 */
+    border: solid 2px var(--sub-navy); /* 테두리 제거 */
+    border-radius: 30px; /* 모서리 둥글게 */
+}
+
+/* 버튼 호버 효과 */
+.category:hover {
+    background-color: var(--sub-navy); /* 호버 시 배경색 변경 */
+}
+
+
+.bot-container>footer{
+    border-top: solid var(--main-navy) 1.5px;
+    background-color: #fff;
+	padding: 0;
+	margin: 0;
+}
+
+.btm{
+	width: 100%;
+    display: inline-flex;
+    position: relative;
+    align-items: center;
+}
+
+input{
+    width: 310px;
+    height: 35px;
+    border: none;
+    position: relative;
+}
+
+input:focus {
+    outline: none;
+}
+
+.btn-send{
+	display: flex;
+    width: 40px;
+    height: 30px;
+    background-size: cover;
+    background-color: white;
+    border: none;
+    background-image: url('/images/bot/send-plane.png');
+    padding-top: 40px;
+    
+}
