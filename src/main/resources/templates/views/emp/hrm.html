@@ -5,9 +5,31 @@ th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
 	<!-- link 태그로 css, js 경로 연결하는 내용 넣으시면 됩니다! -->
 	<link rel="stylesheet" href="/css/emp/emp.css">
 	<title>인사관리</title>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('.empName').hover(function(){
+                var empName = $(this).text();
+                var $popup = $('<div class="empDetailPopup"></div>');
+                $('body').append($popup);
+                $.get('detail.html', function(data){
+                    var details = $(data).find('#details-' + empName);
+                    if (details.length > 0) {
+                        $popup.html(details.html());
+                        $popup.addClass('active').css({
+                            top: event.pageY + 5 + 'px',
+                            left: event.pageX + 5 + 'px'
+                        });
+                    }
+                });
+            }, function(){
+                $('.empDetailPopup').remove();
+            });
+        });
+    </script>
 </head>
 	<main>
-		<header class ="title">인사관리</header>
+		<header class ="title">조직도</header>
 		<div class="orgChart">
 	        <ul class="orgChartEmp">
 	            <li class="node">

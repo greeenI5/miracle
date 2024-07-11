@@ -70,8 +70,8 @@ main {
 
 .title {
     position: absolute;
-    top: 120px; /* 원하는 위치로 조정 */
-    left: 175px; /* 원하는 위치로 조정 */
+    top: 110px; /* 원하는 위치로 조정 */
+    left: 170px; /* 원하는 위치로 조정 */
     font-size: 36px;
     font-weight: bold;
 }
@@ -125,4 +125,15 @@ main {
 
 .orgChart .orgChartEmp .dep li {
     margin: 0 10px;  /* 조직도 마진으로 간격조절 */
+}
+
+/* 팝업 스타일 정의 */
+.empDetailPopup {
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: none;
+    z-index: 100;
 }
