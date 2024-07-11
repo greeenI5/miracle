@@ -37,12 +37,6 @@ h4 {
 	font-size: 36px;
 }
 
-p {
-	margin-top: 70px;
-	margin-left: 35px;
-	font-size: 18px;
-}
-
 body > main > div > div.left-section > div > div:nth-child(2) > h3:nth-child(2) > i {
 	margin-left: -15px;
 }
