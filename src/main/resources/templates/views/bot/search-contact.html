@@ -10,7 +10,8 @@
     <link rel="icon" href="/images/logo/favicon.ico">
     <link rel="stylesheet" href="/css/commons/common.css">
     <link rel="stylesheet" href="/css/bot/bot-layout.css">
-	<script src="/js/bot/botjs.js"></script>
+	<link rel="stylesheet" href="/css/bot/search-contact.css">
+	
     <title>chatbot add</title>
 </head>
 <body>
@@ -31,32 +32,54 @@
         <main>
             <!-- 대화내용 들어가는 영역 -->
             <div id="chat">
-            <section class="chat-top">
-				<div id="current_date">
-  					<script>
-        				const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-        				document.getElementById("current_date").innerHTML = new Date().toLocaleDateString('ko-KR', options);
-    				</script>
-				</div>
-			</section>
 				<div class="message-container">
-				
 					<div id="icon">
 						<img src="/images/bot/chatbot.png">
 					</div>
 					<div class="message">
-						<p>안녕하세요? 미라클봇입니다.</p>
-						<p>카테고리를 선택해주세요.</p>
+						<p>부서를 선택해주세요.</p>
 					</div>	
 				</div>
 				<div class="button-container">
-					<button class="category"><a href="/bot/search/contact">연락처 알려줘</a></button>
-					<button class="category"><a href="/bot/search/schedule">일정 알려줘</a></button>
-					<button class="category"><a href="/bot/search/notice">공지사항 알려줘</a></button>
+					<button class="category" onclick="showMessage1()">영업팀</button>
+					<button class="category" onclick="showMessage2()">마케팅팀</button>
+					<button class="category" onclick="showMessage3()">기획팀</button>
+					<button class="category" onclick="showMessage4()">무대연출팀</button>
 				</div>
             </div>
+            	<div class="flex contact" id="reqMessage1" style="display: none">
+            		<div id="icon">
+						<img src="/images/bot/chatbot.png">
+					</div>
+						<div class="message">
+							<p>영업팀을 선택하셨군요. <br>이름을 입력해주세요.</p>
+						</div>
+            	</div>
+            	<div class="flex contact" id="reqMessage2" style="display: none">
+            		<div id="icon">
+						<img src="/images/bot/chatbot.png">
+					</div>
+						<div class="message">
+							<p>마케팅팀을 선택하셨군요. <br>이름을 입력해주세요.</p>
+						</div>
+            	</div>
+            	<div class="flex contact" id="reqMessage3" style="display: none">
+            		<div id="icon">
+						<img src="/images/bot/chatbot.png">
+					</div>
+						<div class="message">
+							<p>기획팀을 선택하셨군요. <br>이름을 입력해주세요.</p>
+						</div>
+            	</div>
+            	<div class="flex contact" id="reqMessage4" style="display: none">
+            		<div id="icon">
+						<img src="/images/bot/chatbot.png">
+					</div>
+						<div class="message">
+							<p>공연기획팀을 선택하셨군요. <br>이름을 입력해주세요.</p>
+						</div>
+            	</div>
         </main>
-       
         <!-- 하단 채팅창 -->
         <footer>
             <div class="btm">
@@ -70,4 +93,5 @@
         </footer>
     </div>
 </body>
+<script src="/js/bot/botjs.js"></script>
 </html>
