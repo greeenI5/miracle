@@ -19,7 +19,7 @@ img { vertical-align: top; } /* 이미지 요소들의 수직 정렬을 상단�
 /////////////////////// header ////////////////////////////
 /////////////////////////////////////////////////////////*/
 header {
-  border-bottom: 1px solid #e4e4e4; /* 아래쪽 테두리 */
+  border-bottom: 1px solid var(--sub-navy); /* 아래쪽 테두리 */
   display: flex; /* 플렉스 박스로 설정 */
   padding: 10px; /* 안쪽 여백 */
   height: 7%; /* 높이 */
@@ -30,9 +30,9 @@ header > h1 {
   height: 100%; /* 높이 */
   flex-grow: 1; /* 자동 증가 */
 }
-.fa-calendar-check { color: #fa709a; margin-right: 2%; vertical-align: middle; } /* Font Awesome 캘린더 아이콘 스타일 */
+.fa-calendar-check { color: #2e3d86; margin-right: 2%; vertical-align: middle; } /* Font Awesome 캘린더 아이콘 스타일 */
 header > h1 > span {
-  color: #a7a7a7; /* 글자 색상 */
+  color: var(--sub-navy-grey); /* 글자 색상 */
   font-size: 24px; /* 글꼴 크기 */
   font-weight: 400; /* 글꼴 두께 */
   vertical-align: bottom; /* 수직 정렬 */
