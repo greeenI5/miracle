@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MIRACLE</title>
+    <link rel="stylesheet" href="/css/commons/common.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css"
+    	  rel="stylesheet"/>
+    <link rel="icon" href="/images/logo/favicon.ico">
+    <link rel="stylesheet" href="/css/commons/common.css">
+    <link rel="stylesheet" href="/css/bot/hellocss.css">
+
+    <title>chatbot add</title>
+</head>
+<body>
+    <div class="bot-container">
+        <!-- 상단 메뉴바 -->
+        <header>
+            <div class="flex" id="c-header">
+            	<section class="flex bot-menu">
+            		<div><a href="/"><i class="ri-home-2-line"></i></a></div>
+            		<div class="flex">
+	            		<span><i id="b-icon"></i></span>
+	            		<span><b>미라클봇</b></span>
+            		</div>
+            		<div><i class="ri-close-circle-line"></i></div>
+            	</section>             
+            </div>
+        </header>
+        <main>
+            <!-- 대화내용 들어가는 영역 -->
+            <div id="chat">
+
+            </div>
+        </main>
+        <!-- 하단 채팅창 -->
+        <footer>
+            <div class="btm">
+                <span>
+                    <input type="text" id="question" placeholder="질문을 입력해보세요.">
+                 </span>
+                 <span>
+                    <button class="btn-send"></button>
+                </span>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
+<head>
+	<!-- link 태그로 css, js 경로 연결하는 내용 넣으시면 됩니다! -->
+	<link rel="stylesheet" href="/css/emp/emp.css">
+	<title>인사관리</title>
+</head>
+	<main>
+		<header class ="title">인사관리</header>
+		<div class="orgChart">
+	        <ul class="orgChartEmp">
+	            <li class="node">
+	                <div class="company">
+	                	<span class="companyName">(주)</span>	 
+	                    <span>MIRCALE</span>	
+	                </div>
+	                <ul class="dep">
+	                    <li>
+	                        <div class="depName">영업부</div>
+	                        <div class="emp">
+								<span class="empName">김한솔</span>	 
+							</div>
+	                        <ul class="team">
+	                            <li >
+	                                <div class="teamName">영업팀</div>
+	                                <div class="emp">
+	                                	<span class="empName">유해리</span>
+	                                	<span class="bar">|</span>
+	                                	<span class="empRank">팀장</span>	
+	                                </div>
+	                                <div class="emp">
+	                                	<span class="empName">박민규</span>
+	                                	<span class="bar">|</span>
+	                                	<span class="empRank">대리</span>	
+	                                </div>
+	                                <div class="emp">
+	                                	<span class="empName">신현직</span>
+	                                	<span class="bar">|</span>
+	                                	<span class="empRank">부장</span>	
+	                                </div>
+	                                <div class="emp">
+	                                	<span class="empName">이지원</span>
+	                                	<span class="bar">|</span>	 
+	                                	<span class="empRank">차장</span>	
+	                                </div>
+	                                <div class="emp">
+	                                	<span class="empName">정하나</span>
+	                                	<span class="bar">|</span>	 
+	                                	<span class="empRank">사원</span>	
+	                                </div>
+	                                <div class="emp">
+	                                	<span class="empName">홍길동</span>
+	                                	<span class="bar">|</span>
+	                                	<span class="empRank">사원</span>
+	                                </div>
+	                            </li>
+	                            <li>
+	                                <div class="teamName">마케팅팀</div>
+	                                <div class="emp">
+	                                	<span class="empName">박태주</span>	 
+	                                	<span class="bar">|</span>
+	                                	<span class="empRank">팀장</span>	
+	                                </div>
+	                                <div class="emp">
+	                                	<span class="empName">김하얀</span>	 
+	                                	<span class="bar">|</span>
+	                                	<span class="empRank">대리</span>
+	                                </div>
+	                                <div class="emp">
+	                                	<span class="empName">문유리</span>	 
+	                                	<span class="bar">|</span>
+	                                	<span class="empRank">사원</span>
+	                                </div>
+	                                <div class="emp">
+	                                	<span class="empName">이혜지</span>	 
+	                                	<span class="bar">|</span>
+	                                	<span class="empRank">사원</span>
+	                                </div>
+	                            </li>
+	                        </ul>
+	                    </li>
+	                    <li>
+	                        <div class="depName">관리부</div>
+	                        <div class="emp">
+								<span class="empName">박세나</span>	 
+							</div>
+	                        <ul>
+	                            <li>
+	                                <div class="teamName">기획팀</div>
+	                                <div class="emp">
+	                                	<span class="empName">김도영</span>	 
+	                                	<span class="bar">|</span>
+	                                	<span class="empRank">팀장</span>	
+	                                </div>
+	                                <div class="emp">
+	                                	<span class="empName">손현준</span>	 
+	                                	<span class="bar">|</span>
+	                                	<span class="empRank">과장</span>
+	                                </div>
+	                                <div class="emp">
+	                                	<span class="empName">임수현</span>	 
+	                                	<span class="bar">|</span>
+	                                	<span class="empRank">대리</span>	
+	                                </div>
+	                                <div class="emp">
+	                                	<span class="empName">윤민석</span>	 
+	                                	<span class="bar">|</span>
+	                                	<span class="empRank">사원</span>
+	                                </div>
+	                            </li>
+	                            <li>
+	                                <div class="teamName">무대연출팀</div>
+	                                <div class="emp">
+	                                	<span class="empName">전용준</span>	 
+	                                	<span class="bar">|</span>
+	                                	<span class="empRank">팀장</span>
+	                                </div>
+	                                <div class="emp">
+	                                	<span class="empName">김준형</span>	 
+	                                	<span class="bar">|</span>
+	                                	<span class="empRank">대리</span>	
+	                                </div>
+	                                <div class="emp">
+	                                	<span class="empName">염가은</span>	 
+	                                	<span class="bar">|</span>
+	                                	<span class="empRank">부장</span>
+	                                </div>
+	                                <div class="emp">
+	                                	<span class="empName">이지훈</span>	 
+	                                	<span class="bar">|</span>
+	                                	<span class="empRank">차장</span>
+	                                </div>
+	                                <div class="emp">
+	                                	<span class="empName">이현호</span>	 
+	                                	<span class="bar">|</span>
+	                                	<span class="empRank">사원</span>
+	                                </div>
+	                                <div class="emp">
+	                                	<span class="empName">최재영</span>	 
+	                                	<span class="bar">|</span>
+	                                	<span class="empRank">사원</span>
+	                                </div>
+	                            </li>
+	                        </ul>
+	                    </li>
+	                </ul>
+	            </li>
+	        </ul>
+	    </div>
+	</main>
+</html>
