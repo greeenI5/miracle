@@ -123,3 +123,22 @@ main {
 .orgChart .orgChartEmp .dep li {
     margin: 0 10px;  /* 조직도 마진으로 간격조절 */
 }
+
+.images{
+    position: absolute; /* 절대 위치로 설정 */
+    top: 10%; /* 원하는 위치 (상단) */
+    left: 94%; /* 원하는 위치 (왼쪽) */
+}
+
+.setting{
+	width:50px;
+	height:50px;
+}
+
+button {
+    border: none;
+    background: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer; /* 손가락 모양으로 커서 변경 */
+}

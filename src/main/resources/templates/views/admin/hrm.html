@@ -3,12 +3,17 @@
 th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
 <head>
 	<link rel="stylesheet" href="/css/emp/detail.css">
-	<link rel="stylesheet" href="/css/emp/emp.css">
+	<link rel="stylesheet" href="/css/admin/admin.css">
 	<title>인사관리</title>
-  	<script src="../js/hrm/detail.js"></script>    
+	<script src="../js/hrm/detail.js"></script>
 </head>
 	<main>
 		<header class ="title">조직도</header>
+		<form action="/admin/hr/mgm" method="post">
+            <button type="submit" class="images">
+                <img class="setting" src="../images/hrm/setting.png" alt="인사관리 설정창">
+            </button>
+        </form>
 		<div class="orgChart">
 	        <ul class="orgChartEmp">
 	            <li class="node">
