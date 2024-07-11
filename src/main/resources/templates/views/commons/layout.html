@@ -9,34 +9,34 @@
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css"
     	  rel="stylesheet" />
     <link rel="icon" href="/images/logo/favicon.ico">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <th:block th:replace="${pHead}" />
 </head>
 <body>
-    <header id="header">
-        <div class="header-left">
-            <div class="logo">MIRACLE</div>
-        </div>
-        <div class="header-right">
-            <div class="user-info">
-                <a href="/bot/hello"><i class="ri-robot-2-line"></i></a>
-                <i class="ri-account-circle-fill"></i>
-                <a href="/mypage" class="username">홍길동</a>
-            </div>
-        </div>
-        
-        <nav id="sidebar">
-        <ul>
-            <li><a href="/"><i class="ri-home-5-line"></i> <span>HOME</span></a></li>
-            <li><a href="/notices"><i class="ri-community-line"></i></i> <span>게시판</span></a></li>
-            <li><a href="/schedule"><i class="ri-calendar-2-line"></i> <span>개인일정</span></a></li>
-            <li><a href="/schedule/performance"><i class="ri-calendar-schedule-line"></i> <span>공연일정</span></a></li>
-            <li><a href="/email"><i class="ri-mail-line"></i><span>메일함</span></a></li>
-            <li><a href="/hr"><i class="ri-account-box-line"></i> <span>조직도</span></a></li>
-            <li><a href="/performance/plans"><i class="ri-clipboard-line"></i> <span>전자결재</span></a></li>
-            <li><a href="/logout"> <i class="ri-logout-box-r-line"></i> <span>로그아웃</span></a></li>
-        </ul>
-    	</nav>
-    </header>
-    <main th:replace="${pMain}"></main>
+	<div id="header">
+		<div class="header-left">
+			<div class="logo">MIRACLE</div>
+		</div>
+		<div class="header-right">
+			<div class="user-info">
+				<a href="/bot"><i class="ri-robot-2-line"></i></a> 
+				<i class="ri-account-circle-line"></i>
+				<a href="/mypage" class="username">홍길동</a>
+			</div>
+		</div>
+	</div>
+	<nav id="sidebar">
+		<ul>
+			<li><a href="/"><i class="ri-home-5-line"></i> <span>HOME</span></a></li>
+			<li><a href="/notices"><i class="ri-community-line"></i> <span>게시판</span></a></li>
+			<li><a href="/schedule"><i class="ri-calendar-2-line"></i> <span>개인일정</span></a></li>
+			<li><a href="/schedule/performance"><i class="ri-calendar-schedule-line"></i> <span>공연일정</span></a></li>
+			<li><a href="/email"><i class="ri-mail-line"></i><span>메일함</span></a></li>
+			<li><a href="/hr"><i class="ri-account-box-line"></i> <span>조직도</span></a></li>
+			<li><a href="/performance/plans"><i class="ri-clipboard-line"></i> <span>전자결재</span></a></li>
+			<li><a href="/logout"> <i class="ri-logout-box-r-line"></i><span>로그아웃</span></a></li>
+		</ul>
+	</nav>
+	<main th:replace="${pMain}"></main>
 </body>
 </html>

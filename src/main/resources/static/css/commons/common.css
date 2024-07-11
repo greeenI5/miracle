@@ -7,7 +7,7 @@
 
 /* 색상 변수 (main:진한색/sub:연한색) >> css에서 가져다 쓸 때 var(--main-navy)*/
 :root{
-	--black : #383838;
+	--black : #333333;
 	--main-navy : #2e3d86;
 	--sub-navy : #C1C5DB;
 	--logo-red : #FF3131;
@@ -41,7 +41,7 @@ time, mark, audio, video {
 
 body {
 	line-height: 1.6;
-	font-family: "Noto Sans KR", sans-serif;
+	font-family: "Noto Sans KR", sans-serif !important;
 	font-size: 18px;
 	color: var(--black);
 	overflow: hidden;
