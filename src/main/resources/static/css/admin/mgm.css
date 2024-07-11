@@ -1,0 +1,17 @@
+@charset "UTF-8";
+
+.title1 {
+    position: absolute;
+    top: 9%; /* 원하는 위치로 조정 */
+    left: 7%; /* 원하는 위치로 조정 */
+    font-size: 36px;
+    font-weight: bold;
+}
+
+.title2 {
+    position: absolute;
+    top: 9%; /* 원하는 위치로 조정 */
+    left: 45%; /* 원하는 위치로 조정 */
+    font-size: 36px;
+    font-weight: bold;
+}

@@ -1,0 +1,55 @@
+body{
+	font-family: "Noto Sans KR", sans-serif;
+}
+
+.details-card {
+   display: flex;
+    align-items: center;
+    border: 1px solid var(--main-navy);
+    border-radius: 8px;
+    padding: 16px;
+    width: 400px; /* 최대 너비 조정 */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.details-card img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-right: 16px;
+}
+
+.details-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.details-info div {
+    margin-bottom: 8px;
+}
+
+.details-info .name, .department {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#font {
+    font-size: 14px;
+}
+
+.tooltip {
+    position: absolute;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    display: none;
+    z-index: 999;
+    /* 원하는 위치로 조정 */
+    top: 18%;
+    left: 85%;
+    transform: translateX(-50%);
+    
+}
+
+.tooltip.show-tooltip {
+    display: block; /* 툴팁 보이기 */
+}
