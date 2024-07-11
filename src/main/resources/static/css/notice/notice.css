@@ -20,13 +20,15 @@ body, html {
 }
 
 h1 {
-	margin-top: 30px;
+	min-width: 200px;
+	margin-top: -15px;
 	margin-left: 15px;
 	font-size: 36px;
 	
 }
 
 h2 {
+	min-width: 200px;
 	margin-top: -15px;
 	margin-left: 15px;
 	font-size: 24px;
@@ -34,13 +36,15 @@ h2 {
 }
 
 h3 {
+	min-width: 100px;
 	margin-left: 35px;
 	font-size: 18px;
 }
 
 h4 {
-	margin-top: 100px;
-	margin-left: 10px;
+	min-width: 200px;
+	margin-top: 150px;
+	margin-left: 50px;
 	font-size: 36px;
 }
 
@@ -50,9 +54,15 @@ p {
 	font-size: 18px;
 }
 
+body > main > div > div.left-section > div > div:nth-child(1) > p {
+	min-width: 100px;
+}
+
 i {
 	margin-left: -15px;
 }
+
+/* 좌우 나누는 바 */
 .left-section {
     flex: 1;
     border-right: 1px solid var(--main-grey); /* 우측에 회색 실선 경계선 추가 */
@@ -60,7 +70,44 @@ i {
     border-width: 3px;
 }
 
+/* 좌우 나누는 바 */
 .right-section {
     flex: 2;
     padding-left: 20px; /* 내용과의 간격 조정 */
+}
+
+th {
+	
+	padding: 14px 0px;
+}
+
+body > main > div > div.right-section > div > div {
+	margin-top: 80px;
+	margin-left: 50px;
+}
+
+/* 공지사항 글목록 전체 */
+td {
+	padding: 20px 20px;
+}
+
+/* 검색어 입력 박스 */
+body > main > div > div.right-section > div > div > div > input[type=text] {
+	height: 40px;
+	width: 70%;
+	font-size: 14px;
+	padding: 5px 10px;
+	border: 1px solid var(--main-grey);
+}
+
+/* 공지사항 표 전체 */
+body > main > div > div.right-section > div > div {
+	min-width: 100px;
+}
+
+/* 검색창 배경색깔 */
+body > main > div > div.right-section > div > div > div {
+	width: 70%;
+	padding: 15px 0px;
+	background-color: var(--sub-grey);
 }

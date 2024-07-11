@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class MyPageController {
 	
-	@PostMapping("/mypage")
+	@GetMapping("/mypage")
 	public String list() {
 		return "views/user/mypage";
 	}
