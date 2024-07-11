@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" 
       th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
 <head>
-	<link rel="stylesheet" href="/css/notice/notice.css">
+	<link rel="stylesheet" href="/css/board/board.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <meta charset="UTF-8">
@@ -11,12 +11,11 @@
 <main>
 	 <div class="content">
         <!-- Left section -->
-        <div class="left-section">
-            
+        <div class="left-section">     
             <div class="notice-list">
-                <!-- 공지사항 목록을 나열 -->
+                <!-- 게시판 목록을 나열 -->
                 <div class="notice-item">
-                    <h1>공지사항</h1>
+                    <h1>게시판</h1>
                     <a href="/notices" class="board-type">공지사항</a>
                     <a href="/boards" class="board-type">게시판</a>
                     <a href="/boards/form" class="board-type"><i class="ri-add-box-line"></i>게시글 추가</a>
@@ -27,9 +26,9 @@
 
         <!-- Right section -->
         <div class="right-section">
-        	<h2>HOME > 공지사항</h2>
+        	<h2>HOME > 게시판</h2>
             <div class="content_main_box">
-                <h4>공지사항</h4>
+                <h4>게시판</h4>
 	                <div id="content-box" class="container">
 	                		<form>
 			       	 			<div class="search-wrap">
@@ -51,35 +50,35 @@
 					            <tbody>
 					            	<tr>
 					                    <td>1</td>
-					                    <td>공지사항 안내입니다. 이용해주셔서 감사합니다</td>
+					                    <td>게시판 안내입니다. 이용해주셔서 감사합니다</td>
 					                    <td>김도영</td>
 					                    <td>2024.07.12</td>
 					                    <td>2</td>
 					                </tr>
 					                <tr>
 					                    <td>2</td>
-					                    <td>[공지사항] 개인정보 처리방침 변경안내처리방침</td>
+					                    <td>[게시판] 개인정보 처리방침 변경안내처리방침</td>
 					                    <td>박태주</td>
 					                    <td>2024.07.11</td>
 					                    <td>3</td>
 					                </tr>
 					                <tr>
 					                    <td>3</td>
-					                    <td>공지사항 안내입니다. 이용해주셔서 감사합니다</td>
+					                    <td>게시판 안내입니다. 이용해주셔서 감사합니다</td>
 					                    <td>전용준</td>
 					                    <td>2024.07.10</td>
 					                    <td>4</td>
 					                </tr>
 					                <tr>
 					                    <td>4</td>
-					                    <td>공지사항 안내입니다. 이용해주셔서 감사합니다</td>
+					                    <td>게시판 안내입니다. 이용해주셔서 감사합니다</td>
 					                    <td>유해리</td>
 					                    <td>2024.07.10</td>
 					                    <td>5</td>
 					                </tr>
 					                <tr>
 					                    <td>5</td>
-					                    <td>공지사항 안내입니다. 이용해주셔서 감사합니다</td>
+					                    <td>게시판 안내입니다. 이용해주셔서 감사합니다</td>
 					                    <td>윤민석</td>
 					                    <td>2024.07.09</td>
 					                    <td>5</td>

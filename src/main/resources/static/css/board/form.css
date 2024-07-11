@@ -1,0 +1,63 @@
+@charset "UTF-8";
+
+body, html {
+    height: 100%;
+    margin: 0;
+}
+.content {
+    display: flex;
+    height: 100%;
+}
+
+body > main > div > div.left-section > div > div > h5 {
+	margin-left: 20px;
+    margin-bottom: 40px;
+    font-size: 36px;
+}
+h2 {
+	min-width: 200px;
+	margin-top: -15px;
+	margin-left: 15px;
+	font-size: 24px;
+	
+}
+
+.board-type {
+	min-width: 100px;
+	margin-left: 20px;
+	font-size: 18px;
+	padding: 5px 0px;
+}
+
+
+
+/* right-section 부분 박스 */
+.post-box {
+	padding: 30px;
+}
+
+/* 좌우 나누는 바 */
+.left-section {
+    flex: 2;
+    border-right: 1px solid var(--main-grey); /* 우측에 회색 실선 경계선 추가 */
+    border-width: 3px;
+    padding-left: 10px;
+    padding-top: 20px;
+}
+
+.right-section {
+    flex: 9;
+    padding: 20px;
+    overflow-y: auto; /* 섹션이 넘치면 스크롤 */
+}
+
+/* 게시글 내용 부분 */
+body > main > div > div.right-section > div > form > div:nth-child(2) > div > div.note-editing-area > div.note-editable {
+	min-height: 400px;
+}
+
+/* left-section 공지사항, 게시판, 게시글 추가 메뉴 */
+.notice-item {
+	display: flex;
+	flex-direction: column;
+}
