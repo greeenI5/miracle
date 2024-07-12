@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
+<head>
+	<!-- link 태그로 css, js 경로 연결하는 내용 넣으시면 됩니다! -->
+	<!-- 아이콘 삽입 설정 바꿀것 -->
+	<link rel="stylesheet" href="/css/schedule/calendar.css"> <!--  -->
+	<script src="/js/schedule/calendar.js"></script> <!--  -->
+</head>
+<main>
+	<div class="title">
+		<h1>개인일정</h1>
+	</div>
+	<div class="container">
+	    <header class="content-header flex center">
+	        <button class="prev image-button"><i class="ri-arrow-left-s-line"></i></button>
+	        <h2 class="main-date"></h2>
+	        <button class="next image-button"><i class="ri-arrow-right-s-line"></i></button>
+	    </header>
+	    <section class="content-left calendar">
+	        <div class="calendar-header">
+		        <div class="day-header">일</div>
+		        <div class="day-header">월</div>
+		        <div class="day-header">화</div>
+		        <div class="day-header">수</div>
+		        <div class="day-header">목</div>
+		        <div class="day-header">금</div>
+		        <div class="day-header">토</div>
+	        </div>
+	        <div class="calendar-body">
+	            <!-- 실제 날짜가 들어갈 공간 -->
+	        </div>
+	    </section>
+	    <section class="content-right">
+	        <!-- 일정상세내용 -->
+	    	
+	    	<div class="content-right-msg">
+	    		<!-- 메모 입력 출력/수정  -->
+	    		
+	    	</div>
+	    </section>
+	</div>
+</main>
+</html>
