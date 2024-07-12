@@ -47,9 +47,33 @@ body{
     top: 18%;
     left: 85%;
     transform: translateX(-50%);
+    transition: opacity 0.3s ease;
+    opacity: 0; /* 기본 투명도 */
     
 }
 
 .tooltip.show-tooltip {
-    display: block; /* 툴팁 보이기 */
+    display: block;
+    opacity: 1; /* 보일 때는 불투명하게 */
 }
+
+.empName {
+    cursor: pointer; /* 포인터 커서 추가 */
+}
+.details-card {
+    position: relative; /* position 추가 */
+    /* 나머지 스타일 유지 */
+}
+
+.details-card button {
+    position: absolute; /* 위치를 절대적으로 설정 */
+    top: 10px; /* 상단 여백 */
+    right: 10px; /* 오른쪽 여백 */
+    padding: 5px 10px;
+    background-color: var(--main-navy);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
