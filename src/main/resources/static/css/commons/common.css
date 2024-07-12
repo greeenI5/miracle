@@ -17,6 +17,14 @@
 	--sub-navy-grey : #ABA9BC;
 }
 
+.flex{display: flex;}
+.row{flex-direction: row;}
+.column{flex-direction: column;}
+.center{justify-content: center;}
+.between{justify-content: space-between;}
+
+
+
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -44,7 +52,8 @@ body {
 	font-family: "Noto Sans KR", sans-serif !important;
 	font-size: 18px;
 	color: var(--black);
-	overflow: hidden;
+	white-space: nowrap;
+	overflow: auto;
 }
 ol, ul {
 	list-style: none;
@@ -64,9 +73,3 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
-
-.flex{display: flex;}
-.row{flex-direction: row;}
-.column{flex-direction: column;}
-.center{justify-content: center;}
-.between{justify-content: space-between;}

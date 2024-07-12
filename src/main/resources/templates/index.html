@@ -3,7 +3,6 @@
 th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
 <head>
 	<link rel="stylesheet" href="/css/commons/index.css">
-	<script src="/js/commons/index.js"></script>
 </head>
 <main>
 	<div class="grid-container">
@@ -15,9 +14,183 @@ th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
 		            <p class="department">기획팀</p>
 	            </div>
             </div>
-            <div class="card-bottom flex">
+        </div>
+        
+        <div class="item2">
+			<div class="container-header">
+	            <h2>공연일정</h2>
+	            <a href="/schedule/performance"><i class="ri-arrow-right-s-line circle"></i></a>
+	        </div>
+	        <div class="content-container">
+		        <div class="post-container">
+			        <div class="exhibition">
+			            <img src="/images/poster/poster1.jpg">
+			            <div class="details">
+			                <h2>마술</h2>
+			                <p>포스터가 흐름들로</p>
+			                <p>2024.04.30</p>
+			                <p>두산아트센터</p>
+			                <button class="detail-btn">상세보기</button>
+			            </div>
+			        </div>
+			        <div class="exhibition">
+			            <img src="/images/poster/poster2.jpg">
+			            <div class="details">
+			                <h2>마술</h2>
+			                <p>M Butterfly</p>
+			                <p>2024.07.13</p>
+			                <p>아트스페이스 리움</p>
+			                <button class="detail-btn">상세보기</button>
+			            </div>
+			        </div>
+			    </div>
+			</div>
+		</div>
+		
+        <div class="item3">
+        	<div class="container-header">
+	            <h2>개인일정</h2>
+	            <a href="/schedule"><i class="ri-arrow-right-s-line circle"></i></a>
+	        </div>
+	        <div class="flex">
+				<div class="calendar">
+					<div class="calendar-header">
+						<div class="month-nav" onclick="previousMonth()">&#10094;</div>
+						<span id="currentMonthYear" class="current-month"></span>
+						<div class="month-nav" onclick="nextMonth()">&#10095;</div>
+					</div>
+					<div class="calendar-body">
+						<table>
+							<thead>
+								<tr>
+									<th>일</th>
+									<th>월</th>
+									<th>화</th>
+									<th>수</th>
+									<th>목</th>
+									<th>금</th>
+									<th>토</th>
+								</tr>
+							</thead>
+							<tbody id="calendarBody">
+	
+							</tbody>
+						</table>
+					</div>
+				</div>
+			
+				<div id="selectedDate" class="calendar-body">
+	  				<span id="selectedMonth" class="selected-month"></span>
+	  				<span id="selectedDay" class="selected-day"></span>
+	  				<div class="checklist">
+				        <label><input type="checkbox"> 공연 음향 체크</label>
+				        <label><input type="checkbox"> 유니폼 수령</label>
+				        <label><input type="checkbox"> 공연 음향 체크</label>
+				        <label><input type="checkbox"> 이벤트 물품 확인</label>
+				    </div>
+				    <button class="schedule-button">확인</button>
+				</div>
+			</div>  
+        </div>
+        
+        <div class="item4">
+        	<div class="mail-container">
+		        <a class="section" href="/">
+		            <i class="ri-mail-unread-line mail-icon"></i>
+		            <div>
+		              <span class="mail-text">받은 메일함</span>
+		              <span class="mail-number">99</span>
+		            </div>
+		        </a>
+		        <a class="section" href="/">
+		            <i class="ri-mail-add-line mail-icon"></i>
+		            <div>
+		              <span class="mail-text">보낸 메일함</span>
+		              <span class="mail-number">10</span>
+		            </div>
+		        </a>
+		        <a class="section" href="/">
+		            <i class="ri-mail-star-line mail-icon"></i>
+		            <div>
+		              <span class="mail-text">중요 메일함</span>
+		              <span class="mail-number">15</span>
+		            </div>
+		        </a>
+		    </div>
+        </div>
+        
+        <div class="item5">
+        	<div class="container-header">
+	            <h2>공지사항</h2>
+	            <a href="/notices"><i class="ri-arrow-right-s-line circle"></i></a>
+	        </div>
+	        <ul class="notices">
+	            <li class="notice-item">
+	                <span class="tag">알림</span>
+	                <span class="text">2023년 근로소득 연말정산 안내의 건</span>
+	                <span class="date">2024.06.24</span>
+	            </li>
+	            <li class="notice-item">
+	                <span class="tag">알림</span>
+	                <span class="text">산업안전보건법령의 요지 게시의 건</span>
+	                <span class="date">2024.05.20</span>
+	            </li>
+	            <li class="notice-item">
+	                <span class="tag">알림</span>
+	                <span class="text">사명 변경에 따른 CI 공지의 건</span>
+	                <span class="date">2024.05.19</span>
+	            </li>
+	            <li class="notice-item">
+	                <span class="tag">알림</span>
+	                <span class="text">2023년 근로소득 연말정산 안내의 건</span>
+	                <span class="date">2024.02.03</span>
+	            </li>
+	            <li class="notice-item">
+	                <span class="tag">알림</span>
+	                <span class="text">2023년 근로소득 연말정산 안내의 건</span>
+	                <span class="date">2024.02.03</span>
+	            </li>
+	        </ul>
+        </div>
+        
+        <div class="item6">
+	        <div class="container-header">
+	            <h2>자유 게시판</h2>
+	            <a href="/boards"><i class="ri-arrow-right-s-line circle"></i></a>
+	        </div>
+	        <ul class="notices">
+	            <li class="notice-item">
+	                <span class="tag">알림</span>
+	                <span class="text">SWG 업무분장_2024</span>
+	                <span class="date">2024.06.24</span>
+	            </li>
+	            <li class="notice-item">
+	                <span class="tag">알림</span>
+	                <span class="text">사업자등록증(2020.05.06)</span>
+	                <span class="date">2024.05.10</span>
+	            </li>
+	            <li class="notice-item">
+	                <span class="tag">알림</span>
+	                <span class="text">직접생산증명서</span>
+	                <span class="date">2023.07.22</span>
+	            </li>
+	            <li class="notice-item">
+	                <span class="tag">알림</span>
+	                <span class="text"> oT사업본부 업무분장_2023</span>
+	                <span class="date">2022.02.03</span>
+	            </li>
+	            <li class="notice-item">
+	                <span class="tag">알림</span>
+	                <span class="text">2023년 근로소득 연말정산 안내의 건</span>
+	                <span class="date">2024.02.03</span>
+	            </li>
+	        </ul>
+        </div>
+        
+        <div class="item7">
+        	<div class="card-bottom flex">
             	<div class="datetime">
-		            <p class="date" id="current-date">2021-12-01 (수)</p>
+		            <p class="current-date" id="current-date">2021-12-01 (수)</p>
 	                <p class="time-text" id="current-time">17:24:09</p>
                 </div>
                 <div class="buttons">
@@ -26,65 +199,9 @@ th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
                 </div>
             </div>
         </div>
-        
-        <div class="item2">전자결재</div>
-        <div class="item3">공연일정</div>
-        <div class="item4">개인일정</div>
-        <div class="item5">메일</div>
-        <div class="item6">공지사항</div>
-        
-        <div class="item7 notice-board">
-        	<span>최신 게시글</span>
-        	<div class="header">
-            <h2>공지사항</h2>
-            <div class="circle"></div>
-        </div>
-        <ul class="notices">
-            <li class="notice-item">
-                <span class="tag">알림</span>
-                <span class="text">2023년 근로소득 연말정산 안내의 건</span>
-                <span class="date">2024.06.24</span>
-            </li>
-            <li class="notice-item">
-                <span class="tag">알림</span>
-                <span class="text">산업안전보건법령의 요지 게시의 건</span>
-                <span class="date">2024.05.20</span>
-            </li>
-            <li class="notice-item">
-                <span class="tag">알림</span>
-                <span class="text">사명 변경에 따른 CI 공지의 건</span>
-                <span class="date">2024.05.19</span>
-            </li>
-            <li class="notice-item">
-                <span class="tag">알림</span>
-                <span class="text">2023년 근로소득 연말정산 안내의 건</span>
-                <span class="date">2024.02.03</span>
-            </li>
-        </ul>
-        </div>
-        <div class="item8">인기 공연</div>
     </div>
     
-    <script>
-    // 현재 시간을 가져오고 포맷팅하여 특정 요소에 출력하는 함수
-    function updateCurrentTime() {
-        let currentDateTime = new Date();
-
-        // 시간 포맷팅
-        let hours = ('0' + currentDateTime.getHours()).slice(-2);
-        let minutes = ('0' + currentDateTime.getMinutes()).slice(-2);
-        let seconds = ('0' + currentDateTime.getSeconds()).slice(-2);
-        let formattedTime = `${hours}:${minutes}:${seconds}`;
-
-        // HTML 업데이트
-        document.getElementById("current-time").textContent = formattedTime;
-    }
-
-    // 페이지가 로드될 때 한 번 시간을 업데이트하고
-    updateCurrentTime();
-
-    // 1초마다 시간을 업데이트하는 setInterval 설정
-    setInterval(updateCurrentTime, 1000);
-	</script>
+    <script src="/js/commons/index.js"></script>
+    
 </main>
 </html>
