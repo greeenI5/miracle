@@ -1,0 +1,95 @@
+main{
+	   overflow: auto;  
+}
+
+.title{
+	font-size: 36px;
+	font-style: bold;
+}
+.container {
+    width: 80%;
+    min-width: 600px;
+    height: 70%; /* 최대 높이 설정 */
+    margin-top: 30px;
+    align-self: flex-start;
+    max-height: 90%;
+    
+}
+
+#performanceForm{
+	width: 90%;	
+    height: 70%; 
+    max-height: 90%;
+   
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.form-group input, .form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.form-group textarea {
+    resize: vertical;
+    height: 100px;
+}
+
+.genre-options {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.genre-btn {
+    background-color: #ABA9BC;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.genre-btn.active {
+    background-color: #8a8a9c;
+}
+
+.genre-btn:hover {
+    background-color: #9e9eaf;
+}
+
+/* image-preview에 대한 기본 스타일 */
+.image-preview {
+    margin-top: 10px;
+}
+
+.image-preview img {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+button[type="submit"] {
+    background-color: #ABA9BC;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+}
+
+button[type="submit"]:hover {
+    background-color: #928aa0;
+}

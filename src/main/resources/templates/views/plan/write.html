@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
+<head>
+    <script defer src="/js/plan/write.js"></script> <!-- scripts.js 경로 수정 -->
+    <link rel="stylesheet" href="/css/plan/write.css">
+</head>
+<main>
+    <h1 class="title">공연 기획서</h1>
+    <div class="container flex">
+        <form id="performanceForm" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="date">작성일:</label>
+                <input type="date" id="date" name="date" required>
+            </div>
+            <div class="form-group">
+                <label for="planner">기획총괄:</label>
+                <input type="text" id="planner" name="planner" placeholder="기획자명" required>
+            </div>
+            <div class="form-group">
+                <label for="title">공연명:</label>
+                <input type="text" id="title" name="title" placeholder="공연명" required>
+            </div>
+            <div class="form-group">
+                <label>장르:</label>
+                <div class="genre-options">
+                    <button type="button" class="genre-btn" data-genre="뮤지컬">뮤지컬</button>
+                    <button type="button" class="genre-btn" data-genre="강연">강연</button>
+                    <button type="button" class="genre-btn" data-genre="연극">연극</button>
+                    <button type="button" class="genre-btn" data-genre="콘서트">콘서트</button>
+                    <button type="button" class="genre-btn" data-genre="기타">기타</button>
+                </div>
+                <input type="hidden" id="genre" name="genre">
+            </div>
+            <div class="form-group">
+                <label for="startDate">공연 시작일:</label>
+                <input type="date" id="startDate" name="startDate" required>
+            </div>
+            <div class="form-group">
+                <label for="endDate">공연 종료일:</label>
+                <input type="date" id="endDate" name="endDate" required>
+            </div>
+            <div class="form-group">
+                <label for="location">장소:</label>
+                <input type="text" id="location" name="location" placeholder="장소 입력" required>
+            </div>
+			<div class="form-group">
+			    <label for="image">사진 업로드:</label>
+			    <input type="file" id="image" name="image" accept="image/*" placeholder="포스터 420mm x 594mm 규격 준수" required>
+			    <div class="image-preview">
+			        <img id="imagePreview" src="#" alt="Image Preview" style="display: none; max-width: 100%; height: auto;">
+			    </div>
+			</div>
+            <div class="form-group">
+                <label for="description">기획의도:</label>
+                <textarea id="description" name="description" required></textarea>
+            </div>
+            <button type="submit">저장</button>
+        </form>
+    </div>
+    <script src="/js/plan/write.js"></script>
+</main>
+</html>

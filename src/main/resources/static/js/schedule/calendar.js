@@ -1,251 +1,212 @@
-window.onload = function () {
-	
-	let today = new Date();
-	const calendarBody = document.querySelector('.calendar-body');
-	const prevEl = document.querySelector('.prev');
-	const nextEl = document.querySelector('.next');
-	const inputBox = document.querySelector('.input-box');
-	const inputBtn = document.querySelector('.input-btn');
-	const inputList = document.querySelector('.todoList');
-	const showList = document.querySelector('.showList');
-	const listText = document.querySelector('.listText');
-	const createDate = document.querySelector('.createDate');
-	const bgblack = document.querySelector('.bgblack');
-	const closedBtn = document.querySelector('.closed');
-	let currentDate;
-	
-	
-	buildCalendar();
-	function buildCalendar() {
-	  let firstDate = new Date(today.getFullYear(), today.getMonth(), 1);
-	  const monthList = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-	  const leapYear = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-	  const notLeapYear = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-	  const headerYear = document.querySelector('.current-year-month');
-	  // 윤년 체크하기
-	  if (firstDate.getFullYear() % 4 === 0) {
-	    pageYear = leapYear;
-	  } else {
-	    pageYear = notLeapYear;
-	  }
-	  headerYear.innerHTML = `${monthList[firstDate.getMonth()]}&nbsp;&nbsp;&nbsp;&nbsp;${today.getFullYear()}`;
-	  makeElement(firstDate);
-	  showMain();
-	  currentDateget();
-	  resetInsert();
-	}
-	
-	function showMain() {
-	  // '.main-day' 클래스를 가진 요소를 선택하고, 그 요소의 텍스트 내용을 현재 요일로 설정
-	  document.querySelector('.main-day').textContent = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][today.getDay()];
-	  // '.main-date' 클래스를 가진 요소를 선택하고, 그 요소의 텍스트 내용을 현재 날짜로 설정
-	  document.querySelector('.main-date').textContent = today.getDate();
-	}
-	
-	function makeElement(firstDate) {
-	  let weekly = 100;
-	  let dateSet = 1;
-	  for (let i = 0; i < 6; i++) {
-	    let weeklyEl = document.createElement('div');
-	    weeklyEl.setAttribute('class', weekly);
-	    weeklyEl.setAttribute('id', "weekly");
-	    for (let j = 0; j < 7; j++) {
-	      // i === 0이여야 하는 이유는 첫 날짜를 찍고 그 다음 날짜가 0번째 칸부터 다시 그려져야 하기 때문
-	      // firstDate.getMonth() => 현재 달의 일수가 몇일인지 반환해주고, 이 조건은 반환 된 값에 따라 출력해 준 후, 달력 출력 종료조건이다.
-	      if (i === 0 && j < firstDate.getDay() || dateSet > pageYear[firstDate.getMonth()]) {
-	        // 만약 해당 칸에 날짜가 없으면 div엘리먼트만 생성한다.
-	        let dateEl = document.createElement('div');
-	        weeklyEl.appendChild(dateEl);
-	      } else {
-	        // 해당 칸에 날짜가 있으면 div엘리먼트 생성 후 해당 날짜 넣어주기
-	        let dateEl = document.createElement('div');
-	        dateEl.textContent = dateSet;
-	        dateEl.setAttribute('class', dateSet);
-	        dateEl.setAttribute('id', `${today.format2()}-${dateSet}`);
-	        weeklyEl.appendChild(dateEl);
-	        dateSet++;
-	      }
-	    }
-	    weekly++;
-	    calendarBody.appendChild(weeklyEl);
-	  }
-	  // 현재 내가 선택한 날짜가 있으면 이전 달, 다음 달로 넘어가도 화면에 보여주기 위해 써줌
-	  let clickedDate = document.getElementsByClassName(today.getDate());
-	  clickedDate[0].classList.add('active');
-	}
-	
-	function removeCalendar() {
-	  let divEls = document.querySelectorAll('.calendar-body > #weekly > div');
-	  for (let i = 0; i < divEls.length; i++) {
-	    divEls[i].remove();
-	  }
-	}
-	
-	// 공통 작업을 수행하는 함수
-	const updateCalendar = (monthOffset) => {
-	  today = new Date(today.getFullYear(), today.getMonth() + monthOffset, today.getDate());
-	  removeCalendar();
-	  buildCalendar();
-	  resetInsert();
-	  redrawLi();
-	};
-	
-	// 이전 달로 이동
-	prevEl.addEventListener('click', () => updateCalendar(-1));
-	// 다음 달로 이동
-	nextEl.addEventListener('click', () => updateCalendar(1));
-	
-	
-	function currentDateget() {
-	  // format()을 이용해서 현재 날짜를 보기좋게 출력해주기 위해 사용.
-	  currentDate = today.format();
-	}
-	
-	// 각 날짜 클릭 시 처리할 공통 함수
-	const handleDateClick = (e) => {
-	  const target = e.target;
-	  if (target.innerHTML === '') return;
-	
-	  document.querySelectorAll('.calendar-body > #weekly > div').forEach(div => div.classList.remove('active'));
-	  target.classList.add('active');
-	
-	  today = new Date(today.getFullYear(), today.getMonth(), target.innerHTML);
-	  showMain();
-	  currentDateget();
-	  redrawLi();
-	  resetInsert();
-	};
-	// 할 일 입력 버튼 클릭 시 처리할 함수
-	const handleInputClick = (e) => {
-	  e.preventDefault();
-	  insertTodo(inputBox.value);
-	};
-	// 각 날짜 클릭 이벤트 리스너 등록
-	calendarBody.addEventListener('click', handleDateClick);
-	// 할 일 입력 버튼 클릭 이벤트 리스너 등록
-	inputBtn.addEventListener('click', handleInputClick);
-	
-	function insertTodo(text) {
-	  const todoObj = {
-	    todo: text,
-	    id: DATA[currentDate] ? DATA[currentDate].length + 1 : 1
-	  };
-	
-	  if (!DATA[currentDate]) {
-	    DATA[currentDate] = [];
-	  }
-	  DATA[currentDate].push(todoObj);
-	
-	  const liEl = document.createElement('li');
-	  liEl.setAttribute('id', todoObj.id);
-	
-	  const spanEl = document.createElement('span');
-	  spanEl.innerHTML = text;
-	
-	  const delBtn = document.createElement('button');
-	  delBtn.innerText = "DEL";
-	  delBtn.setAttribute('class', 'del-data');
-	  delBtn.addEventListener('click', delWork);
-	
-	  liEl.append(spanEl, delBtn);
-	  liEl.addEventListener('dblclick', showTodo);
-	  
-	  inputList.appendChild(liEl);
-	
-	  save();
-	  inputBox.value = '';
-	}
-	function clearTodoList() {
-	  document.querySelectorAll('li').forEach(li => inputList.removeChild(li));
-	}
-	
-	function createTodoElement(todo) {
-	  const liEl = document.createElement('li');
-	  liEl.setAttribute('id', todo.id);
-	
-	  const spanEl = document.createElement('span');
-	  spanEl.innerHTML = todo.todo;
-	
-	  const delBtn = document.createElement('button');
-	  delBtn.innerText = "DEL";
-	  delBtn.setAttribute('class', 'del-data');
-	  delBtn.addEventListener('click', delWork);
-	
-	  liEl.append(spanEl, delBtn);
-	  liEl.addEventListener('dblclick', showTodo);
-	
-	  return liEl;
-	}
-	
-	function redrawLi() {
-	  clearTodoList();
-	
-	  if (DATA[currentDate]) {
-	    DATA[currentDate].forEach(todo => {
-	      const liEl = createTodoElement(todo);
-	      inputList.appendChild(liEl);
-	    });
-	  }
-	}
-	// 다음달,이전달 다른날, 첫 로드 될 때 마다 todo 목록이 있으면(if로 조건문 처리) 다 지우고 다시 그려주는 함수 
-	function resetInsert() {
-	  let storeObj = localStorage.getItem(currentDate);
-	  if (storeObj !== null) {
-	    let liEl = document.querySelectorAll('LI');
-	    for (let i = 0; i < liEl.length; i++) {
-	      inputList.removeChild(liEl[i]);
-	    }
-	    // parse 해주기 전에는 localStorage는 string만 가져오니까 parse해준다.
-	    const parsed = JSON.parse(localStorage.getItem(currentDate));
-	    // forEach로 작성되있는 모든 todolist의 항목들을 돌면서 로컬에 저장되어 있는 목록을 화면에 만들어준다.
-	    parsed.forEach(function (todo) {
-	      if (todo) {
-	        let lili = document.createElement('li');
-	        let spanspan = document.createElement('span');
-	        let deldel = document.createElement('button');
-	        deldel.setAttribute('class', 'del-data');
-	        deldel.innerText = "DEL";
-	        lili.setAttribute('id', todo.id);
-	        spanspan.innerHTML = todo.todo;
-	        lili.appendChild(spanspan);
-	        lili.appendChild(deldel);
-	        inputList.appendChild(lili);
-	        deldel.addEventListener('click', delWork);
-	        lili.addEventListener('dblclick', showTodo);
-	      }
-	    });
-	  }
-	}
-	resetInsert();
-	
-	function delWork(e) {
-	  e.preventDefault();
-	  let delParentLi = e.target.parentNode;
-	  inputList.removeChild(delParentLi);
-	  // DATA[currentDate]를 filter함수를 이용해 todo로 돌면서 todo의 아이디값과 현재 내가 누른 아이디값이 같지 않은 것을 배열에 담아 리턴해주어서 
-	  // 내가 지우고자 하는 요소를 뺀 나머지 요소를 배열에 담아 리턴해준다. 
-	  // 그 배열을 다시 DATA[currentDate]에 할당하여 save();를 통해 localStorage에 넣어준다.
-	  const cleanToDos = DATA[currentDate].filter(function (todo) {
-	    return todo.id !== parseInt(delParentLi.id);
-	  });
-	  DATA[currentDate] = cleanToDos;
-	  save();
-	}
-	
-	function showTodo(e){
-	  showList.style.display = "block"
-	  bgblack.style.display = "block"
-	  listText.textContent = e.target.textContent;
-	  createDate.textContent = currentDate;
-	}
-	
-	closedBtn.addEventListener('click', function(e){
-	  showList.style.display = "none";
-	  bgblack.style.display = "none";
-	});
-	
-	function save() {
-	  localStorage.setItem(currentDate, JSON.stringify(DATA[currentDate]));
-	}
+document.addEventListener('DOMContentLoaded', function () {
+  const calendarBody = document.querySelector('.calendar-body');
+  const prevBtn = document.querySelector('.prev');
+  const nextBtn = document.querySelector('.next');
+  const mainDate = document.querySelector('.main-date');
+  const contentRightMsg = document.querySelector('.content-right-msg');
+  const eventTitle = document.querySelector('.event-title'); // 일정 제목을 표시할 요소
 
-}
+  let today = new Date();
+  let selectedStartDate = null; // 선택된 시작일 
+  let selectedEndDate = null; // 선택된 종료일
+
+  // 메인 헤더 날짜 업데이트
+  mainDate.textContent = `${today.getFullYear()}년 ${today.getMonth() + 1}월`;
+
+  // 캘린더 초기화 함수
+  function initCalendar(year, month) {
+    calendarBody.innerHTML = ''; // 기존 캘린더 내용 초기화
+
+    // 해당 월의 첫 날과 마지막 날 구하기
+    const firstDayOfMonth = new Date(year, month, 1).getDay(); // 0: 일요일, ..., 6: 토요일
+    const lastDateOfMonth = new Date(year, month + 1, 0).getDate();
+
+    // 현재 월의 날짜를 캘린더에 추가
+    for (let i = 0; i < lastDateOfMonth; i++) {
+      const day = i + 1;
+      const dayElement = document.createElement('div');
+      dayElement.classList.add('day');
+      dayElement.textContent = day;
+      dayElement.dataset.date = `${year}-${month + 1}-${day}`;
+      calendarBody.appendChild(dayElement);
+    }
+
+    // 이전 달의 마지막 일들 채우기
+    for (let i = 0; i < firstDayOfMonth; i++) {
+      const prevMonthLastDate = new Date(year, month, 0).getDate();
+      const dayElement = document.createElement('div');
+      dayElement.classList.add('day', 'prev-month');
+      dayElement.textContent = prevMonthLastDate - firstDayOfMonth + i + 1;
+      dayElement.dataset.date = `${year}-${month}-${prevMonthLastDate - firstDayOfMonth + i + 1}`;
+      calendarBody.insertBefore(dayElement, calendarBody.firstChild);
+    }
+
+    // 다음 달의 시작 일들 채우기 (42칸 기준)
+    const totalDays = calendarBody.querySelectorAll('.day').length;
+    const nextMonthDays = 42 - totalDays;
+    for (let i = 0; i < nextMonthDays; i++) {
+      const dayElement = document.createElement('div');
+      dayElement.classList.add('day', 'next-month');
+      dayElement.textContent = i + 1;
+      dayElement.dataset.date = `${year}-${month + 2}-${i + 1}`;
+      calendarBody.appendChild(dayElement);
+    }
+
+    // 현재 날짜 강조 표시
+    const todayElement = calendarBody.querySelector(`[data-date="${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}"]`);
+    if (todayElement) {
+      todayElement.classList.add('active');
+    }
+
+    // 각 날짜 클릭 이벤트 추가
+    const dayElements = calendarBody.querySelectorAll('.day');
+    dayElements.forEach(day => {
+      day.addEventListener('click', function () {
+        const selectedDate = new Date(this.dataset.date);
+        const formattedDate = `${selectedDate.getFullYear()}-${selectedDate.getMonth() + 1}-${selectedDate.getDate()}`;
+        
+        if (!selectedStartDate) {
+          selectedStartDate = formattedDate; // 시작일 설정
+          this.classList.add('selected-start'); // 시작일에 스타일 추가
+        } else if (!selectedEndDate && selectedDate >= new Date(selectedStartDate)) {
+          selectedEndDate = formattedDate; // 종료일 설정
+          this.classList.add('selected-end'); // 종료일에 스타일 추가
+          updateEventTitle(selectedStartDate, selectedEndDate); // 제목 업데이트
+          drawMemoBox(selectedStartDate, selectedEndDate); // 메모 박스 그리기
+        } else {
+          selectedStartDate = formattedDate; // 새로운 시작일로 설정
+          selectedEndDate = null; // 종료일 초기화
+          removeSelection(); // 기존 선택 제거
+          this.classList.add('selected-start'); // 새 시작일에 스타일 추가
+        }
+
+        // 클릭한 날짜의 data-date 값을 가져와 상세 페이지를 로드
+        loadDetailPage(formattedDate);
+      });
+    });
+  }
+
+  // 일정 제목 업데이트 함수
+  function updateEventTitle(startDate, endDate) {
+    eventTitle.innerHTML = `<p>일정 제목: ${startDate} ~ ${endDate}</p>`;
+  }
+
+  // 선택 상태 제거 함수
+  function removeSelection() {
+    const dayElements = calendarBody.querySelectorAll('.day');
+    dayElements.forEach(day => {
+      day.classList.remove('selected-start', 'selected-end');
+    });
+  }
+
+  // 비동기로 상세 페이지를 로드하는 함수
+  function loadDetailPage(date) {
+    fetch(`/schedule/detail?date=${date}`)
+      .then(response => response.json())  // JSON 형식으로 응답 받기
+      .then(data => {
+        // 현재 날짜 구하기
+        const today = new Date();
+        const todayDate = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
+        
+        // 템플릿 문자열을 사용하여 HTML 생성
+        contentRightMsg.innerHTML = `
+          <div class="selected-date">
+            <p>선택한 날짜: ${date}</p>
+          </div>
+          
+          <!-- 시작일과 종료일 선택 -->
+          <div class="date-selection">
+            <label for="start-date">시작일:</label>
+            <input type="date" id="start-date" name="start-date" value="${data.startDate || ''}">
+        
+            <label for="end-date">종료일:</label>
+            <input type="date" id="end-date" name="end-date" value="${data.endDate || ''}">
+          </div>
+          <hr></hr>
+          <div class="memo-section">
+            <label for="memo-title">메모 제목:</label>
+            <input type="text" id="memo-title" name="memo-title" placeholder="메모 제목 입력" value="${data.title || ''}">
+            
+            <label for="memo-content">메모 내용:</label>
+            <textarea id="memo-content" name="memo-content" placeholder="메모 내용 입력">${data.content || ''}</textarea>
+            
+            <button id="save-memo">메모 저장</button>
+          </div>
+        `;
+
+        // 저장 버튼 클릭 이벤트 처리
+        document.getElementById('save-memo').addEventListener('click', function () {
+          const title = document.getElementById('memo-title').value;
+          const content = document.getElementById('memo-content').value;
+          const startDate = document.getElementById('start-date').value;
+          const endDate = document.getElementById('end-date').value;
+
+          // 메모 저장 API 호출 (서버로 POST 요청)
+          fetch('/schedule/saveMemo', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ date, title, content, startDate, endDate })
+          })
+          .then(response => response.json())
+          .then(result => {
+            if (result.success) {
+              alert('메모가 저장되었습니다.');
+              // 메모 저장 후 캘린더 업데이트
+              initCalendar(today.getFullYear(), today.getMonth());
+            } else {
+              alert('메모 저장에 실패했습니다.');
+            }
+          })
+          .catch(error => {
+            console.error('Error saving memo:', error);
+            alert('메모 저장 중 오류가 발생했습니다.');
+          });
+        });
+      })
+      .catch(error => {
+        console.error('Error loading detail page:', error);
+        contentRightMsg.innerHTML = '<p>상세 정보를 로드하는 중 오류가 발생했습니다.</p>';
+      });
+  }
+
+  // 메모 박스를 캘린더에 그리는 함수
+  function drawMemoBox(startDate, endDate) {
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+
+    const startDateElements = calendarBody.querySelectorAll(`.day[data-date="${start.getFullYear()}-${start.getMonth() + 1}-${start.getDate()}"]`);
+    const endDateElements = calendarBody.querySelectorAll(`.day[data-date="${end.getFullYear()}-${end.getMonth() + 1}-${end.getDate()}"]`);
+
+    if (startDateElements.length > 0 && endDateElements.length > 0) {
+      const startElement = startDateElements[0];
+      const endElement = endDateElements[0];
+      const startIndex = Array.from(calendarBody.children).indexOf(startElement);
+      const endIndex = Array.from(calendarBody.children).indexOf(endElement);
+
+      // 메모 박스 스타일 추가
+      for (let i = startIndex; i <= endIndex; i++) {
+        const dayElement = calendarBody.children[i];
+        dayElement.classList.add('memo-box');
+      }
+    }
+  }
+
+  // 이전 달 버튼 클릭 이벤트
+  prevBtn.addEventListener('click', function () {
+    today.setMonth(today.getMonth() - 1);
+    mainDate.textContent = `${today.getFullYear()}년 ${today.getMonth() + 1}월`;
+    initCalendar(today.getFullYear(), today.getMonth());
+  });
+
+  // 다음 달 버튼 클릭 이벤트
+  nextBtn.addEventListener('click', function () {
+    today.setMonth(today.getMonth() + 1);
+    mainDate.textContent = `${today.getFullYear()}년 ${today.getMonth() + 1}월`;
+    initCalendar(today.getFullYear(), today.getMonth());
+  });
+
+  // 페이지 로드 시 캘린더 초기화
+  initCalendar(today.getFullYear(), today.getMonth());
+});
