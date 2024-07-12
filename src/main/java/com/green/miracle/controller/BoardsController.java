@@ -23,18 +23,18 @@ public class BoardsController {
 	
 	@GetMapping("/boards/{no}")
 	public String detail() {
-		return "/views/board/detail";
+		return "/views/board/form";
 	}
 	
 	@PutMapping("/board/{no}")
 	public String update() {
 
-		return "redirect:/views/board/detail/{no}";
+		return "redirect:/views/board/form/{no}";
 	}
 	
 	@DeleteMapping("/board/{no}")
 	public String delete() {
 		
-		return "redirect:/views/board/detail";
+		return "redirect:/views/board/form";
 	}
 }
