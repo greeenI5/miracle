@@ -1,19 +1,73 @@
 @charset "UTF-8";
-.bot-container{
-    display: grid;
-    width: 362px;
-    border: solid var(--sub-navy) 2px;
-    border-radius: 5.5px;
-    position: fixed;
-	top : 20%;
-    right: 50%;
-    box-shadow: 0 3px 3px 0 rgb(0 0 0 / 30%);
-	
+
+.chatbot-toggler {
+	position: fixed;
+	right: 40px;
+	bottom: 35px;
+	height: 50px;
+	width: 50px;
+	color: white;
+	border: none;
+	display: flex;
+	align-content: center;
+	outline: none;
+	cursor: pointer;
+	background: var(--sub-navy);
+	border-radius: 50%;
+	transition: all 0.2s ease;
 }
 
-.bot-container>header>#c-header{
+.show-chatbot .chatbot-toggler {
+	transform: rotate(90deg);
+}
+
+.chatbot-toggler>span{
+	position: absolute;
+
+}
+.chatbot-toggler>span>i{
+	display: flex;
+	margin-left: 4px;
+	margin-top: 7px;
+	text-align: center;
+	font-size:30px;
+}
+.show-chatbot .chatbot-toggler span:first-child,
+.chatbot-toggler span:last-child {
+	opacity: 0;
+}
+
+.show-chatbot .chatbot-toggler span:last-child {
+	opacity: 1;
+}
+
+#bot-container{
+	display: grid;
+	position: fixed;
+	right: 40px;
+	bottom: 100px;
+    width: 362px;
+    transform: scale(0.5);
+    opacity: 0;
+    pointer-events: none;
+    /* overflow: hidden; */
+    border: solid var(--sub-navy) 2px;
+    border-radius: 5.5px;
+    transform-origin: bottom right;
+    box-shadow: 0 32px 64px -48px rgb(0,0,0,0.5);	
+    transition: all 0.1s ease;
+}
+
+.show-chatbot #bot-container {
+	transform: scale(1);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+
+#bot-header>div{
 	width: 100%;
-	justify-content: space-between;
+	justify-content: center;
     align-items: center;
     height: 38px;
     background-color:var(--sub-navy);
@@ -44,14 +98,14 @@
 	
 }
 
-.bot-container>main{
+#bot-main {
 	width: 100%;
     height: 450px;
 	background-color:white;
 	margin-top: 10px;
 	
 }
-.chat-top{
+#bot-main>#chat>.chat-top{
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -59,8 +113,7 @@
 }
 
 #current_date{
-	display: flex;
-	justify-content: center;
+	text-align: center;
 	width: 180px;
 	background-color: var(--main-navy);
 	border-radius: 80px;
@@ -72,14 +125,14 @@
 	display: flex;
 }
 
-#icon img{
+#bot-icon img{
 	width: 30px;
 	height: 30px;
 	margin: 0 10px;
 	
 }
 
-.message{
+.bot-message{
 	display: flex;
 	flex-direction: column;
 	background-color: var(--sub-navy);
@@ -104,7 +157,7 @@
     margin-left: 40px;
 }
 /* 버튼 스타일링 */
-.category {
+.bot-category {
 	width: 150px;
     background-color: white; /* 배경색 */
     color: #333333; /* 글자색 */
@@ -119,44 +172,44 @@
 }
 
 /* 버튼 호버 효과 */
-.category:hover {
+.bot-category:hover {
     background-color: var(--sub-navy); /* 호버 시 배경색 변경 */
 }
 
 
-.bot-container>footer{
+#bot-footer {
     border-top: solid var(--main-navy) 1.5px;
     background-color: #fff;
 	padding: 0;
 	margin: 0;
 }
 
-.btm{
+#bot-footer>.btm{
 	width: 100%;
     display: inline-flex;
     position: relative;
     align-items: center;
 }
 
-input{
+#question{
     width: 310px;
     height: 35px;
     border: none;
     position: relative;
 }
 
-input:focus {
+input#question:focus {
     outline: none;
 }
 
 .btn-send{
 	display: flex;
+	justify-content: center;
+	align-items: center;
     width: 40px;
     height: 30px;
-    background-size: cover;
     background-color: white;
+	color: var(--sub-navy);
     border: none;
-    background-image: url('/images/bot/send-plane.png');
-    padding-top: 40px;
-    
+    font-size: 18px;
 }
