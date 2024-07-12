@@ -10,19 +10,11 @@
 </head>
 <main>
 	 <div class="content">
-        <!-- Left section -->
-        <div class="left-section">     
-            <div class="notice-list">
-                <!-- 게시판 목록을 나열 -->
-                <div class="notice-item">
-                    <h1>게시판</h1>
-                    <a href="/notices" class="board-type">공지사항</a>
-                    <a href="/boards" class="board-type">게시판</a>
-                    <a href="/boards/form" class="board-type"><i class="ri-add-box-line"></i>게시글 추가</a>
-                </div>
-                <!-- 필요에 따라 추가 -->
-            </div>
-        </div>
+		<!-- Left section -->
+		<div class="left-box">
+			<p class="sub-title flex center">게시판</p>
+			<th:block th:insert="~{views/commons/sub-menu}" />
+		</div>
 
         <!-- Right section -->
         <div class="right-section">
@@ -39,8 +31,8 @@
 		        			</form>
 					        <table>
 					            <thead>
-					                <tr>
-					                    <th>번호</th>
+					                <tr class="post-body">
+					                    <th class="no">번호</th>
 					                    <th>제목</th>
 					                    <th>작성자</th>
 					                    <th>작성일자</th>
@@ -48,35 +40,41 @@
 					                </tr>
 					            </thead>
 					            <tbody>
-					            	<tr>
-					                    <td>1</td>
-					                    <td>게시판 안내입니다. 이용해주셔서 감사합니다</td>
+					            	<tr class="post-body">
+					                    <td>1</td>									
+					                    <td>
+											<ul>
+												<li>
+													<a href="">게시판 안내입니다. 이용해주셔서 감사합니다</a>
+												</li>
+											</ul>
+										</td>
 					                    <td>김도영</td>
 					                    <td>2024.07.12</td>
 					                    <td>2</td>
 					                </tr>
-					                <tr>
+					                <tr class="post-body">
 					                    <td>2</td>
 					                    <td>[게시판] 개인정보 처리방침 변경안내처리방침</td>
 					                    <td>박태주</td>
 					                    <td>2024.07.11</td>
 					                    <td>3</td>
 					                </tr>
-					                <tr>
+					                <tr	class="post-body">
 					                    <td>3</td>
 					                    <td>게시판 안내입니다. 이용해주셔서 감사합니다</td>
 					                    <td>전용준</td>
 					                    <td>2024.07.10</td>
 					                    <td>4</td>
 					                </tr>
-					                <tr>
+					                <tr	class="post-body">
 					                    <td>4</td>
 					                    <td>게시판 안내입니다. 이용해주셔서 감사합니다</td>
 					                    <td>유해리</td>
 					                    <td>2024.07.10</td>
 					                    <td>5</td>
 					                </tr>
-					                <tr>
+					                <tr class="post-body">
 					                    <td>5</td>
 					                    <td>게시판 안내입니다. 이용해주셔서 감사합니다</td>
 					                    <td>윤민석</td>
