@@ -1,12 +1,137 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" 
-th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
 <head>
-	<link rel="stylesheet" href="/css/admin/mgm.css">
-	<title>인사관리</title>
+    <link rel="stylesheet" href="/css/admin/mgm.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="/js/hrm/admin.js"></script>
+    <title>인사관리</title>
 </head>
+<body>
 <main>
-	<header class ="title1">직원추가</header>
-	<header class ="title2">직원정보</header>
+    <div class="container">
+        <div class="employee-add">
+            <form id="employee-form">
+            <h1 class="title1">직원추가</h1>
+				<div>
+					<div class="profile-pic-container">
+						<img id="profilePic" src="/images/hrm/profile.png" alt="프로필 사진"
+							onclick="document.getElementById('empProfilePic').click();">
+						<input type="file" id="empProfilePic" class="box"
+							name="empProfilePic" accept="image/*" style="display: none;"
+							onchange="previewProfilePic(event)">
+					</div>
+				</div>
+				<div>
+                    <span>사원번호</span> 
+                    <input type="text" id="empId" class="box" name="empId" placeholder="사원번호" oninput="syncEmpIdWithPassword()">
+                </div>
+                <div class="password-container">
+                    <span>비밀번호</span>
+                    <input type="password" id="empPassword" class="box" name="empPassword" placeholder="사원번호와 동일">
+                    <i class="toggle-password" onclick="togglePasswordVisibility()">🔒</i>
+                </div>
+                <div>
+                    <span>이름</span> 
+                    <input type="text" id="empName" class="box" name="empName" placeholder="이름">
+                </div>
+                <div>
+                    <span>권한</span> 
+                    <select id="ROLE" class="box" name="ROLE">
+                        <option value="사원">사원</option>
+                        <option value="관리자">관리자</option>
+                    </select>
+                </div>
+                <div>
+                    <span>직급</span> 
+                    <input type="text" id="empPosition" class="box" name="empPosition" placeholder="직급">
+                </div>
+                <div>
+                    <span>부서코드</span> 
+                    <select id="depCode" class="box" name="depCode">
+                        <option value="영업팀">영업팀</option>
+                        <option value="마케팅팀">마케팅팀</option>
+                        <option value="기획팀">기획팀</option>
+                        <option value="무대연출팀">무대연출팀</option>
+                    </select>
+                </div>
+                <div>
+                    <span>핸드폰번호</span> 
+                    <input type="text" id="empPhone" class="box phone-input" name="empPhone" placeholder="핸드폰번호">
+                </div>
+                <div>
+                    <span>이메일</span> 
+                    <input type="email" id="empEmail" class="box" name="empEmail" placeholder="이메일">
+                </div>
+                <button type="button" onclick="addEmployee()">등록</button>
+            </form>
+        </div>
+        <div class="employee-info">
+            <h1 class="title2">직원정보</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>사원번호</th>
+                        <th>사원명</th>
+                        <th>권한</th>
+                        <th>직급</th>
+                        <th>부서코드</th>
+                        <th>핸드폰번호</th>
+                        <th>비고</th>
+                    </tr>
+                </thead>
+                <tbody id="employee-table-body">
+                    <tr>
+                        <td>1001</td>
+                        <td>김한솔</td>
+                        <td>사원</td>
+                        <td>팀장</td>
+                        <td>영업팀</td>
+                        <td>010-0000-0000</td>
+						<td>
+							<button onclick="editEmployee(this)">수정</button>
+							<button onclick="deleteEmployee(this)">삭제</button>
+						</td>
+					</tr>
+                    <tr>
+                        <td>1002</td>
+                        <td>유해리</td>
+                        <td>사원</td>
+                        <td>팀장</td>
+                        <td>영업팀</td>
+                        <td>010-0000-0001</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>1003</td>
+                        <td>박민규</td>
+                        <td>사원</td>
+                        <td>대리</td>
+                        <td>영업팀</td>
+                        <td>010-0000-0002</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>1004</td>
+                        <td>신현직</td>
+                        <td>사원</td>
+                        <td>부장</td>
+                        <td>영업팀</td>
+                        <td>010-0000-0003</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>1005</td>
+                        <td>이지원</td>
+                        <td>사원</td>
+                        <td>차장</td>
+                        <td>영업팀</td>
+                        <td>010-1234-5678</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </main>
+</body>
 </html>

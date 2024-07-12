@@ -3,7 +3,6 @@
  */
 const urlParams = new URLSearchParams(window.location.search);
 const empName = urlParams.get('empName');
-function showEmployeeDetail(empName) {
 	// detail.html 에서 사원 정보를 가져오는 로직
 	const employeeDetails = {
 		'김한솔': {
@@ -163,43 +162,52 @@ function showEmployeeDetail(empName) {
 	};
 
 	// tooltip에 사원 정보를 보여주는 로직
-	const tooltip = document.getElementById('tooltip');
-	const employee = employeeDetails[empName];
-	if (employee) {
-		const html = `
-                    <div class="details-card">
-                        <img src="../images/hrm/profile.png">
-                        <div class="details-info">
-                            <div class="name">${employee.name}</div>
-                            <div class="department">${employee.department}</div>
-                            <div id="font" class="position"><span>직급 :</span> ${employee.position}</div>
-                            <div id="font"><span>전화번호 :</span> ${employee.phone}</div>
-                            <div id="font"><span>이메일 :</span> ${employee.email}</div>
-                        </div>
-                    </div>
-                `;
-		tooltip.innerHTML = html;
-		tooltip.classList.add('show-tooltip');
-	}
-}
-
-// 페이지가 로드될 때 직원 정보를 표시
 if (empName && employeeDetails[empName]) {
-	showEmployeeDetail(empName);
+    showEmployeeDetail(empName);
 }
 
-// 툴팁을 숨기는 함수
-function hideTooltip() {
-	const tooltip = document.getElementById('tooltip');
-	tooltip.classList.remove('show-tooltip'); // 툴팁을 숨기는 클래스 제거
+function showEmployeeDetail(empName) {
+    const tooltip = document.getElementById('tooltip');
+    const employee = employeeDetails[empName];
+
+    if (employee) {
+        // 툴팁이 이미 보이고 있는지 확인
+        if (tooltip.classList.contains('show-tooltip')) {
+            // 내용만 업데이트
+            tooltip.innerHTML = `
+                <div class="details-card">
+                    <img src="../images/hrm/profile.png" alt="${employee.name}">
+                    <div class="details-info">
+                        <div class="name">${employee.name}</div>
+                        <div class="department">${employee.department}</div>
+                        <div class="position"><span>직급 :</span> ${employee.position}</div>
+                        <div><span>전화번호 :</span> ${employee.phone}</div>
+                        <div><span>이메일 :</span> ${employee.email}</div>
+                    </div>
+                    <button onclick="closeTooltip()">닫기</button>
+                </div>
+            `;
+        } else {
+            // 툴팁이 보이지 않을 때 새로 보여줌
+            tooltip.innerHTML = `
+                <div class="details-card">
+                    <img src="../images/hrm/profile.png" alt="${employee.name}">
+                    <div class="details-info">
+                        <div class="name">${employee.name}</div>
+                        <div class="department">${employee.department}</div>
+                        <div class="position"><span>직급 :</span> ${employee.position}</div>
+                        <div><span>전화번호 :</span> ${employee.phone}</div>
+                        <div><span>이메일 :</span> ${employee.email}</div>
+                    </div>
+                    <button onclick="closeTooltip()">닫기</button>
+                </div>
+            `;
+            tooltip.classList.add('show-tooltip');
+        }
+    }
 }
 
-// 마우스가 툴팁 영역을 벗어났을 때 숨기는 동작
-function handleMouseLeave() {
-	setTimeout(hideTooltip, 200); // 딜레이를 주어 마우스를 빠르게 이동할 때도 툴팁이 깜빡거리지 않도록 조정
-}
-
-// 툴팁 숨기기 동작을 취소하는 함수
-function cancelHideTooltip() {
-	clearTimeout(tooltipTimeout);
+function closeTooltip() {
+    const tooltip = document.getElementById('tooltip');
+    tooltip.classList.remove('show-tooltip');
 }

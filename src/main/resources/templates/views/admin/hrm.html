@@ -4,14 +4,15 @@ th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
 <head>
 	<link rel="stylesheet" href="/css/emp/detail.css">
 	<link rel="stylesheet" href="/css/admin/admin.css">
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 	<title>인사관리</title>
-	<script src="../js/hrm/detail.js"></script>
+	<script src="/js/hrm/detail.js"></script>
 </head>
 	<main>
 		<header class ="title">조직도</header>
 		<form action="/admin/hr/mgm" method="post">
             <button type="submit" class="images">
-                <img class="setting" src="../images/hrm/setting.png" alt="인사관리 설정창">
+                <img class="setting" src="/images/hrm/setting.png" alt="인사관리 설정창">
             </button>
         </form>
 		<div class="orgChart">
@@ -25,13 +26,13 @@ th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
 	                    <li>
 	                        <div class="depName">영업부</div>
 	                        <div class="emp">
-								 <span class="empName" onmouseover="showEmployeeDetail('김한솔')" onmouseleave="hideTooltip()">김한솔</span>
+								 <span class="empName" onclick="showEmployeeDetail('김한솔')">김한솔</span>
 							</div>
 	                        <ul class="team">
 	                            <li >
 	                                <div class="teamName">영업팀</div>
 	                                <div class="emp">
-	                                	<span class="empName" onmouseover="showEmployeeDetail('유해리')" onmouseleave="hideTooltip()">유해리</span>
+	                                	<span class="empName" onclick="showEmployeeDetail('유해리')">유해리</span>
 	                                	<span class="bar">|</span>
 	                                	<span class="empRank">팀장</span>	
 	                                </div>
@@ -64,12 +65,12 @@ th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
 	                            <li>
 	                                <div class="teamName">마케팅팀</div>
 	                                <div class="emp">
-	                               		<span class="empName" onmouseover="showEmployeeDetail('박태주')" onmouseleave="hideTooltip()">박태주</span>
+	                               		<span class="empName" onclick="showEmployeeDetail('박태주')">박태주</span>
 	                                	<span class="bar">|</span>
 	                                	<span class="empRank">팀장</span>	
 	                                </div>
 	                                <div class="emp">
-	                                	<span class="empName" onmouseover="showEmployeeDetail('김하얀')" onmouseleave="hideTooltip()">김하얀</span> 
+	                                	<span class="empName" onclick="showEmployeeDetail('김하얀')">김하얀</span> 
 	                                	<span class="bar">|</span>
 	                                	<span class="empRank">대리</span>
 	                                </div>
@@ -89,13 +90,13 @@ th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
 	                    <li>
 	                        <div class="depName">관리부</div>
 	                        <div class="emp">
-	                        	<span class="empName" onmouseover="showEmployeeDetail('박세나')" onmouseleave="hideTooltip()">박세나</span> 
+	                        	<span class="empName" onclick="showEmployeeDetail('박세나')">박세나</span>
 							</div>
 	                        <ul>
 	                            <li>
 	                                <div class="teamName">기획팀</div>
 	                                <div class="emp">
-	                                	<span class="empName" onmouseover="showEmployeeDetail('김도영')" onmouseleave="hideTooltip()">김도영</span>	 
+	                                	<span class="empName" onclick="showEmployeeDetail('김도영')">김도영</span>	 
 	                                	<span class="bar">|</span>
 	                                	<span class="empRank">팀장</span>	
 	                                </div>
@@ -110,7 +111,7 @@ th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
 	                                	<span class="empRank">대리</span>	
 	                                </div>
 	                                <div class="emp">
-	                                	<span class="empName">윤민석</span>	 
+	                                	<span class="empName" onclick="showEmployeeDetail('윤민석')">윤민석</span>	 
 	                                	<span class="bar">|</span>
 	                                	<span class="empRank">사원</span>
 	                                </div>
@@ -118,7 +119,7 @@ th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
 	                            <li>
 	                                <div class="teamName">무대연출팀</div>
 	                                <div class="emp">
-	                                	<span class="empName" onmouseover="showEmployeeDetail('전용준')" onmouseleave="hideTooltip()">전용준</span> 
+	                                	<span class="empName" onclick="showEmployeeDetail('전용준')">전용준</span>
 	                                	<span class="bar">|</span>
 	                                	<span class="empRank">팀장</span>
 	                                </div>
@@ -143,7 +144,7 @@ th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
 	                                	<span class="empRank">사원</span>
 	                                </div>
 	                                <div class="emp">
-	                                	<span class="empName" onmouseover="showEmployeeDetail('최재영')" onmouseleave="hideTooltip()">최재영</span> 
+	                                	<span class="empName" onclick="showEmployeeDetail('최재영')">최재영</span>
 	                                	<span class="bar">|</span>
 	                                	<span class="empRank">사원</span>
 	                                </div>
@@ -154,6 +155,6 @@ th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
 	            </li>
 	        </ul>
 	    </div>
-	     <div class="tooltip" id="tooltip" onmouseenter="cancelHideTooltip()" onmouseleave="handleMouseLeave()"></div>
+	    <div class="tooltip" id="tooltip"></div>
 	</main>
 </html>
