@@ -1,3 +1,10 @@
+// 페이지가 로드될 때 실행할 함수
+window.onload = function() {
+    let dateTime = getCurrentDateTime();
+    document.getElementById("current-date").textContent = dateTime.date;
+    document.getElementById("current-time").textContent = dateTime.time;
+};
+
 // 현재 날짜와 시간을 가져오는 함수
 function getCurrentDateTime() {
     let currentDateTime = new Date();
@@ -21,13 +28,6 @@ function getCurrentDateTime() {
     };
 }
 
-// 페이지가 로드될 때 실행할 함수
-window.onload = function() {
-    let dateTime = getCurrentDateTime();
-    document.getElementById("current-date").textContent = dateTime.date;
-    document.getElementById("current-time").textContent = dateTime.time;
-};
-
 // 현재 시간을 가져오고 포맷팅하여 특정 요소에 출력하는 함수
 function updateCurrentTime() {
     let currentDateTime = new Date();
@@ -42,11 +42,8 @@ function updateCurrentTime() {
     document.getElementById("current-time").textContent = formattedTime;
 }
 
-// 페이지가 로드될 때 한 번 시간을 업데이트하고
-updateCurrentTime();
-
-// 1초마다 시간을 업데이트하는 setInterval 설정
-setInterval(updateCurrentTime, 1000);
+updateCurrentTime(); //페이지가 처음 로드 될때
+setInterval(updateCurrentTime, 1000); // 1초마다 시간 업데이트
 
 
 //////////달력
@@ -122,3 +119,28 @@ setInterval(updateCurrentTime, 1000);
   document.getElementById('selectedMonth').innerHTML = monthEnglishNames[currentMonth] +' ';
   document.getElementById('selectedDay').innerHTML = selectedDate;
   
+//출근하기, 퇴근하기 버튼
+function activateButton(button) {
+    var startButton = document.getElementById('start-work-button');
+    var endButton = document.getElementById('end-work-button');
+
+    if (button === startButton) {
+        if (confirm('정말 출근하시겠습니까?')) {
+            startButton.style.color = 'var(--main-grey)';
+            startButton.style.border = '2px solid var(--main-grey)'
+            endButton.style.color = 'var(--main-navy)';
+            endButton.style.border = '2px solid var(--main-navy)'
+            startButton.disabled = true;
+            endButton.disabled = false;
+        }
+    } else {
+        if (confirm('정말 퇴근하시겠습니까?')) {
+            startButton.style.color = 'var(--main-navy)';
+            startButton.style.border = '2px solid var(--main-navy)'
+            endButton.style.color = 'var(--main-grey)';
+            endButton.style.border = '2px solid var(--main-grey)'
+            startButton.disabled = false;
+            endButton.disabled = true;
+        }
+    }
+}

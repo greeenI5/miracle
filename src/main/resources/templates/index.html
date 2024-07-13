@@ -105,8 +105,8 @@ th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
 		        <a class="section" href="/">
 		            <i class="ri-mail-add-line mail-icon"></i>
 		            <div>
-		              <span class="mail-text">보낸 메일함</span>
-		              <span class="mail-number">10</span>
+		              <span class="mail-text">내게 쓴 메일함</span>
+		              <span class="mail-number">0</span>
 		            </div>
 		        </a>
 		        <a class="section" href="/">
@@ -188,15 +188,29 @@ th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
         </div>
         
         <div class="item7">
-        	<div class="card-bottom flex">
-            	<div class="datetime">
-		            <p class="current-date" id="current-date">2021-12-01 (수)</p>
-	                <p class="time-text" id="current-time">17:24:09</p>
-                </div>
-                <div class="buttons">
-                    <button class="button">출근하기</button>
-                    <button class="button">퇴근하기</button>
-                </div>
+           	<div class="datetime">
+	            <p class="current-date" id="current-date">2021-12-01 (수)</p>
+                <p class="time-text" id="current-time">17:24:09</p>
+            </div>
+            <div class="left-time-bar">
+            	<div class="buttons">
+                 <button class="button" id="start-work-button" onclick="activateButton(this)">출근하기</button>
+                 <button class="button" id="end-work-button" onclick="activateButton(this)">퇴근하기</button>
+             </div>
+            	<div class="record-time">
+            		<div class="working-start flex between">
+            			<span>출근시간</span>
+            			<span>08:52:07</span>
+            		</div>
+            		<div class="working-end flex between">
+            			<span>퇴근시간</span>
+            			<span>---:---:---</span>
+            		</div>
+            		<div class="working-today flex between">
+            			<span>누적시간</span>
+            			<span>9h 40m 20s</span>
+            		</div>
+            	</div>
             </div>
         </div>
     </div>

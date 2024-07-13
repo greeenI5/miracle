@@ -5,11 +5,11 @@ h2{
 }
 
 /* 
-//메인 내용 세로로 가운데 정렬
+//메인 요소를 가운데로
 main {
 	display:flex;
 	align-items: center;
-} 
+}  
 */
 
 .grid-container {
@@ -70,8 +70,8 @@ main {
     
 }
 .user-image{
-	width: 150px;
-    height: 150px;
+	width: 180px;
+    height: 180px;
     background-color: var(--main-grey);
     border-radius: 50%;
 }
@@ -84,10 +84,12 @@ main {
 	white-space: nowrap;
 }
 .info > .name{
-	font-size: 24px;
+	font-size: 26px;
 	font-weight: 450;
 }
-
+.info > .department{
+	font-size: 20px;
+}
 
 
 /* ////////////item2//////////// */
@@ -244,7 +246,7 @@ button:hover {
 .schedule-button {
 	background-color: var(--main-grey);
 	color: var(--black);
-	font-weight: 500;
+	font-weight: bold;
 	border: none;
 	padding: 7px 50px;
 	border-radius: 5px;
@@ -274,15 +276,12 @@ button:hover {
 	align-items: center;
 	justify-content: center;
 	padding: 20px;
+	color: var(--main-navy);
 	border-left: 3px solid var(--main-navy);
 	overflow:hidden;
 }
 .section:active{
-	color:inherit;
-}
-.section:hover{
-	background-color: var(--main-grey);
-	overflow: hidden;
+	color:var(--main-navy-grey);
 }
 .section:first-child {
 	border-left: none;
@@ -296,6 +295,7 @@ button:hover {
 }
 .mail-number{
 	font-size: 18px;
+	font-weight: bold;
 	color: #281fe0;
 }
 
@@ -353,36 +353,39 @@ button:hover {
 	grid-column: 1 / 2;
     grid-row: 3 / 4;
     display: flex;
-    justify-content: center;
+	justify-content: space-evenly;
     padding-top: 10px !important;
 }
 .datetime{
-	flex:3;
 	display: flex;
 	flex-direction:column;
 	justify-content: center;
 	align-items: center;
+	margin-right : 20px;
 }
 .datetime > .time-text{
 	font-size: 60px;
 }
 .buttons {
-	margin-left: 40px;
-	display:flex;
-	flex:2;
-	flex-direction: column;
-	justify-content: center;
+	margin: 10px 0;
+	
 }
 .button {
-    background-color: var(--main-navy);
-    color: white;
-    border: none;
-    padding: 10px;
-    margin: 20px;
+    background-color: white;
+    color: var(--main-navy);
+    border: 2px solid var(--main-navy);
     border-radius: 10px;
     width: 100px;
+    height: 40px;
     cursor: pointer;
+    font-weight: bold;
+}
+.button:nth-child(2){
+	color: var(--main-grey);
+    border: 2px solid var(--main-grey);
 }
 .button:hover {
-    background-color: var(--sub-navy);
+    background-color: var(--sub-navy-grey);
+    color: var(--black);
+    border: none;
 }

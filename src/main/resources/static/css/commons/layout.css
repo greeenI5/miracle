@@ -56,6 +56,10 @@ main {
     grid-row: 2 / -1;
 }
 
+#sidebar > ul {
+	margin: 20px 0;
+}
+
 #sidebar > ul > li > a {
     color: var(--main-navy);
     padding: 10px 0px;
@@ -81,6 +85,7 @@ main {
 #sidebar ul li:hover {
     background-color:var(--sub-navy);
 }
+
 
 /*//////////////////// 챗봇 css 영역//////////////////////// */
 .chatbot-toggler {
@@ -301,7 +306,7 @@ main {
     position: relative;
 }
 
-input#question:focus {
+#question:focus {
     outline: none;
 }
 
