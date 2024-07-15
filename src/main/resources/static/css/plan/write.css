@@ -1,95 +1,142 @@
-main{
-	   overflow: auto;  
-}
 
-.title{
-	font-size: 36px;
-	font-style: bold;
-}
 .container {
-    width: 80%;
-    min-width: 600px;
-    height: 70%; /* 최대 높이 설정 */
-    margin-top: 30px;
-    align-self: flex-start;
-    max-height: 90%;
-    
+    width: 210mm;
+    height: 297mm;
+    padding: 5mm;
+    border: 1px solid var(--main-navy-grey);
+    background-color: #fff;
+    margin: 0 auto;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10mm;
+    float: left;
 }
 
-#performanceForm{
-	width: 90%;	
-    height: 70%; 
-    max-height: 90%;
-   
+.content-top {
+    text-align: left;
+    margin-bottom: 20mm;
+}
+
+.logo-preview {
+    width: 350px;
+    height: 350px;
+    display: flex;
+    justify-content: initial;
+    align-items: initial;
+    overflow: hidden;
+}
+
+#logoPreview {
+    border-top-right-radius: 150px; /* 원하는 크기로 설정 */
+    border-bottom-right-radius: 150px; /* 원하는 크기로 설정 */
+    width: 350px;
+    height: 350px;
+    object-fit: fill;
+    float: left;
+}
+
+
+.title {
+	color: #383838;
+    font-size: 24pt;
+    font-weight: bold;
+    margin: 0;
+}
+
+.subtitle {
+    font-size: 12pt;
+    color: #666;
+    margin: 0;
+}
+
+
+.content-left {
+    display: flex;
+    flex-direction: column;
 }
 
 .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 10mm;
 }
 
-.form-group label {
+label {
+    font-size: 12pt;
+    font-weight: bold;
+    color: #000;
     display: block;
-    margin-bottom: 5px;
-    color: #555;
+    margin-bottom: 2mm;
+    position: relative;
+    padding-bottom: 5px; /* 여백을 추가하여 선과 텍스트 간격 조절 */
 }
-
-.form-group input, .form-group textarea {
+label::after {
+    content: "";
+    display: block;
     width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    height: 2px; /* 밑줄 두께 */
+    background-color: #2e3d86; /* 밑줄 색상 */
+    position: absolute;
+    left: 0;
+    bottom: 0; /* label의 아래에 위치 */
+}
+
+input[type="text"],
+input[type="date"],
+select,
+textarea,
+input[type="file"] {
+    font-size: 12pt;
+    padding: 3mm;
+    border: 1px solid #767586;
+    width: 100%;
     box-sizing: border-box;
+    background-color: #fff;
 }
 
-.form-group textarea {
-    resize: vertical;
-    height: 100px;
-}
-
-.genre-options {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-.genre-btn {
-    background-color: #ABA9BC;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-.genre-btn.active {
-    background-color: #8a8a9c;
-}
-
-.genre-btn:hover {
-    background-color: #9e9eaf;
-}
-
-/* image-preview에 대한 기본 스타일 */
-.image-preview {
-    margin-top: 10px;
+textarea {
+    resize: none; /* 사용자가 크기를 조정하지 못하도록 설정 */
+    height: 240px; /* 원하는 고정 높이 설정 */
+    overflow: auto; /* 내용이 넘칠 경우 스크롤 생기도록 설정 */
 }
 
 .image-preview img {
-    border: 1px solid #ddd;
-    border-radius: 5px;
+    display: block;
+    width: 240px;
+    height: 340px;
+    object-fit: cover;
+    border: 1px solid #ccc;
+    margin-top: 5mm;
 }
 
-button[type="submit"] {
-    background-color: #ABA9BC;
+/* 기존 내용 생략 */
+
+.button-container {
+    display: block;
+    justify-content: flex-end;
+    gap: 20px;
+    padding: 10mm 0; /* 버튼 컨테이너에 패딩 추가 */
+    float: right;
+}
+
+.upload-button {
+    font-size: 8pt;
+    padding: 1mm 2mm;
+    background-color: var(--sub-navy-grey);
     color: #fff;
-    padding: 10px 20px;
     border: none;
-    border-radius: 4px;
     cursor: pointer;
-    width: 100%;
+}
+button[type="submit"]{
+    font-size: 14pt;
+    padding: 5mm 10mm;
+    background-color: var(--sub-navy-grey);
+    color: #fff;
+    border: none;
+    cursor: pointer;
 }
 
-button[type="submit"]:hover {
-    background-color: #928aa0;
+button[type="submit"]:hover, .upload-button:hover {
+    background-color: var(--main-navy-grey);
 }
+
+
