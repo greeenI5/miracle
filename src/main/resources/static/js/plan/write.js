@@ -1,20 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const genreButtons = document.querySelectorAll('.genre-btn');
-    const genreInput = document.getElementById('genre');
-
-    genreButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            // 모든 버튼에서 active 클래스 제거
-            genreButtons.forEach(btn => btn.classList.remove('active'));
-            
-            // 클릭한 버튼에 active 클래스 추가
-            this.classList.add('active');
-
-            // 선택된 장르를 숨겨진 입력 필드에 설정
-            genreInput.value = this.getAttribute('data-genre');
-        });
-    });
-
     // 이미지 미리보기 업데이트
     const imageInput = document.getElementById('image');
     const imagePreview = document.getElementById('imagePreview');

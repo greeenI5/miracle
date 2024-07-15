@@ -1,0 +1,104 @@
+@charset "UTF-8";
+@import url("/css/plan/list-menu.css");
+
+.location {
+    min-width: 200px;
+    margin-top: -15px;
+    margin-left: 15px;
+    font-size: 24px;
+}
+
+.list-name {
+    min-width: 200px;
+    font-size: 36px;
+    margin-bottom: 45px;
+}
+
+th {
+    padding: 15px;
+    text-align: center;
+    font-weight: bold;
+}
+
+td {
+    padding: 10px 70px;
+    white-space: nowrap; /* 텍스트가 한 줄로 유지되도록 설정 */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.no {
+    width: 150px;
+}
+
+.post-body {
+    border-bottom: 1px solid var(--sub-grey);
+}
+
+body > main > div > div.right-section > div > div > form > div {
+    display: flex; /* 플렉스박스 사용하여 아이템 정렬 */
+    align-items: center; /* 아이템을 세로로 가운데 정렬 */
+}
+
+#content-box{
+	padding: 45px;
+}
+	
+#content-box > form > div {
+    display: flex;
+    align-items: center;
+}
+
+.search-wrap{
+	width: 100%;
+	padding: 15px 0px;
+	background-color: var(--sub-grey);
+}
+
+#search {
+    width: 70%;
+    font-size: 14px;
+    padding: 5px 10px; /* 버튼 높이와 맞추기 위해 조정 */
+    border: 2px solid var(--main-grey);
+    margin-left: 100px;
+    box-sizing: border-box; /* 패딩을 포함한 전체 너비 계산 */
+}
+#content-box .btn {
+    display: inline-block;
+    width: 60px;
+    height: 30px;
+    margin-left:20px;
+    align-content:center;
+    font-size: 14px;
+    background-color: var(--sub-navy-grey);
+    color: white;
+    border: none;
+    cursor: pointer;
+    box-sizing: border-box; /* 패딩을 포함한 전체 너비 계산 */
+}
+
+#content-box .btn:hover {
+    background-color: var(--main-navy-grey);
+}
+
+#content-box {
+    margin-top: 50px;
+    width: 100%;
+    height: 100%;
+}
+
+.notice-item {
+    display: flex;
+    flex-direction: column;
+}
+
+tbody tr {
+    display: table-row;
+}
+
+tbody tr:nth-child(n+11) {
+    display: none; /* 10번째 이후의 항목 숨기기 */
+}

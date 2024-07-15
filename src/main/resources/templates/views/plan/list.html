@@ -1,10 +1,46 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" 
-th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
+      th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
 <head>
-	<!-- link 태그로 css, js 경로 연결하는 내용 넣으시면 됩니다! -->
+    <script defer src="/js/plan/list.js"></script>
+    <link rel="stylesheet" href="/css/plan/list.css">
+    <meta charset="UTF-8">
+    <title>Plan List</title>
 </head>
 <main>
-	<!-- 이 부분에 실질적 코드 내용 적으면 됩니다! -->
+    <div class="flex container">
+        <!-- 좌측메뉴 -->
+        <section class="content-left">
+            <div class="left-box">
+                <p class="sub-title flex center">기획목록</p>
+                <th:block th:insert="~{views/plan/list-menu}" />
+            </div>
+        </section>
+        <section class="content-right">
+			<div class="location">HOME > 기획목록</div>
+                <div id="content-box">
+					<div class="list-name">기획서</div>
+                    <form id="search-form">
+                        <div class="search-wrap">
+                            <input id="search" type="search" placeholder="검색어를 입력해주세요.">
+                            <button class="btn" type="submit">검색</button>
+                        </div>
+                    </form>
+                    <table>
+                        <thead>
+                            <tr class="post-body">
+                                <th class="no">번호</th>
+                                <th>프로젝트명</th>
+                                <th>기획자</th>
+                                <th>작성일자</th>
+                            </tr>
+                        </thead>
+                        <tbody id="plan-list">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </div>
 </main>
 </html>
