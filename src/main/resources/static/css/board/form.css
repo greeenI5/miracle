@@ -1,5 +1,5 @@
 @charset "UTF-8";
-@import url("/css/commons/sub-menu.css");
+@import url("/css/board/sub-menu.css");
 
 .content {
     display: flex;
