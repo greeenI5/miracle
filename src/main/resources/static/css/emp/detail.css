@@ -8,7 +8,7 @@ body{
     border: 1px solid var(--main-navy);
     border-radius: 8px;
     padding: 16px;
-    width: 400px; /* 최대 너비 조정 */
+    width: 450px; /* 최대 너비 조정 */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -45,7 +45,7 @@ body{
     z-index: 999;
     /* 원하는 위치로 조정 */
     top: 18%;
-    left: 85%;
+    left: 87%;
     transform: translateX(-50%);
     transition: opacity 0.3s ease;
     opacity: 0; /* 기본 투명도 */

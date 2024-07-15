@@ -5,7 +5,7 @@ main {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    margin-right: 10px;
+    margin-right: 100px;
 }
 
 .orgChart ul {
@@ -21,6 +21,7 @@ main {
     align-items: center;
     padding: 20px 5px 0 5px;
     position: relative;
+    margin-bottom: 200px;
 }
 
 /*////////////////////////////////border 선으로 조직도 트리 표현 구역 */
