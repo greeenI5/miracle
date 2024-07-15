@@ -13,6 +13,7 @@
             <form id="employee-form">
             <h1 class="title1">직원추가</h1>
 				<div>
+					<!-- 이미지 클릭 시 사진 바뀜 -->
 					<div class="profile-pic-container">
 						<img id="profilePic" src="/images/hrm/profile.png" alt="프로필 사진"
 							onclick="document.getElementById('empProfilePic').click();">
@@ -37,8 +38,8 @@
                 <div>
                     <span>권한</span> 
                     <select id="ROLE" class="box" name="ROLE">
-                        <option value="사원">사원</option>
-                        <option value="관리자">관리자</option>
+                        <option value="employee">사원</option>
+                        <option value="admin">관리자</option>
                     </select>
                 </div>
                 <div>
@@ -48,10 +49,10 @@
                 <div>
                     <span>부서코드</span> 
                     <select id="depCode" class="box" name="depCode">
-                        <option value="영업팀">영업팀</option>
-                        <option value="마케팅팀">마케팅팀</option>
-                        <option value="기획팀">기획팀</option>
-                        <option value="무대연출팀">무대연출팀</option>
+                        <option value="sales">영업팀</option>
+                        <option value="marketing">마케팅팀</option>
+                        <option value="planning">기획팀</option>
+                        <option value="stage">무대연출팀</option>
                     </select>
                 </div>
                 <div>

@@ -1,31 +1,35 @@
 /**
- * 
+ * ID의 값을 비밀번호에 복사
  */
 function syncEmpIdWithPassword() {
     const empId = document.getElementById('empId').value;
     const empPassword = document.getElementById('empPassword');
     empPassword.value = empId;
 }
-function syncPassword() {
-        document.getElementById('empPassword').value = document.getElementById('empId').value;
-    }
 
-    function togglePasswordVisibility() {
-        const passwordInput = document.getElementById('empPassword');
-        const toggleIcon = document.querySelector('.toggle-password');
-        if (passwordInput.type === 'password') {
-            passwordInput.type = 'text';
-            toggleIcon.textContent = '🔐';
-        } else {
-            passwordInput.type = 'password';
-            toggleIcon.textContent = '🔒';
-        }
+/**
+ * 비밀번호 가시성 토글
+ */
+function togglePasswordVisibility() {
+    const passwordInput = document.getElementById('empPassword');
+    const toggleIcon = document.querySelector('.toggle-password');
+    if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        toggleIcon.textContent = '🔐';
+    } else {
+        passwordInput.type = 'password';
+        toggleIcon.textContent = '🔒';
     }
+}
+
+/**
+ * 이미지 미리보기
+ */
 function previewProfilePic(event) {
     const input = event.target;
     const reader = new FileReader();
 
-    reader.onload = function(){
+    reader.onload = function() {
         const dataURL = reader.result;
         const profilePic = document.getElementById('profilePic');
         profilePic.src = dataURL;
@@ -33,7 +37,10 @@ function previewProfilePic(event) {
 
     reader.readAsDataURL(input.files[0]);
 }
-/*///////////////직원추가//////////////////*/
+
+/**
+ * 직원 추가
+ */
 function addEmployee() {
     var employeeData = {
         empId: $('#empId').val(),
@@ -54,7 +61,9 @@ function addEmployee() {
         success: function(response) {
             alert("직원이 성공적으로 추가되었습니다.");
             // 테이블에 새 직원 추가
-            appendEmployeeToTable(response);
+            addEmployeeToTable(response);
+            // 조직도에 직원 추가
+            addEmployeeToOrgChart(response);
         },
         error: function(error) {
             alert("직원 추가 중 오류가 발생했습니다.");
@@ -62,51 +71,77 @@ function addEmployee() {
     });
 }
 
-function appendEmployeeToTable(employee) {
-    var employeeRow = `
-        <tr id="employee-${employee.empId}">
-            <td>${employee.empId}</td>
-            <td>${employee.empName}</td>
-            <td>${employee.ROLE}</td>
-            <td>${employee.empPosition}</td>
-            <td>${employee.depCode}</td>
-            <td>${employee.empPhone}</td>
-            <td>${employee.empPassword}</td>
-            <td>${employee.empEmail}</td>
-            <td>
-                <button onclick="editEmployee(${employee.empId})">수정</button>
-                <button onclick="deleteEmployee(${employee.empId})">삭제</button>
-            </td>
-        </tr>
-    `;
-    $('#employee-table-body').append(employeeRow);
+/**
+ * 조직도에 직원 추가
+ */
+function addEmployeeToOrgChart(employee) {
+    let teamClass;
+
+    switch (employee.depCode) {
+        case 'Sales Team':
+            teamClass = '.sales-team';
+            break;
+        case 'Marketing Team':
+            teamClass = '.marketing-team';
+            break;
+        case 'Planning Team':
+            teamClass = '.planning-team';
+            break;
+        case 'Stage Production Team':
+            teamClass = '.stage-production-team';
+            break;
+        default:
+            console.error('Unknown team code.');
+            return;
+    }
+
+    const teamContainer = document.querySelector(`${teamClass} .team`);
+
+    if (teamContainer) {
+        const newEmployee = document.createElement("div");
+        newEmployee.className = "emp";
+        newEmployee.innerHTML = `
+            <span class="empName" onclick="showEmployeeDetail('${employee.empName}')">${employee.empName}</span>
+            <span class="bar">|</span>
+            <span class="empRank">${employee.ROLE}</span>
+        `;
+        teamContainer.appendChild(newEmployee);
+    }
 }
 
-function appendEmployeeToTable(employee) {
-    var employeeRow = `
-        <tr id="employee-${employee.empId}">
-            <td>${employee.empId}</td>
-            <td data-original-name="${employee.empName}">${employee.empName}</td>
-            <td>${employee.ROLE}</td>
-            <td>${employee.empPosition}</td>
-            <td>${employee.depCode}</td>
-            <td>${employee.empPhone}</td>
-            <td>${employee.empPassword}</td>
-            <td>${employee.empEmail}</td>
-            <td>
-                <button onclick="editEmployee(this)">수정</button>
-                <button onclick="deleteEmployee(this)">삭제</button>
-            </td>
-        </tr>
+
+
+/**
+ * 직원 테이블에 추가
+ */
+function addEmployeeToTable(employee) {
+    const tableBody = document.getElementById("employee-table-body");
+    const newRow = document.createElement("tr");
+    
+    newRow.id = `employee-${employee.empId}`; // 직원 ID로 행 ID 설정
+    newRow.innerHTML = `
+        <td>${employee.empId}</td>
+        <td data-original-name="${employee.empName}">${employee.empName}</td>
+        <td>${employee.ROLE}</td>
+        <td>${employee.empPosition}</td>
+        <td>${employee.depCode}</td>
+        <td>${employee.empPhone}</td>
+        <td>${employee.empPassword}</td>
+        <td>${employee.empEmail}</td>
+        <td>
+            <button onclick="editEmployee(this)">수정</button>
+            <button onclick="deleteEmployee(this)">삭제</button>
+        </td>
     `;
-    $('#employee-table-body').append(employeeRow);
+    
+    tableBody.appendChild(newRow);
 }
 
 
 
-/*//////////////////////////////////////////////*/
-
-
+/**
+ * 직원 수정
+ */
 function editEmployee(button) {
     const row = button.parentElement.parentElement;
     const empId = row.cells[0].innerText;
@@ -143,7 +178,6 @@ function cancelEdit(button) {
     `;
 }
 
-
 function completeEdit(button) {
     const row = button.parentElement.parentElement;
 
@@ -151,7 +185,7 @@ function completeEdit(button) {
         const cell = row.cells[i];
         const updatedValue = cell.querySelector('input').value;
 
-        cell.innerHTML = updatedValue; // 업데이트된 이름으로 변경
+        cell.innerHTML = updatedValue; // 업데이트된 값으로 변경
     }
 
     button.innerText = "수정"; // 버튼 텍스트 변경
@@ -161,45 +195,25 @@ function completeEdit(button) {
     `;
 }
 
-function addEmployeeToTable(employee) {
-    const tableBody = document.getElementById("employee-table-body");
-    const newRow = document.createElement("tr");
-    
-    newRow.innerHTML = `
-        <td>${employee.empId}</td>
-        <td>${employee.empName}</td>
-        <td>${employee.role}</td>
-        <td>${employee.position}</td>
-        <td>${employee.department}</td>
-        <td>${employee.phone}</td>
-        <td>${employee.password}</td>
-        <td>${employee.email}</td>
-        <td>
-            <button onclick="editEmployee(this)">수정</button>
-            <button onclick="deleteEmployee(this)">삭제</button>
-        </td>
-    `;
-    
-    tableBody.appendChild(newRow);
-}
+/**
+ * 직원 삭제
+ */
 function deleteEmployee(button) {
     const row = button.parentElement.parentElement;
+    const empId = row.id.split('-')[1]; // ID에서 empId 추출
     const confirmDelete = confirm("정말로 삭제하시겠습니까?");
     
     if (confirmDelete) {
-        row.remove(); // 행 삭제
+        $.ajax({
+            type: "DELETE",
+            url: `/api/employees/${empId}`,
+            success: function(response) {
+                alert("직원이 성공적으로 삭제되었습니다.");
+                row.remove(); // 행 삭제
+            },
+            error: function(error) {
+                alert("직원 삭제 중 오류가 발생했습니다.");
+            }
+        });
     }
-}
-function deleteEmployee(empId) {
-    $.ajax({
-        type: "DELETE",
-        url: `/api/employees/${empId}`,
-        success: function(response) {
-            alert("직원이 성공적으로 삭제되었습니다.");
-            $(`#employee-${empId}`).remove();
-        },
-        error: function(error) {
-            alert("직원 삭제 중 오류가 발생했습니다.");
-        }
-    });
 }

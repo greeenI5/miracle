@@ -5,6 +5,7 @@ th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
 	<link rel="stylesheet" href="/css/emp/detail.css">
 	<link rel="stylesheet" href="/css/admin/admin.css">
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+	<script src="/js/hrm/admin.js"></script>
 	<title>인사관리</title>
 	<script src="/js/hrm/detail.js"></script>
 </head>
@@ -28,8 +29,22 @@ th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
 	                        <div class="emp">
 								 <span class="empName" onclick="showEmployeeDetail('김한솔')">김한솔</span>
 							</div>
+							<!-- <li th:each="department : ${departments}">
+		                        <div class="depName" th:text="${department.depName}"></div>
+		                        <div class="depNum" th:text="${department.depNum}"></div>
+		                        <ul class="team">
+		                            <li th:each="employee : ${department.employees}">
+		                                <div class="emp">
+		                                    <span class="empName" th:text="${employee.name}" 
+		                                          th:onclick="'showEmployeeDetail(' + ${employee.name} + ')'"></span>
+		                                    <span class="bar">|</span>
+		                                    <span class="empRank" th:text="${employee.position}"></span>    
+		                                </div>
+		                            </li>
+		                        </ul>
+		                    </li> -->
 	                        <ul class="team">
-	                            <li >
+	                            <li class="sales-team">
 	                                <div class="teamName">영업팀</div>
 	                                <div class="emp">
 	                                	<span class="empName" onclick="showEmployeeDetail('유해리')">유해리</span>
@@ -62,7 +77,7 @@ th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
 	                                	<span class="empRank">사원</span>
 	                                </div>
 	                            </li>
-	                            <li>
+	                            <li class="marketing-team">
 	                                <div class="teamName">마케팅팀</div>
 	                                <div class="emp">
 	                               		<span class="empName" onclick="showEmployeeDetail('박태주')">박태주</span>
@@ -93,7 +108,7 @@ th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
 	                        	<span class="empName" onclick="showEmployeeDetail('박세나')">박세나</span>
 							</div>
 	                        <ul>
-	                            <li>
+	                            <li class="planning-team">
 	                                <div class="teamName">기획팀</div>
 	                                <div class="emp">
 	                                	<span class="empName" onclick="showEmployeeDetail('김도영')">김도영</span>	 
@@ -116,7 +131,7 @@ th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
 	                                	<span class="empRank">사원</span>
 	                                </div>
 	                            </li>
-	                            <li>
+	                            <li class="stage-production-team">
 	                                <div class="teamName">무대연출팀</div>
 	                                <div class="emp">
 	                                	<span class="empName" onclick="showEmployeeDetail('전용준')">전용준</span>

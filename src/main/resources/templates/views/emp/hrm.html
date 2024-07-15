@@ -5,6 +5,7 @@
 	<link rel="stylesheet" href="/css/emp/detail.css">
 	<link rel="stylesheet" href="/css/emp/emp.css">
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+	<script src="/js/hrm/admin.js"></script>
 	<script src="/js/hrm/detail.js"></script>    
 	<title>인사관리</title>
 </head>
@@ -18,12 +19,12 @@
 	                    <span>MIRCALE</span>	
 	                </div>
 	                <ul class="dep">
-	                    <li>
-	                        <div class="depName">영업부</div>
-	                        <div class="emp">
-								 <span class="empName" onclick="showEmployeeDetail('김한솔')">김한솔</span>
-							</div>
-	                        <ul class="team">
+					<li>
+						<div class="depName">영업부</div>
+						<div class="emp">
+							<span class="empName" onclick="showEmployeeDetail('김한솔')">김한솔</span>
+						</div>
+						<ul class="team">
 	                            <li >
 	                                <div class="teamName">영업팀</div>
 	                                <div class="emp">
@@ -81,7 +82,22 @@
 	                                </div>
 	                            </li>
 	                        </ul>
+							<!-- <li th:each="department : ${departments}">
+		                        <div class="depName" th:text="${department.depName}"></div>
+		                        <div class="depNum" th:text="${department.depNum}"></div>
+		                        <ul class="team">
+		                            <li th:each="employee : ${department.employees}">
+		                                <div class="emp">
+		                                    <span class="empName" th:text="${employee.name}" 
+		                                          th:onclick="'showEmployeeDetail(' + ${employee.name} + ')'"></span>
+		                                    <span class="bar">|</span>
+		                                    <span class="empRank" th:text="${employee.position}"></span>    
+		                                </div>
+		                            </li>
+		                        </ul>
+		                    </li> -->
 	                    </li>
+					
 	                    <li>
 	                        <div class="depName">관리부</div>
 	                        <div class="emp">
