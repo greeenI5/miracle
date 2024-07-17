@@ -1,9 +1,10 @@
 package com.green.miracle.domain.entity;
 
+import java.time.LocalDateTime;
+
 import org.hibernate.annotations.DynamicUpdate;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,30 +17,22 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-
-@DynamicUpdate
-@Getter
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Getter
+@DynamicUpdate
 @Entity
-@Table(name = "comment")
-public class CommentEntity {
-	
-	@EmbeddedId
+@Table(name = "chatBotEntity")
+public class ChatBotEntity {
+	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@ManyToOne
-    @JoinColumn(name = "board_no", nullable = false) // 게시글 외래키
-    private BoardEntity board; // 게시글 엔티티
-	
-	@ManyToOne
-    @JoinColumn(name = "no", nullable = false) // 사원 외래키
-    private EmployeeEntity employee; // 사용자 엔티티
+	private long qNo; //질문번호 (pk)
 	
 	@Column(columnDefinition = "blob", nullable = false)
-	private String commentContent; //댓글 내용
+	private String question; // 질문
 	
-	@Column(nullable = false)
-	private int likeCount; //좋아요 수
-	
+	@Column(columnDefinition = "blob", nullable = false)
+	private String response;// 대답
+
 }
