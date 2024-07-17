@@ -16,7 +16,7 @@ function resetChatbot() {
 	}
 /*공지사항 알려줘*/
 		window.showNotice = function() {
-		$('.message-container2').css('display', 'flex');
+		$('.message-container3').css('display', 'flex');
 		
 	}
 
@@ -51,7 +51,20 @@ function resetChatbot() {
 		$('#scheduleAnswer1').hide();
 	}
 
-	
+function btnMsgSendClicked() {
+    // 입력 필드의 값을 가져오기
+    let question = document.getElementById('question').value;
+
+    // 메시지를 표시할 요소에 값 설정
+    let messagePart = document.getElementById('messageDisplay');
+    messageDisplay.innerText = question;
+
+    // 입력 필드를 비웁니다
+    document.getElementById('question').value = '';
+}
+
+
+
 
 $(document).ready(function() {
     $('.chatbot-toggler').on("click", function() {
