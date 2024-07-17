@@ -1,17 +1,40 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" 
-th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
+      th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
 <head>
-	<!-- link 태그로 css, js 경로 연결하는 내용 넣으시면 됩니다! -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- jQuery UI Datepicker -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    
+	<link rel="stylesheet" href="/css/board/board.css"> 
+	
+	<script>
+        $(function() {
+            $("#datepicker").datepicker({
+                dateFormat: 'yy-mm-dd', // 선택된 날짜의 형식
+                showButtonPanel: true, // 버튼 패널 보이기
+                onSelect: function(dateText, inst) {
+                    $('#selectedDate').val(dateText); // 선택된 날짜를 히든 필드에 설정
+                    $('#datepicker').hide(); // 날짜 선택 후 달력 숨기기
+                }
+            });
+
+            $('#datePickerButton').click(function() {
+                $('#datepicker').toggle(); // 달력 토글(show/hide)
+            });
+        });
+    </script>
+	
+<meta charset="UTF-8">
+<title>Notice</title>
 </head>
 <main>
-	<!-- 이 부분에 실질적 코드 내용 적으면 됩니다! -->
-	
 	 <div class="content">
 		<!-- Left section -->
 		<div class="left-box">
 			<p class="sub-title flex center">게시판</p>
-			<th:block th:insert="~{views/commons/sub-menu}" />
+			<th:block th:insert="~{views/board/sub-menu}" />
 		</div>
 
         <!-- Right section -->
@@ -22,25 +45,29 @@ th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
 	                <div id="content-box" class="container">
 	                		<form>
 			       	 			<div class="search-wrap">
-			       	 					
+		       	 					<div class="datepicker-wrap">
+		                                <input type="text" id="selectedDate" placeholder="날짜를 선택하세요." readonly>
+		                                <button type="button" id="datePickerButton"><i class="ri-calendar-2-line" style="font-size: 30px"></i></button>
+		                                <div id="datepicker"></div>
+                          			</div>
 			           					<input id="search" type="search" placeholder="검색어를 입력해주세요.">
-			            				<button class="btn" type="submit">검색</button>
+			            				<button class="btn" type="submit"><i class="ri-search-line" style="font-size: 24px"></i></button>
 			        			</div>
 		        			</form>
 					        <table>
 					            <thead>
 					                <tr class="post-body">
 					                    <th class="no">번호</th>
-					                    <th>제목</th>
-					                    <th>작성자</th>
-					                    <th>작성일자</th>
-					                    <th>조회수</th>
+					                    <th class="post-subtitle">제목</th>
+					                    <th class="writer">작성자</th>
+					                    <th class="post-date">작성일자</th>
+					                    <th class="view-count">조회수</th>
 					                </tr>
 					            </thead>
 					            <tbody>
 					            	<tr class="post-body">
 					                    <td>1</td>									
-					                    <td>
+					                    <td class="hover-effect">
 											<ul>
 												<li>
 													<a href="">게시판 안내입니다. 이용해주셔서 감사합니다</a>
@@ -53,28 +80,52 @@ th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
 					                </tr>
 					                <tr class="post-body">
 					                    <td>2</td>
-					                    <td>[게시판] 개인정보 처리방침 변경안내처리방침</td>
+					                    <td class="hover-effect">
+					                    	<ul>
+					                    		<li>
+					                    			<a href="">[게시판] 개인정보 처리방침 변경안내처리방침</a>
+					                    		</li>
+					                    	</ul>
+					                    </td>
 					                    <td>박태주</td>
 					                    <td>2024.07.11</td>
 					                    <td>3</td>
 					                </tr>
 					                <tr	class="post-body">
 					                    <td>3</td>
-					                    <td>게시판 안내입니다. 이용해주셔서 감사합니다</td>
+					                    <td class="hover-effect">
+					                    	<ul>
+					                    		<li>
+					                    			<a href="">[게시판] 개인정보 처리방침 변경안내처리방침</a>
+					                    		</li>
+					                    	</ul>
+					                    </td>
 					                    <td>전용준</td>
 					                    <td>2024.07.10</td>
 					                    <td>4</td>
 					                </tr>
 					                <tr	class="post-body">
 					                    <td>4</td>
-					                    <td>게시판 안내입니다. 이용해주셔서 감사합니다</td>
+					                    <td class="hover-effect">
+					                    	<ul>
+					                    		<li>
+					                    			<a href="">[게시판] 개인정보 처리방침 변경안내처리방침</a>
+					                    		</li>
+					                    	</ul>
+					                    </td>
 					                    <td>유해리</td>
 					                    <td>2024.07.10</td>
 					                    <td>5</td>
 					                </tr>
 					                <tr class="post-body">
 					                    <td>5</td>
-					                    <td>게시판 안내입니다. 이용해주셔서 감사합니다</td>
+					                    <td class="hover-effect">
+					                    	<ul>
+					                    		<li>
+					                    			<a href="">[게시판] 개인정보 처리방침 변경안내처리방침</a>
+					                    		</li>
+					                    	</ul>
+					                    </td>
 					                    <td>윤민석</td>
 					                    <td>2024.07.09</td>
 					                    <td>5</td>
@@ -87,6 +138,5 @@ th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
         </div>
         
     </div>
-
 </main>
 </html>
