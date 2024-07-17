@@ -26,7 +26,7 @@ public class PerformancePlanEntity {
 	
 	@ManyToOne // FK 단방향
 	@JoinColumn(name = "employee_no" , nullable =false ) // 가져올 테이블명
-	private long no; // 사원번호
+	private EmployeeEntity employee; // 사원번호
 	
 	@Column(nullable=false)//not null
 	private String perTitle; // 공연제목

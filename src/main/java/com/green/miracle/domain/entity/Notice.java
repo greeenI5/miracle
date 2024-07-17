@@ -26,17 +26,17 @@ public class Notice {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long notice_no; // 글 번호
+	private long noticeNo; // 글 번호
 	
 	@ManyToOne
 	@JoinColumn(name = "employee_no" , nullable =false )
-	private long no; // 사원번호
+	private EmployeeEntity employee; // 사원번호
 	
 	@Column(nullable =false)
-	private String notice_title; // 공지사항 제목
+	private String noticeTitle; // 공지사항 제목
 	
 	@Column(columnDefinition = "blob", nullable =false)
-	private String notice_content; // 공지사항 내용
+	private String noticeContent; // 공지사항 내용
 	
 	
 }
