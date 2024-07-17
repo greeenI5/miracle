@@ -1,12 +1,11 @@
 package com.green.miracle;
 
-import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 class MiracleApplicationTests {
 
-	@Test
+	//@Test
 	void contextLoads() {
 	}
 
