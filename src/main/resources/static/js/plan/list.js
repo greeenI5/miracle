@@ -1,5 +1,3 @@
-// /js/plan/list.js
-
 document.addEventListener("DOMContentLoaded", function() {
     const planList = document.getElementById("plan-list");
 
@@ -11,18 +9,22 @@ document.addEventListener("DOMContentLoaded", function() {
     ];
 
     // 테이블에 데이터 추가
-    plans.forEach(plan => {
-        const row = document.createElement("tr");
+    function addPlansToTable(plans) {
+        plans.forEach(plan => {
+            const row = document.createElement("tr");
 
-        row.innerHTML = `
-            <td>${plan.no}</td>
-            <td>${plan.name}</td>
-            <td>${plan.author}</td>
-            <td>${plan.date}</td>
-        `;
+            row.innerHTML = `
+                <td>${plan.no}</td>
+                <td><a href="details.html?id=${plan.no}" class="plan-name">${plan.name}</a></td>
+                <td>${plan.author}</td>
+                <td>${plan.date}</td>
+            `;
 
-        planList.appendChild(row);
-    });
+            planList.appendChild(row);
+        });
+    }
+
+    addPlansToTable(plans);
 
     // 검색 기능 추가
     const searchForm = document.getElementById("search-form");
@@ -41,17 +43,6 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         // 필터링된 데이터 추가
-        filteredPlans.forEach(plan => {
-            const row = document.createElement("tr");
-
-            row.innerHTML = `
-                <td>${plan.no}</td>
-                <td>${plan.name}</td>
-                <td>${plan.author}</td>
-                <td>${plan.date}</td>
-            `;
-
-            planList.appendChild(row);
-        });
+        addPlansToTable(filteredPlans);
     });
 });

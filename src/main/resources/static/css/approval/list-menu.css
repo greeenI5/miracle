@@ -14,12 +14,9 @@ h1{position: absolute;left: -9999px;}
 	border-bottom: 3px solid var(--sub-grey);
 }
 
-
-
 #left-section>.wrap {
 	min-width: 220px;
 	min-height: calc(100vh - 100px);
-	 
 }
 
 #left-section>.wrap>.sub-menu {
@@ -27,7 +24,6 @@ h1{position: absolute;left: -9999px;}
 }
 
 #left-section>.wrap>.sub-menu>.menu-item{
-	
 	border-bottom: 1px solid var(--sub-grey);
 	border-radius: 3px;
 	background-color: rgba(0,0,0,.05);

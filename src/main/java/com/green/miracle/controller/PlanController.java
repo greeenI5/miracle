@@ -18,4 +18,9 @@ public class PlanController {
 		return "views/plan/write";
 	}
 	
+	@GetMapping("/performance/plan/{plan_no}")
+	public String view() {
+		return "views/plan/view";
+	}
+	
 }
