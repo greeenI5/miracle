@@ -12,6 +12,7 @@ img {
     height: 150px; /* 원의 지름 */
     border-radius: 50%; /* 원 모양으로 잘라내기 */
     overflow: hidden;
+    cursor: pointer;
 }
 
 .profile-pic-container img {
@@ -60,4 +61,9 @@ body > main > div > p > span {
 
 #edit-password-button {
 	min-width: 100px;
+	cursor: pointer;
+}
+
+#save-button, #fix-button {
+	cursor: pointer;
 }
