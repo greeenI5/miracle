@@ -202,6 +202,22 @@ input#question:focus {
     outline: none;
 }
 
+#messagePart {
+	display: flex;
+	flex-direction: column;
+	background-color: var(--sub-navy);
+	color: #333333;
+	max-width:270px;
+	padding: 6px 10px;
+	text-align: right;
+	letter-spacing: -0.5px;
+	margin-bottom: 5px;
+	border-radius: 5px;
+	box-shadow: 0 1px 1px 0 rgb(0 0 0 / 10%);
+	font-size: 14px;
+}
+
+
 .btn-send{
 	display: flex;
 	justify-content: center;
