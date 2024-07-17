@@ -196,6 +196,10 @@ body > main > div > div.right-section > div {
 	height: 36px;
 }
 
+.btn {
+	cursor: pointer;
+}
+
 #content-box > form > div > button:hover {
 	background-color: var(--sub-navy);
 } 
