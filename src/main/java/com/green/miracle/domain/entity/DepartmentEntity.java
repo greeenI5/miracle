@@ -13,9 +13,10 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
-@AllArgsConstructor
+
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @DynamicUpdate
 @Entity
@@ -23,8 +24,7 @@ import lombok.NoArgsConstructor;
 public class DepartmentEntity {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY )
-	private int depCode; //부서코드(pk)
+	private long depCode; //부서코드(pk)
 	
 	@Column(nullable = false)
 	private String depName; //부서이름

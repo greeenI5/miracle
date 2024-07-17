@@ -22,15 +22,15 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name="notice")
-public class Notice {
+public class NoticeEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long noticeNo; // 글 번호
 	
 	@ManyToOne
-	@JoinColumn(name = "employee_no" , nullable =false )
-	private EmployeeEntity employee; // 사원번호
+	@JoinColumn(name = "empNo", nullable = false)
+	private EmployeeEntity employee; //사원번호 (fk)
 	
 	@Column(nullable =false)
 	private String noticeTitle; // 공지사항 제목

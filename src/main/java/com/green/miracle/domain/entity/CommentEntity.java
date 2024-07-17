@@ -1,9 +1,10 @@
+
 package com.green.miracle.domain.entity;
 
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicUpdate;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,7 +17,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-
 @DynamicUpdate
 @Getter
 @Builder
@@ -25,21 +25,24 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "comment")
 public class CommentEntity {
-	
-	@EmbeddedId
+
+	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long commentNo; // 게시글 엔티티
+
 	@ManyToOne
-    @JoinColumn(name = "board_no", nullable = false) // 게시글 외래키
-    private BoardEntity board; // 게시글 엔티티
+	@JoinColumn(name = "empNo", nullable = false) // 사원 외래키 private
+	private EmployeeEntity employee; // 작성자
 	
 	@ManyToOne
-    @JoinColumn(name = "no", nullable = false) // 사원 외래키
-    private EmployeeEntity employee; // 사용자 엔티티
-	
+	@JoinColumn(name = "boardNo", nullable = false) // 사원 외래키 private
+	private BoardEntity board; // 게시글
+
 	@Column(columnDefinition = "blob", nullable = false)
-	private String commentContent; //댓글 내용
-	
+	private String commentContent; // 댓글 내용
+
 	@Column(nullable = false)
-	private int likeCount; //좋아요 수
-	
+	@ColumnDefault("0")
+	private int likeCount; // 좋아요 수
+
 }

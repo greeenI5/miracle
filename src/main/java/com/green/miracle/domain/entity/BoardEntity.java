@@ -1,5 +1,6 @@
 package com.green.miracle.domain.entity;
 
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicUpdate;
 
 import jakarta.persistence.Column;
@@ -27,10 +28,10 @@ public class BoardEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long board_no; // 글번호 (pk)
+	private long boardNo; // 글번호 (pk)
 	
 	@ManyToOne
-	@JoinColumn(name = "no")
+	@JoinColumn(name = "empNo", nullable = false)
 	private EmployeeEntity employee; //사원번호 (fk)
 	
 	@Column(columnDefinition = "varchar(255)", nullable = false)
@@ -40,6 +41,7 @@ public class BoardEntity {
 	private String boardContent; //글내용
 	
 	@Column(columnDefinition = "bigint")
+	@ColumnDefault("0")
 	private long boardComment; //댓글수
 	
 }

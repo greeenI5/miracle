@@ -13,20 +13,18 @@ import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.Getter;
 
-@SequenceGenerator(name="gen_plan", //no키를 1씩 증가시켜 저장
-	sequenceName = "seq_plan", initialValue = 1, allocationSize = 1)
 @Getter
 @Entity
 @Table(name="performance_plan")
 public class PerformancePlanEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gen_plan")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long planNo; //기획번호
 	
 	@ManyToOne // FK 단방향
-	@JoinColumn(name = "employee_no" , nullable =false ) // 가져올 테이블명
-	private EmployeeEntity employee; // 사원번호
+	@JoinColumn(name = "empNo", nullable = false)
+	private EmployeeEntity employee; //사원번호 (fk)
 	
 	@Column(nullable=false)//not null
 	private String perTitle; // 공연제목
@@ -41,7 +39,7 @@ public class PerformancePlanEntity {
 	private LocalDate finalAt; // 종료일
 	
 	@Column(nullable=false)//not null
-	private String locatein; // 공연장소
+	private String location; // 공연장소
 	
 	private String perPoster; // 포스터
 	
