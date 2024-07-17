@@ -12,21 +12,19 @@ import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.Getter;
 
-@SequenceGenerator(name="gen_schedule", // no키를 1씩 증가시켜 저장함
-	sequenceName = "seq_schedule", initialValue = 1, allocationSize = 1)
+
 @Getter
 @Entity //entity임을 칭함
 @Table(name="schedule") // 테이블명 설정
 public class ScheduleEntity {
 	
 	@Id // PK
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "gen_schedule")
-	//@GeneratedValue(strategy = GenerationType.IDENTITY) //IDENTITY가 바로 Auto_increment
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long schNo; //일정번호
 	
 	@ManyToOne // FK 단방향
-	@JoinColumn(name = "employee_no" , nullable =false ) // 가져올 테이블명
-	private EmployeeEntity employee; // 사원번호
+	@JoinColumn(name = "empNo",nullable = false)
+	private EmployeeEntity employee; //사원번호 (fk)
 	
 	@Column(nullable=false)//not null
 	private LocalDate startAt; //시작일

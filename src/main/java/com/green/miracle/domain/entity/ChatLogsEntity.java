@@ -23,15 +23,15 @@ import lombok.NoArgsConstructor;
 @Getter
 @DynamicUpdate
 @Entity
-@Table(name = "chatLogsEntity")
+@Table(name = "chatLogs")
 public class ChatLogsEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long logNo; //로그번호 (pk)
 	
 	@ManyToOne
-	@JoinColumn(name = "no")
-	private EmployeeEntity employeeEntity; //사원번호 (fk)
+	@JoinColumn(name = "empNo")
+	private EmployeeEntity employee; //사원번호 (fk)
 	
 	@Column(columnDefinition = "timestamp", nullable = false)
 	private LocalDateTime logTime; //

@@ -23,7 +23,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @DynamicUpdate
 @Entity
-@Table(name = "chatBotEntity")
+@Table(name = "chatBot")
 public class ChatBotEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,6 +33,6 @@ public class ChatBotEntity {
 	private String question; // 질문
 	
 	@Column(columnDefinition = "blob", nullable = false)
-	private String response;// 대답
+	private String answer;// 대답
 
 }
