@@ -2,8 +2,8 @@
 
 h1{position: absolute;left: -9999px;}
 
-.content>.left-box{
-	padding: 0 15px;
+.content-left>.left-box{
+	padding-right: 30px;
 	border-right: 1px solid var(--sub-grey);
 	box-shadow: 5px 0 5px rgba(0, 0, 0, 0.1);
 }
