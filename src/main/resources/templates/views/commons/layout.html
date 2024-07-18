@@ -44,10 +44,10 @@
 	<main th:replace="${pMain}"></main>
 	<!-- ////////////////////////////////////////////////챗봇영역///////////////////////////////////////////////////////////////////// -->
 	<footer>
-			<button class="chatbot-toggler">
-		<span class="material-symbols-outlined"><i class="ri-chat-1-fill"></i></span>
+		<button class="chatbot-toggler">
+		<span class="material-symbols-outlined" ><i class="ri-chat-1-fill"></i></span>
 		<span class="material-symbols-outlined"><i class="ri-close-fill"></i></span>
-	</button>
+		</button>
     
     <div class="flex" id="bot-container">
         <!-- 상단 메뉴바 -->
@@ -57,7 +57,9 @@
             		<div class="flex">
 	            		<span><i id="b-icon"></i></span>
 	            		<span><b>Miraclebot</b></span>
+	     
             		</div>
+            		
             	</section>             
             </div>
         </section>
@@ -83,63 +85,23 @@
 					</div>	
 				</div>
 				<div class="button-container">
-					<button class="bot-category" onclick="showContact()">연락처 알려줘</button>
-					<button class="bot-category" onclick="showSchedule()">일정 알려줘</button>
-					<button class="bot-category" onclick="showNotice()">공지사항 알려줘</button>
+					<button class="bot-category" id="showContact">연락처 알려줘</button>
+					<button class="bot-category" id="showSchedule">일정 알려줘</button>
+					<button class="bot-category" id="showNotice">공지사항 알려줘</button>
 				</div>
             </div>
        
-		<!-- 부서카테고리 선택 -->
+		<!-- 연락처 이름 입력 요청 -->
 			<div class="message-container1" style="display: none">
 				<div id="bot-icon">
 					<img src="/images/bot/chatbot.png">
 				</div>
 				<div class="bot-message">
-					<p>부서를 선택해주세요.</p>
+					<p>이름을 입력해주세요.</p>
 				</div>	
 			</div>
-			<div class="button-container contact-buttons" style="display: none">
-				<button class="bot-category" onclick="showMessage1()">영업팀</button>
-				<button class="bot-category" onclick="showMessage2()">마케팅팀</button>
-				<button class="bot-category" onclick="showMessage3()">기획팀</button>
-				<button class="bot-category" onclick="showMessage4()">무대연출팀</button>
-			</div>
-           <!-- 부서선택 메세지 -->
-         	<div class="message-container">
-          	<div class="flex contact" id="reqMessage1" style="display: none">
-          		<div id="bot-icon">
-					<img src="/images/bot/chatbot.png">
-				</div>
-				<div class="bot-message">
-					<p>영업팀을 선택하셨군요. <br>이름을 입력해주세요.</p>
-				</div>
-            </div>
-            <div class="flex contact" id="reqMessage2" style="display: none">
-            	<div id="bot-icon">
-					<img src="/images/bot/chatbot.png">
-				</div>
-				<div class="bot-message">
-					<p>마케팅팀을 선택하셨군요. <br>이름을 입력해주세요.</p>
-				</div>
-            </div>
-            <div class="flex contact" id="reqMessage3" style="display: none">
-            	<div id="bot-icon">
-					<img src="/images/bot/chatbot.png">
-				</div>
-				<div class="bot-message">
-					<p>기획팀을 선택하셨군요. <br>이름을 입력해주세요.</p>
-				</div>
-            </div>
-            <div class="flex contact" id="reqMessage4" style="display: none">
-            	<div id="bot-icon">
-					<img src="/images/bot/chatbot.png">
-				</div>
-				<div class="bot-message">
-					<p>무대연출팀을 선택하셨군요. <br>이름을 입력해주세요.</p>
-				</div>
-            </div>
-           </div>
-           <!-- 일정선택 메세지 -->
+
+           <!-- 일정 종류 입력 요청 -->
            <div id="chat">
 				<div class="message-container2" style="display: none">
 					<div id="bot-icon">
@@ -152,7 +114,6 @@
 				<div class="button-container schedules-buttons" style="display: none">
 					<button class="bot-category" onclick="showMessage5()">오늘의 일정</button>
 					<button class="bot-category" onclick="showMessage6()">공연 일정</button>
-
 				</div>
             </div>
             	<div class="flex" id="scheduleAnswer1" style="display: none">
@@ -167,25 +128,26 @@
             		<div id="bot-icon">
 						<img src="/images/bot/chatbot.png">
 					</div>
-				
 						<div class="bot-message">
 							<p>공연 일정을 알려드릴게요.</p>
 						</div>
             	</div>
+            	
 				<!-- 공지사항 클릭후 메세지 -->
 				<div class="message-container3" style="display: none">
 					<div id="bot-icon">
 						<img src="/images/bot/chatbot.png">
 					</div>
 					<div class="bot-message">
-						<p>공지사항을 알려드릴게요</p>
+						<p>공지사항 키워드를 입력해주세요.</p>
 					</div>
 				</div>
-				<div id="messageDisplay">
-
-					
-				</div>
-			</main>	
+				
+				<!-- 입력메세지가 출력되는 부분 -->
+				<div id="messageDisplay"></div>
+				<div id="serverBotMessage" class="server-message-container"></div>
+			</main>
+			
         <!-- 하단 채팅창 입니다. -->
         <section class="footer" id="bot-footer">
             <div class="btm">
