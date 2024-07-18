@@ -7,8 +7,8 @@ document.addEventListener('DOMContentLoaded', function () {
   const eventTitle = document.querySelector('.event-title'); // 일정 제목을 표시할 요소
 
   let today = new Date();
-  let selectedStartDate = null; // 선택된 시작일 
-  let selectedEndDate = null; // 선택된 종료일
+  let selectedstartAt = null; // 선택된 시작일 
+  let selectedfinishAt = null; // 선택된 종료일
 
   // 메인 헤더 날짜 업데이트
   mainDate.textContent = `${today.getFullYear()}년 ${today.getMonth() + 1}월`;
@@ -65,17 +65,17 @@ document.addEventListener('DOMContentLoaded', function () {
         const selectedDate = new Date(this.dataset.date);
         const formattedDate = `${selectedDate.getFullYear()}-${selectedDate.getMonth() + 1}-${selectedDate.getDate()}`;
         
-        if (!selectedStartDate) {
-          selectedStartDate = formattedDate; // 시작일 설정
+        if (!selectedstartAt) {
+          selectedstartAt = formattedDate; // 시작일 설정
           this.classList.add('selected-start'); // 시작일에 스타일 추가
-        } else if (!selectedEndDate && selectedDate >= new Date(selectedStartDate)) {
-          selectedEndDate = formattedDate; // 종료일 설정
+        } else if (!selectedfinishAt && selectedDate >= new Date(selectedstartAt)) {
+          selectedfinishAt = formattedDate; // 종료일 설정
           this.classList.add('selected-end'); // 종료일에 스타일 추가
-          updateEventTitle(selectedStartDate, selectedEndDate); // 제목 업데이트
-          drawMemoBox(selectedStartDate, selectedEndDate); // 메모 박스 그리기
+          updateEventTitle(selectedstartAt, selectedfinishAt); // 제목 업데이트
+          drawMemoBox(selectedstartAt, selectedfinishAt); // 메모 박스 그리기
         } else {
-          selectedStartDate = formattedDate; // 새로운 시작일로 설정
-          selectedEndDate = null; // 종료일 초기화
+          selectedstartAt = formattedDate; // 새로운 시작일로 설정
+          selectedfinishAt = null; // 종료일 초기화
           removeSelection(); // 기존 선택 제거
           this.classList.add('selected-start'); // 새 시작일에 스타일 추가
         }
@@ -87,8 +87,8 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // 일정 제목 업데이트 함수
-  function updateEventTitle(startDate, endDate) {
-    eventTitle.innerHTML = `<p>일정 제목: ${startDate} ~ ${endDate}</p>`;
+  function updateEventTitle(startAt, finishAt) {
+    eventTitle.innerHTML = `<p>일정 제목: ${startAt} ~ ${finishAt}</p>`;
   }
 
   // 선택 상태 제거 함수
@@ -98,90 +98,103 @@ document.addEventListener('DOMContentLoaded', function () {
       day.classList.remove('selected-start', 'selected-end');
     });
   }
+	// 비동기 상세페이지
+	function loadDetailPage(date) {
+	    fetch(`/schedule/detail?date=${date}`)
+	        .then(response => response.text())  // 텍스트 형식으로 응답 받기
+	        .then(data => {
+	            // 현재 날짜 구하기
+	            const today = new Date();
+	            const todayDate = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
+	            
+	            // 템플릿 문자열을 사용하여 HTML 생성 (data는 서버에서 받아온 텍스트 데이터로 가정)
+	            contentRightMsg.innerHTML = `
+	                <div class="selected-date">
+	                    <p>선택한 날짜: ${date}</p>
+	                </div>
+	                
+	                <div class="date-selection">
+	                    <label for="start-date">시작일:</label>
+	                    <input type="date" id="start-date" name="start-date">
+	        
+	                    <label for="end-date">종료일:</label>
+	                    <input type="date" id="end-date" name="end-date">
+	                </div>
+	                <hr>
+	                <div class="memo-section">
+	                    <label for="memo-title">메모 제목:</label>
+	                    <input type="text" id="memo-title" name="memo-title" placeholder="메모 제목 입력">
+	                    
+	                    <label for="memo-content">메모 내용:</label>
+	                    <textarea id="memo-content" name="memo-content" placeholder="메모 내용 입력"></textarea>
+	                    
+	                    <button id="save-memo">메모 저장</button>
+	                </div>
+	            `;
+	
+	            // 저장 버튼 클릭 이벤트 처리
+	            document.getElementById('save-memo').addEventListener('click', function () {
+	                const startAt = document.getElementById('start-date').value;
+	                const finishAt = document.getElementById('end-date').value;
+	                const schTitle = document.getElementById('memo-title').value;
+	
+	                // 필수 필드 확인
+	                if (!startAt || !finishAt || !schTitle) {
+	                    alert('시작일, 종료일, 메모 제목은 필수입니다.');
+	                    return;
+	                }
+	
+	                const formData = new FormData();
+	                formData.append('schTitle', schTitle);
+	                formData.append('schContent', document.getElementById('memo-content').value);
+	                formData.append('startAt', startAt);
+	                formData.append('finishAt', finishAt);
+	
+	                // 메모 저장 API 호출 (서버로 POST 요청)
+	                fetch('/schedule/writeSchedule', {
+	                    method: 'POST',
+	                    body: formData // FormData 객체를 요청 본문에 포함
+	                })
+	                .then(response => {
+	                    if (!response.ok) {
+	                        throw new Error('Network response was not ok');
+	                    }
+	                    return response.text(); // 필요에 따라 응답 형식 변경
+	                })
+	                .then(result => {
+	                    if (result.includes('success')) { // 서버의 응답이 "success"를 포함하는지 확인
+	                        alert('메모가 저장되었습니다.');
+	                        // 메모 저장 후 캘린더 업데이트
+	                        initCalendar(today.getFullYear(), today.getMonth());
+	                    } else {
+	                        alert('메모 저장에 실패했습니다.');
+	                    }
+	                })
+	                .catch(error => {
+	                    console.error('Error saving memo:', error);
+	                    alert('메모 저장 중 오류가 발생했습니다.');
+	                });
+	            });
+	        })
+	        .catch(error => {
+	            console.error('Error loading detail page:', error);
+	            contentRightMsg.innerHTML = '<p>상세 정보를 로드하는 중 오류가 발생했습니다.</p>';
+	        });
+	}
 
-  // 비동기로 상세 페이지를 로드하는 함수
-  function loadDetailPage(date) {
-    fetch(`/schedule/detail?date=${date}`)
-      .then(response => response.json())  // JSON 형식으로 응답 받기
-      .then(data => {
-        // 현재 날짜 구하기
-        const today = new Date();
-        const todayDate = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
-        
-        // 템플릿 문자열을 사용하여 HTML 생성
-        contentRightMsg.innerHTML = `
-          <div class="selected-date">
-            <p>선택한 날짜: ${date}</p>
-          </div>
-          
-          <!-- 시작일과 종료일 선택 -->
-          <div class="date-selection">
-            <label for="start-date">시작일:</label>
-            <input type="date" id="start-date" name="start-date" value="${data.startDate || ''}">
-        
-            <label for="end-date">종료일:</label>
-            <input type="date" id="end-date" name="end-date" value="${data.endDate || ''}">
-          </div>
-          <hr></hr>
-          <div class="memo-section">
-            <label for="memo-title">메모 제목:</label>
-            <input type="text" id="memo-title" name="memo-title" placeholder="메모 제목 입력" value="${data.title || ''}">
-            
-            <label for="memo-content">메모 내용:</label>
-            <textarea id="memo-content" name="memo-content" placeholder="메모 내용 입력">${data.content || ''}</textarea>
-            
-            <button id="save-memo">메모 저장</button>
-          </div>
-        `;
 
-        // 저장 버튼 클릭 이벤트 처리
-        document.getElementById('save-memo').addEventListener('click', function () {
-          const title = document.getElementById('memo-title').value;
-          const content = document.getElementById('memo-content').value;
-          const startDate = document.getElementById('start-date').value;
-          const endDate = document.getElementById('end-date').value;
-
-          // 메모 저장 API 호출 (서버로 POST 요청)
-          fetch('/schedule/saveMemo', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ date, title, content, startDate, endDate })
-          })
-          .then(response => response.json())
-          .then(result => {
-            if (result.success) {
-              alert('메모가 저장되었습니다.');
-              // 메모 저장 후 캘린더 업데이트
-              initCalendar(today.getFullYear(), today.getMonth());
-            } else {
-              alert('메모 저장에 실패했습니다.');
-            }
-          })
-          .catch(error => {
-            console.error('Error saving memo:', error);
-            alert('메모 저장 중 오류가 발생했습니다.');
-          });
-        });
-      })
-      .catch(error => {
-        console.error('Error loading detail page:', error);
-        contentRightMsg.innerHTML = '<p>상세 정보를 로드하는 중 오류가 발생했습니다.</p>';
-      });
-  }
 
   // 메모 박스를 캘린더에 그리는 함수
-  function drawMemoBox(startDate, endDate) {
-    const start = new Date(startDate);
-    const end = new Date(endDate);
+  function drawMemoBox(startAt, finishAt) {
+    const start = new Date(startAt);
+    const end = new Date(finishAt);
 
-    const startDateElements = calendarBody.querySelectorAll(`.day[data-date="${start.getFullYear()}-${start.getMonth() + 1}-${start.getDate()}"]`);
-    const endDateElements = calendarBody.querySelectorAll(`.day[data-date="${end.getFullYear()}-${end.getMonth() + 1}-${end.getDate()}"]`);
+    const startAtElements = calendarBody.querySelectorAll(`.day[data-date="${start.getFullYear()}-${start.getMonth() + 1}-${start.getDate()}"]`);
+    const finishAtElements = calendarBody.querySelectorAll(`.day[data-date="${end.getFullYear()}-${end.getMonth() + 1}-${end.getDate()}"]`);
 
-    if (startDateElements.length > 0 && endDateElements.length > 0) {
-      const startElement = startDateElements[0];
-      const endElement = endDateElements[0];
+    if (startAtElements.length > 0 && finishAtElements.length > 0) {
+      const startElement = startAtElements[0];
+      const endElement = finishAtElements[0];
       const startIndex = Array.from(calendarBody.children).indexOf(startElement);
       const endIndex = Array.from(calendarBody.children).indexOf(endElement);
 

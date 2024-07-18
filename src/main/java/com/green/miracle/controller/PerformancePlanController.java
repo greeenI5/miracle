@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
-public class PlanController {
+public class PerformancePlanController {
 	
 	@GetMapping("/performance/plan")
 	public String list() {
