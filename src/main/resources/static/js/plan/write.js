@@ -23,27 +23,31 @@ document.addEventListener('DOMContentLoaded', function() {
     // 폼 제출 이벤트 처리
     const performanceForm = document.getElementById('performanceForm');
     
-    performanceForm.addEventListener('submit', function(event) {
-        event.preventDefault(); // 폼 제출 기본 동작 방지
+    if (performanceForm) { // 폼 요소가 존재하는지 확인
+        performanceForm.addEventListener('submit', function(event) {
+            event.preventDefault(); // 폼 제출 기본 동작 방지
 
-        const formData = new FormData(performanceForm);
+            const formData = new FormData(performanceForm);
 
-        fetch('/savePerformance', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                alert('공연 기획서가 저장되었습니다.');
-                // 저장 후 필요한 동작 추가
-            } else {
-                alert('저장에 실패했습니다.');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('저장 중 오류가 발생했습니다.');
+            fetch('/performance/plans/{plan_no}', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('공연 기획서가 저장되었습니다.');
+                    // 저장 후 필요한 동작 추가
+                } else {
+                    alert('저장에 실패했습니다.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('저장 중 오류가 발생했습니다.');
+            });
         });
-    });
+    } else {
+        console.error('performanceForm 요소를 찾을 수 없습니다.');
+    }
 });

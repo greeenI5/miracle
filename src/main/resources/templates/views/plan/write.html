@@ -4,71 +4,76 @@
     <script defer src="/js/plan/write.js"></script> <!-- scripts.js 경로 수정 -->
     <link rel="stylesheet" href="/css/plan/write.css"> <!-- styles.css 경로 수정 -->
 </head>
+
 <main>
-    <div class="flex container">
-	    <div class="content-top">
-	        <div class="logo-preview">
-	            <img id="logoPreview" src="/images/logo/m-logo.png" alt="Company Logo">
-	        </div>
-	        <div class="form-group">
-	            <div class="image-preview">
-	                <img id="imagePreview" src="#" alt="Image Preview" style="display: none;">
+    <form id="performanceForm" method="post" enctype="multipart/form-data">
+    	<div class="flex container">
+	        <div class="content-top">
+	            <div class="logo-preview">
+	                <img id="logoPreview" src="/images/logo/m-logo.png" alt="Company Logo">
 	            </div>
-	            <input type="file" id="image" name="image" accept="image/*" style="display: none;" required>
-	            <label for="image" class="upload-label">포스터 (420mm x 594mm):</label>
-	            <button type="button" class="upload-button" onclick="document.getElementById('image').click();">파일 선택</button>
-	        </div>
-	        <div class="form-group">
-                <label for="description">기획의도:</label>
-                <textarea id="description" name="description" required></textarea>
-	        </div>
-	     </div>
-	     <div class="content-left">
-	         <h1 class="title">공연 기획서</h1>
-	         <p class="subtitle" style="color: #2e3d86">PERFORMANCE REPORT</p>
-	         <hr style="margin: 20px 0; margin-bottom: 20px;">
-             <div class="form-group">
-                 <label for="date">작성일:</label>
-                 <input type="date" id="date" name="date" required>
-             </div>
-             <div class="form-group">
-                 <label for="planner">기획총괄:</label>
-                 <input type="text" id="planner" name="planner" placeholder="기획자명" required>
-             </div>
-	         <div class="form-group">
-                 <label for="title">공연명:</label>
-                 <input type="text" id="title" name="title" placeholder="공연명" required>
-             </div>   
-             <div class="form-group">
-                 <label for="genre">장르:</label>
-                 <select id="genre" name="genre" required>
-                     <option value="" disabled selected>장르 선택</option>
-                     <option value="뮤지컬">뮤지컬</option>
-                     <option value="강연">강연</option>
-                     <option value="연극">연극</option>
-                     <option value="콘서트">콘서트</option>
-                     <option value="마술">마술</option>
-                 </select>
-             </div>
-	         <div class="form-group">
-	             <label for="startDate">공연 시작일:</label>
-	             <input type="date" id="startDate" name="startDate" required>
-	         </div>
-	         <div class="form-group">
-	             <label for="endDate">공연 종료일:</label>
-	             <input type="date" id="endDate" name="endDate" required>
-	         </div>
-	         <div class="form-group">
-	             <label for="location">장소:</label>
-	             <input type="text" id="location" name="location" placeholder="장소 입력" required>
-	         </div>
-			<div class="button-container">
-					<button type="submit" form="performanceForm">결재요청</button>
-					<button type="submit" onclick="/performance/plan">작성취소</button>
-			</div>
-        </div>
-    </div>
-    </main>
-    <footer>
-	</footer>
+	                <div class="form-group">
+	                    <div class="image-preview">
+	                        <img id="imagePreview" src="#" alt="Image Preview" style="display: none;">
+	                    </div>
+	                    <input type="file" id="image" name="image" accept="image/*" style="display: none;" required>
+	                    <label for="image" class="upload-label">포스터 (420mm x 594mm):</label>
+	                    <button type="button" class="upload-button" onclick="document.getElementById('image').click();">파일 선택</button>
+	                </div>
+	                <div class="form-group">
+	                    <label for="description">기획의도:</label>
+	                    <textarea id="description" name="description" required></textarea>
+	                </div>
+                </div>
+                <div class="content-right">
+					<h1 class="title">공연 기획서</h1>
+	       			<p class="subtitle" style="color: #2e3d86">PERFORMANCE REPORT</p>
+	        		<hr style="margin: 20px 0; margin-bottom: 20px;">
+	                <div class="form-group">
+	                    <label for="date">작성일:</label>
+	                    <input type="date" id="date" name="date" required>
+	                </div>
+	                <div class="form-group">
+	                    <label for="planner">기획총괄:</label>
+	                    <input type="text" id="planner" name="planner" placeholder="기획자명" required>
+	                </div>
+	                <div class="form-group">
+	                    <label for="title">공연명:</label>
+	                    <input type="text" id="title" name="title" placeholder="공연명" required>
+	                </div>   
+	                <div class="form-group">
+	                    <label for="genre">장르:</label>
+	                    <select id="genre" name="genre" required>
+	                        <option value="" disabled selected>장르 선택</option>
+	                        <option value="뮤지컬">뮤지컬</option>
+	                        <option value="강연">강연</option>
+	                        <option value="연극">연극</option>
+	                        <option value="콘서트">콘서트</option>
+	                        <option value="마술">마술</option>
+	                    </select>
+	                </div>
+	                <div class="form-group">
+	                    <label for="startDate">공연 시작일:</label>
+	                    <input type="date" id="startDate" name="startDate" required>
+	                </div>
+	                <div class="form-group">
+	                    <label for="endDate">공연 종료일:</label>
+	                    <input type="date" id="endDate" name="endDate" required>
+	                </div>
+	                <div class="form-group">
+	                    <label for="location">장소:</label>
+	                    <input type="text" id="location" name="location" placeholder="장소 입력" required>
+	                </div>
+	                <div class="button-container">
+	                    <button type="submit">결재요청</button>
+	                    <button type="button" onclick="window.location.href='/performance/plan'">작성취소</button>
+	                </div>
+				</div>
+       		</div>
+   		</div>
+	</form>
+</main>
+<footer>
+</footer>
+
 </html>
