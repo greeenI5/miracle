@@ -43,19 +43,21 @@ function previewProfilePic(event) {
  */
 function addEmployee() {
     var employeeData = {
-        empId: $('#empId').val(),
-        empName: $('#empName').val(),
-        ROLE: $('#ROLE').val(),
-        empPosition: $('#empPosition').val(),
+        empId: $('#empNo').val(),
+        empName: $('#name').val(),
+        ROLE: $('#roles').val(),
+        empPosition: $('#position').val(),
         depCode: $('#depCode').val(),
-        empPhone: $('#empPhone').val(),
-        empPassword: $('#empPassword').val(),
-        empEmail: $('#empEmail').val()
+        empPhone: $('#phone').val(),
+        empPassword: $('#password').val(),
+        empEmail: $('#email').val()
     };
-
+	
+	console.log(employeeData)
+	
     $.ajax({
         type: "POST",
-        url: "/api/employees",
+        url: "/admin/hr/mgm",
         contentType: "application/json",
         data: JSON.stringify(employeeData),
         success: function(response) {
@@ -77,17 +79,17 @@ function addEmployee() {
 function addEmployeeToOrgChart(employee) {
     let teamClass;
 
-    switch (employee.depCode) {
-        case 'Sales Team':
+    switch (parseInt(employee.depCode)) {
+        case 1000:
             teamClass = '.sales-team';
             break;
-        case 'Marketing Team':
+        case 1003:
             teamClass = '.marketing-team';
             break;
-        case 'Planning Team':
+        case 1004:
             teamClass = '.planning-team';
             break;
-        case 'Stage Production Team':
+        case 1005:
             teamClass = '.stage-production-team';
             break;
         default:
@@ -101,13 +103,14 @@ function addEmployeeToOrgChart(employee) {
         const newEmployee = document.createElement("div");
         newEmployee.className = "emp";
         newEmployee.innerHTML = `
-            <span class="empName" onclick="showEmployeeDetail('${employee.empName}')">${employee.empName}</span>
+            <span class="empName" onclick="showEmployeeDetail('${employee.name}')">${employee.name}</span>
             <span class="bar">|</span>
             <span class="empRank">${employee.ROLE}</span>
         `;
         teamContainer.appendChild(newEmployee);
     }
 }
+
 
 
 
@@ -121,13 +124,11 @@ function addEmployeeToTable(employee) {
     newRow.id = `employee-${employee.empId}`; // 직원 ID로 행 ID 설정
     newRow.innerHTML = `
         <td>${employee.empId}</td>
-        <td data-original-name="${employee.empName}">${employee.empName}</td>
+        <td data-original-name="${employee.name}">${employee.name}</td>
         <td>${employee.ROLE}</td>
-        <td>${employee.empPosition}</td>
+        <td>${employee.position}</td>
         <td>${employee.depCode}</td>
-        <td>${employee.empPhone}</td>
-        <td>${employee.empPassword}</td>
-        <td>${employee.empEmail}</td>
+        <td>${employee.phone}</td>
         <td>
             <button onclick="editEmployee(this)">수정</button>
             <button onclick="deleteEmployee(this)">삭제</button>
@@ -206,7 +207,7 @@ function deleteEmployee(button) {
     if (confirmDelete) {
         $.ajax({
             type: "DELETE",
-            url: `/api/employees/${empId}`,
+           	url: "/admin/hr/mgm",
             success: function(response) {
                 alert("직원이 성공적으로 삭제되었습니다.");
                 row.remove(); // 행 삭제

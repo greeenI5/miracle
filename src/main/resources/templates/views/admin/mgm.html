@@ -3,14 +3,14 @@
 <head>
     <link rel="stylesheet" href="/css/admin/mgm.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="/js/hrm/admin.js"></script>
+    <script th:src="@{/js/hrm/admin.js}"></script>
     <title>인사관리</title>
 </head>
 <body>
 <main>
     <div class="container">
         <div class="employee-add">
-            <form id="employee-form">
+            <form id="employee-form" th:action="@{/admin/hr/mgm}" method="post">
             <h1 class="title1">직원추가</h1>
 				<div>
 					<!-- 이미지 클릭 시 사진 바뀜 -->
@@ -24,44 +24,44 @@
 				</div>
 				<div>
                     <span>사원번호</span> 
-                    <input type="text" id="empId" class="box" name="empId" placeholder="사원번호" oninput="syncEmpIdWithPassword()">
+                    <input type="text" id="empId" class="box" name="empNo" placeholder="사원번호" oninput="syncEmpIdWithPassword()">
                 </div>
                 <div class="password-container">
                     <span>비밀번호</span>
-                    <input type="password" id="empPassword" class="box" name="empPassword" placeholder="사원번호와 동일">
+                    <input type="password" id="empPassword" class="box" name="password" placeholder="사원번호와 동일">
                     <i class="toggle-password" onclick="togglePasswordVisibility()">🔒</i>
                 </div>
                 <div>
                     <span>이름</span> 
-                    <input type="text" id="empName" class="box" name="empName" placeholder="이름">
+                    <input type="text" id="empName" class="box" name="name" placeholder="이름">
                 </div>
                 <div>
                     <span>권한</span> 
-                    <select id="ROLE" class="box" name="ROLE">
+                    <select id="ROLE" class="box" name="roles">
                         <option value="employee">사원</option>
                         <option value="admin">관리자</option>
                     </select>
                 </div>
                 <div>
                     <span>직급</span> 
-                    <input type="text" id="empPosition" class="box" name="empPosition" placeholder="직급">
+                    <input type="text" id="empPosition" class="box" name="position" placeholder="직급">
                 </div>
                 <div>
                     <span>부서코드</span> 
                     <select id="depCode" class="box" name="depCode">
-                        <option value="sales">영업팀</option>
-                        <option value="marketing">마케팅팀</option>
-                        <option value="planning">기획팀</option>
-                        <option value="stage">무대연출팀</option>
+                        <option value=1000>영업팀</option>
+                        <option value=1003>마케팅팀</option>
+                        <option value=1004>기획팀</option>
+                        <option value=1005>무대연출팀</option>
                     </select>
                 </div>
                 <div>
                     <span>핸드폰번호</span> 
-                    <input type="text" id="empPhone" class="box phone-input" name="empPhone" placeholder="핸드폰번호">
+                    <input type="text" id="empPhone" class="box phone-input" name="phone" placeholder="핸드폰번호">
                 </div>
                 <div>
                     <span>이메일</span> 
-                    <input type="email" id="empEmail" class="box" name="empEmail" placeholder="이메일">
+                    <input type="email" id="empEmail" class="box" name="email" placeholder="이메일">
                 </div>
                 <button type="button" onclick="addEmployee()">등록</button>
             </form>
@@ -93,41 +93,17 @@
 							<button onclick="deleteEmployee(this)">삭제</button>
 						</td>
 					</tr>
-                    <tr>
-                        <td>1002</td>
-                        <td>유해리</td>
-                        <td>사원</td>
-                        <td>팀장</td>
-                        <td>영업팀</td>
-                        <td>010-0000-0001</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>1003</td>
-                        <td>박민규</td>
-                        <td>사원</td>
-                        <td>대리</td>
-                        <td>영업팀</td>
-                        <td>010-0000-0002</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>1004</td>
-                        <td>신현직</td>
-                        <td>사원</td>
-                        <td>부장</td>
-                        <td>영업팀</td>
-                        <td>010-0000-0003</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>1005</td>
-                        <td>이지원</td>
-                        <td>사원</td>
-                        <td>차장</td>
-                        <td>영업팀</td>
-                        <td>010-1234-5678</td>
-                        <td></td>
+                    <tr th:each="dto:${list}">
+                        <td th:text="${dto.empNo}"></td>
+                        <td th:text="${dto.name}"></td>
+                        <td th:text="${dto.roles}"></td>
+                        <td th:text="${dto.position}"></td>
+                        <td th:text="${dto.depCode}"></td>
+                        <td th:text="${dto.phone}"></td>
+                        <td>
+                            <button onclick="editEmployee(this)">수정</button>
+                            <button onclick="deleteEmployee(this)">삭제</button>
+                        </td>
                     </tr>
                 </tbody>
             </table>
