@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.green.miracle.service.AdminHrService;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 
 @RequiredArgsConstructor
 @Controller
@@ -24,6 +27,12 @@ public class AdminHrController {
 	@PostMapping("/admin/hr/mgm")
 	public String detail() {
 		return "views/admin/mgm";
+	}
+	
+	@ResponseBody
+	@PostMapping("/admin/hr/mgm/{no}")
+	public String getMethodName() {
+		return "";
 	}
 	
 }
