@@ -19,6 +19,7 @@ import lombok.Setter;
 public class ScheduleCreateDTO {
 	
 	//필드 이름은 form 태그 내부의 입력 요소(input, select, textarea...)들의 name과 일치해야 함
+	private long schNo;
 	private EmployeeEntity employee; // 사원번호 (FK)
 	private LocalDate startAt;
 	private LocalDate finishAt;
@@ -27,6 +28,7 @@ public class ScheduleCreateDTO {
 	
 	public ScheduleEntity toEntity() {
 		return ScheduleEntity.builder()
+				.schNo(schNo)
 				.employee(employee)
 				.schTitle(schTitle)
 				.schContent(schContent)

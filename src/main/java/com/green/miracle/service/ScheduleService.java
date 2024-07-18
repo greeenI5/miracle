@@ -7,7 +7,6 @@ import com.green.miracle.domain.dto.ScheduleCreateDTO;
 import com.green.miracle.domain.entity.EmployeeEntity;
 import com.green.miracle.domain.entity.ScheduleEntity;
 
-@Service
 public interface ScheduleService {
 	
 

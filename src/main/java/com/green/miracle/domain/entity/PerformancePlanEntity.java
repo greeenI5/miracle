@@ -11,11 +11,18 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
+@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name="performance_plan")
 public class PerformancePlanEntity {
@@ -38,7 +45,7 @@ public class PerformancePlanEntity {
 	private LocalDate startAt; //시작일
 	
 	@Column(nullable=false)//not null
-	private LocalDate finalAt; // 종료일
+	private LocalDate finishAt; // 종료일
 	
 	@Column(nullable=false)//not null
 	private String location; // 공연장소
@@ -49,5 +56,6 @@ public class PerformancePlanEntity {
 	@Column(columnDefinition = "timestamp", nullable=false)
 	private LocalDate writeAt; // 작성일
 	
-	private int approval;
+	private int approval; //승인여부
+
 }
