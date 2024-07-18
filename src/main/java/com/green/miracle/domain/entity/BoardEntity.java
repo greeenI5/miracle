@@ -1,6 +1,9 @@
 package com.green.miracle.domain.entity;
 
+import java.time.LocalDate;
+
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
 
 import jakarta.persistence.Column;
@@ -43,5 +46,9 @@ public class BoardEntity {
 	@Column(columnDefinition = "bigint")
 	@ColumnDefault("0")
 	private long boardComment; //댓글수
+	
+	@CreationTimestamp
+	@Column(columnDefinition = "timestamp", nullable=false)
+	private LocalDate writeAt; // 작성일
 	
 }

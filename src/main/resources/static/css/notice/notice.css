@@ -107,19 +107,15 @@ h4 {
 }
 
 
-th {
+#notice-tbody {
 	padding: 15px;
 	text-align: center;
 	font-weight: bold;
 }
 
-/* 공지사항 글목록 전체 */
-td {
-	padding: 20px 70px;
-	white-space: nowrap; /* 텍스트가 한 줄로 유지되도록 설정 */
-}
 
-table {
+
+#notice-table {
 	width: 1220px;
 }
 
@@ -139,8 +135,14 @@ table {
 	width: 230px;
 }
 
-.post-body {
+.post-title {
 	border-bottom: 1px solid var(--sub-grey);
+}
+
+/* 공지사항 글목록 전체 */
+.post-body {
+	padding: 20px 70px;
+	white-space: nowrap; /* 텍스트가 한 줄로 유지되도록 설정 */
 }
 
 body > main > div > div.right-section > div > div > form > div {

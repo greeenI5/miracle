@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
 public class NoticeController {
@@ -34,5 +36,9 @@ public class NoticeController {
 		return "redirect:/views/notice/detail";
 	}
 	
+	@GetMapping("/board/write")
+	public String getMethodName(@RequestParam String param) {
+		return new String();
+	}
 	
 }

@@ -58,21 +58,27 @@
 						</div>
 					</form>
 
-					<ul>
-						<li class="post-body">
-							<span class="no">번호</span>
-							<span class="post-subtitle">제목</span>
-							<span class="writer">작성자</span>
-							<span class="post-date">작성일자</span>
-							<span class="view-count">조회수</span>
+					<ul id="notice-table">
+						<li class="post-title">
+							<span id="notice-tbody" class="no">번호</span>
+							<span id="notice-tbody" class="post-subtitle">제목</span>
+							<span id="notice-tbody" class="writer">작성자</span>
+							<span id="notice-tbody" class="post-date">작성일자</span>
+							<span id="notice-tbody" class="view-count">조회수</span>
 						</li>
-						<li th:each="dto : ${list}">
-							<span th:text="${dto.noticeNo}">글번호</span>
-							<span>
+						<li th:each="dto : ${list}" class="post-body">
+							<span th:text="${dto.noticeNo}" id="notice-tbody">글번호</span>
+							<span id="notice-tbody">
 								<a href="#" th:text="${dto.noticeTitle}">제목</a>
 							</span>
+							<span th:text="${dto.}" id="notice-tbody"></span>
+							<span th:text="${dto.}" id="notice-tbody"></span>
+						</li>
+						<li th:if="${#lists.isEmpty(list)}" class="post-body">
+							게시글이 존재하지 않습니다.
 						</li>
 					</ul>
+					<a href="/board/write">글쓰기</a>
 				</div>
 			</div>
 		</div>
