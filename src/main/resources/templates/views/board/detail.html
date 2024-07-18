@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
+
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="/css/board/detail.css">
+	<title>Insert title here</title>s
+
+	<script type="text/javascript">
+		function btnDeleteClicked() {
+			return confirm("정말로 삭제하시겠습니까?"); // true|false
+		}
+	</script>
+
+	<script type="text/javascript">
+		function btnUpdateClicked() {
+			document.querySelector("#default-mode").style.display = 'none';
+			//JQuery 사용 가능하다면 : $("#default-mode").hide();
+			document.querySelector("#update-mode").style.display = 'block';
+			//$("#update-mode").show();
+		}
+		function btnCancelClicked() {
+			document.querySelector("#default-mode").style.display = 'block';
+			document.querySelector("#update-mode").style.display = 'none';
+		}
+	</script>
+</head>
+
+<main>
+	<div class="content">
+		<!-- Left section -->
+		<div class="left-box">
+			<p class="sub-title flex center">공지사항</p>
+			<th:block th:insert="~{views/board/sub-menu}" />
+		</div>
+
+		<!-- Right section -->
+		<div class="right-section">
+			<div id="default-mode">
+				<ul>
+					<li th:text="${detail.boardNo}">번호</li>
+					<li th:text="${detail.boardTitle}">제목</li>
+					<li>
+						<dl>
+							<dt>최종 수정일</dt>
+							<dd th:text="${detail.writeAt}"></dd>
+						</dl>
+					</li>
+					<li th:text="${detail.boardContent}">내용</li>
+					<li>
+
+						<div>
+							<button class="update-btn" onclick="btnUpdateClicked()">수정</button>
+							<form th:action="|/boards/${detail?.boardNo}|" onsubmit="return btnDeleteClicked()"
+								method="post" style="display: inline;">
+								<input type="hidden" name="_method" value="delete">
+								<button class="delete-btn">삭제</button>
+							</form>
+						</div>
+					</li>
+				</ul>
+			</div>
+
+			<!-- 수정모드 -->
+			<form id="update-mode" th:action="|/boards/${detail.boardNo}|" method="post" style="display: none;">
+				<ul>
+					<li th:text="${detail.boardNo}">번호</li>
+					<li>
+						<input name="title" type="text" th:value="${detail.boardTitle}">
+					</li>
+					<li>
+						<dl>
+							<dt>최종 수정일</dt>
+							<dd th:text="${detail.writeAt}"></dd>
+						</dl>
+					</li>
+					<li>
+						<textarea name="content">[[${detail.boardContent}]]</textarea>
+					</li>
+					<li>
+						<input type="hidden" name="_method" value="put">
+						<button type="submit">수정완료</button>
+						<button type="button" onclick="btnCancelClicked()">취소</button>
+					</li>
+				</ul>
+			</form>
+		</div>
+	</div>
+</main>
+
+</html>

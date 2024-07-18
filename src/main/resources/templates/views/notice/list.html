@@ -8,6 +8,7 @@
 	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
+	
 
 	<script>
 		$(function () {
@@ -60,25 +61,27 @@
 
 					<ul id="notice-table">
 						<li class="post-title">
-							<span id="notice-tbody" class="no">번호</span>
+							<span class="no" id="notice-tbody">번호</span>
 							<span id="notice-tbody" class="post-subtitle">제목</span>
 							<span id="notice-tbody" class="writer">작성자</span>
 							<span id="notice-tbody" class="post-date">작성일자</span>
-							<span id="notice-tbody" class="view-count">조회수</span>
 						</li>
 						<li th:each="dto : ${list}" class="post-body">
 							<span th:text="${dto.noticeNo}" id="notice-tbody">글번호</span>
 							<span id="notice-tbody">
-								<a href="#" th:text="${dto.noticeTitle}">제목</a>
+								<a th:href="|/notices/${dto.noticeNo}|" th:text="${dto.noticeTitle}">제목</a>
 							</span>
-							<span th:text="${dto.}" id="notice-tbody"></span>
-							<span th:text="${dto.}" id="notice-tbody"></span>
+							<span th:text="${dto.employee.getName}" id="notice-tbody">작성자</span>
+							<span th:text="${dto.writeAt}" id="notice-tbody">작성일자</span>
 						</li>
 						<li th:if="${#lists.isEmpty(list)}" class="post-body">
 							게시글이 존재하지 않습니다.
 						</li>
 					</ul>
-					<a href="/board/write">글쓰기</a>
+					<div>
+						<button class="write-btn"><a href="/admin/notices/form">글쓰기</a></button>
+					</div>
+					
 				</div>
 			</div>
 		</div>

@@ -50,7 +50,7 @@
     transform: scale(0.5);
     opacity: 0;
     pointer-events: none;
-    /* overflow: hidden; */
+    overflow: hidden; /* 크기에 넘치는부분은 숨기기 */
     border: solid var(--sub-navy) 2px;
     border-radius: 5.5px;
     transform-origin: bottom right;
@@ -216,7 +216,6 @@ input#question:focus {
 	box-shadow: 0 1px 1px 0 rgb(0 0 0 / 10%);
 	font-size: 14px;
 }
-
 
 .btn-send{
 	display: flex;
