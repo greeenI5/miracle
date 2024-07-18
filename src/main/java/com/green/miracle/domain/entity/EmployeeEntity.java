@@ -3,6 +3,8 @@ package com.green.miracle.domain.entity;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.green.miracle.domain.dto.AdminHrListDTO;
+
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
@@ -86,4 +88,17 @@ public class EmployeeEntity{
 	@JoinColumn(name="depCode", nullable = false)
 	private DepartmentEntity department; //부서코드
 	//camel 표기법은 db에서 자동으로 underscore 표기법으로 적용됨
+	
+	public AdminHrListDTO toListDTO() {
+	    return AdminHrListDTO.builder()
+	            .empNo(empNo)
+	            .name(name)
+	            .roles(roles)
+	            .position(position)
+	            .depCode(department.getDepCode()) // DepartmentEntity의 코드를 가져와서 설정
+	            .phone(phone)
+	            .build();
+	}
+	
+	
 }

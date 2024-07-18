@@ -2,8 +2,16 @@ package com.green.miracle.service;
 
 import org.springframework.ui.Model;
 
-public interface AdminHrService {
+import com.green.miracle.domain.dto.AdminHrSaveDTO;
 
+public interface AdminHrService {
+	
+	void SaveProcess(AdminHrSaveDTO dto);
+	
 	void findAll(Model model);
+
+	void ListProcess(Model model);
+
+	
 
 }
