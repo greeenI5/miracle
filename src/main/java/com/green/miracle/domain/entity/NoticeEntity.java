@@ -1,5 +1,8 @@
 package com.green.miracle.domain.entity;
 
+import java.time.LocalDate;
+
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
 
 import jakarta.persistence.Column;
@@ -37,6 +40,10 @@ public class NoticeEntity {
 	
 	@Column(columnDefinition = "blob", nullable =false)
 	private String noticeContent; // 공지사항 내용
+	
+	@CreationTimestamp
+	@Column(columnDefinition = "timestamp", nullable=false)
+	private LocalDate writeAt; // 작성일
 	
 	
 }

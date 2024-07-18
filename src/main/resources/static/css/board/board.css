@@ -1,40 +1,148 @@
 @charset "UTF-8";
-@import url("/css/plan/list-menu.css");
+@import url("/css/board/sub-menu.css");
 
-.location {
-    min-width: 200px;
-    margin-left: 15px;
-    font-size: 24px;
+.content {
+    display: flex;
+    height: 100%;
 }
 
-.list-name {
-    min-width: 200px;
-    font-size: 36px;
-    margin-bottom: 45px;
+
+
+h2 {
+	min-width: 200px;
+	margin-top: -15px;
+	margin-left: 15px;
+	font-size: 24px;
+	
 }
 
-th {
-    padding: 15px;
-    text-align: center;
-    font-weight: bold;
+
+
+h4 {
+	min-width: 200px;
+	font-size: 36px;
 }
 
-td {
-    padding: 10px 70px;
-    white-space: nowrap; /* 텍스트가 한 줄로 유지되도록 설정 */
+
+/* 좌우 나누는 바 */
+.right-section {
+
+    padding: 20px;
+    overflow-y: auto; /* 섹션이 넘치면 스크롤 */
 }
 
-table {
+/* 날짜 선택 달력 */
+.datepicker-wrap {
+    position: relative;
+    padding-left: 60px;
+    display: flex;
+    align-items: center;
+}
+#selectedDate {
+	font-size: 14px;
+	padding: 5px 10px;
+	border: 2px solid var(--main-grey);
+}
+#datePickerButton {
+	height: 40px;
+	padding: 3px;
+	border: none;
+	cursor: pointer;
+}
+#datePickerButton:hover {
+    background-color: var(--sub-navy);
+}
+#datepicker {
+    display: none; /* 초기에 숨겨진 상태 */
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid var(--main-grey);
+    padding: 10px;
+    z-index: 9999;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+    top: 85%;
+}
+#datepicker .ui-datepicker-header {
+    padding: 5px;
+    background-color: var(--sub-grey);
+    border-bottom: 1px solid var(--main-grey);
+}
+#datepicker .ui-datepicker-calendar {
     width: 100%;
-    border-collapse: collapse;
+}
+#datepicker .ui-datepicker-calendar th,
+#datepicker .ui-datepicker-calendar td {
+    text-align: center;
+    padding: 5px;
+    border: none;
+}
+#datepicker .ui-datepicker-calendar .ui-state-default {
+    background-color: transparent;
+    border: none;
+}
+#datepicker .ui-datepicker-calendar .ui-state-hover {
+    background-color: var(--sub-grey); /* 호버 시 배경색 회색으로 변경 */
+    cursor: pointer;
+}
+#datepicker .ui-datepicker-calendar .ui-state-active {
+    background-color: var(--sub-grey);
+    color: #333;
+}
+#datepicker .ui-datepicker-buttonpane {
+    margin-top: 10px;
+    text-align: center;
+    border-top: 1px solid var(--main-grey);
+    padding-top: 5px;
+}
+#datepicker .ui-datepicker-buttonpane button {
+    margin: 0 5px;
+    padding: 5px 10px;
+    background-color: var(--sub-grey);
+    color: #333;
+    border: none;
+    cursor: pointer;
+}
+#datepicker .ui-datepicker-close {
+    display: none; /* 닫기 버튼 숨기기 */
 }
 
-.no {
-    width: 150px;
+
+#notice-tbody {
+	padding: 15px;
+	text-align: center;
+	font-weight: bold;
 }
 
+
+
+#notice-table {
+	width: 1220px;
+}
+
+.no .view-count{
+	width: 150px;
+}
+
+.post-subtitle {
+	width: 500px;
+}
+
+.writer {
+	width: 190px;
+}
+
+.post-date {
+	width: 230px;
+}
+
+.post-title {
+	border-bottom: 1px solid var(--sub-grey);
+}
+
+/* 공지사항 글목록 전체 */
 .post-body {
-    border-bottom: 1px solid var(--sub-grey);
+	padding: 20px 70px;
+	white-space: nowrap; /* 텍스트가 한 줄로 유지되도록 설정 */
 }
 
 body > main > div > div.right-section > div > div > form > div {
@@ -42,59 +150,61 @@ body > main > div > div.right-section > div > div > form > div {
     align-items: center; /* 아이템을 세로로 가운데 정렬 */
 }
 
-#content-box{
-	padding: 45px;
-    width: 100%;
-    height: 100%;
-}
-	
-#content-box > form > div {
-    display: flex;
-    align-items: center;
+/* 검색어 입력 박스 영역 */
+.search-wrap {
+	display: flex;
+	align-items: center;
 }
 
-.search-wrap{
+/* 검색어 입력 박스 */
+#search {
+	width: 60%;
+	font-size: 14px;
+	padding: 5px 10px;
+	border: 2px solid var(--main-grey);
+	margin-left: 100px;
+}
+
+/* 검색창 배경색깔 */
+body > main > div > div.right-section > div > div > form > div {
 	width: 100%;
 	padding: 15px 0px;
 	background-color: var(--sub-grey);
 }
 
-#search {
-    width: 70%;
-    font-size: 14px;
-    padding: 5px 10px; /* 버튼 높이와 맞추기 위해 조정 */
-    border: 2px solid var(--main-grey);
-    margin-left: 100px;
-    box-sizing: border-box; /* 패딩을 포함한 전체 너비 계산 */
+body > main > div > div.right-section > div {
+	padding: 45px;
 }
-#content-box .btn {
-    display: inline-block;
-    width: 60px;
-    height: 30px;
-    margin-left:20px;
-    align-content:center;
-    font-size: 14px;
-    background-color: var(--sub-navy-grey);
-    color: white;
+
+/* 검색 버튼 */
+#content-box.search-wrap.btn {
+	font-size: 16px;;
+	color: #333;
+	margin-left: 5px;
+	border: none;
+	height: 36px;
+}
+
+#content-box > form > div > button
+{
+	font-size: 16px;
+    color: #333;
+    margin-left: 5px;
     border: none;
-    cursor: pointer;
-    box-sizing: border-box; /* 패딩을 포함한 전체 너비 계산 */
+    height: 36px;
 }
 
-#content-box .btn:hover {
-    background-color: var(--main-navy-grey);
+.btn {
+	cursor: pointer;
 }
 
-.notice-item {
-    display: flex;
-    flex-direction: column;
+#content-box > form > div > button:hover {
+	background-color: var(--sub-navy);
 }
 
-tbody tr {
-    display: table-row;
-	border-bottom: 1px solid var(--main-grey);
+#content-box {
+	margin-top: 50px;
+	width: 1220px;
+	height: 100%;
 }
 
-tbody tr:nth-child(n+11) {
-    display: none; /* 10번째 이후의 항목 숨기기 */
-}

@@ -2,6 +2,8 @@ package com.green.miracle.domain.entity;
 
 import java.time.LocalDate;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -43,7 +45,8 @@ public class PerformancePlanEntity {
 	
 	private String perPoster; // 포스터
 	
-	@Column(nullable=false)//not null
+	@CreationTimestamp
+	@Column(columnDefinition = "timestamp", nullable=false)
 	private LocalDate writeAt; // 작성일
 	
 	private int approval;
