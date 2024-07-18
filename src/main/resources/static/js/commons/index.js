@@ -139,8 +139,53 @@ function activateButton(button) {
             startButton.style.border = '2px solid var(--main-navy)'
             endButton.style.color = 'var(--main-grey)';
             endButton.style.border = '2px solid var(--main-grey)'
-            startButton.disabled = false;
+            startButton.disabled = true;
             endButton.disabled = true;
         }
     }
+}
+
+
+// 출퇴근 시간 기록
+let startTime = null;
+let endTime = null;
+
+function recordStartTime() {
+    startTime = new Date();
+    document.getElementById('start-time').textContent = formatTime(startTime);
+}
+function recordEndTime() {
+    if (startTime === null) { // 출근 시간이 기록되지 않았을 경우 경고 메시지 출력
+        alert('출근 시간을 먼저 기록해주세요!');
+        return;
+    }
+    endTime = new Date();
+    document.getElementById('end-time').textContent = formatTime(endTime);
+
+    // 근무 시간 계산
+    const totalTime = calculateTimeDifference(startTime, endTime); // 출근 시간과 퇴근 시간의 차이 계산
+    document.getElementById('total-time').textContent = formatTimeDuration(totalTime); 
+}
+
+// 시간 차이 계산 함수
+function calculateTimeDifference(start, end) {
+    const diffInMilliseconds = end - start; // 퇴근 시간과 출근 시간의 차이(ms) 계산
+    const diffInSeconds = Math.floor(diffInMilliseconds / 1000); // 차이를 초로 변환
+    const hours = Math.floor(diffInSeconds / 3600); // 차이를 시간으로 변환
+    const minutes = Math.floor((diffInSeconds % 3600) / 60); // 남은 초를 분으로 변환
+    const seconds = diffInSeconds % 60; // 남은 초
+    return { hours, minutes, seconds }; // 차이를 객체로 반환
+}
+// 시간 형식을 HH:mm:ss 형식으로 포맷팅하는 함수
+function formatTime(date) {
+    const hours = date.getHours().toString().padStart(2, '0');
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+    const seconds = date.getSeconds().toString().padStart(2, '0');
+    return `${hours}:${minutes}:${seconds}`;
+}
+function formatTimeDuration(duration) {
+    const hours = duration.hours; // 시간
+    const minutes = duration.minutes; // 분
+    const seconds = duration.seconds; // 초
+    return `${hours}h ${minutes}m ${seconds+1}s`; // 시간, 분, 초 형식의 문자열 반환
 }
