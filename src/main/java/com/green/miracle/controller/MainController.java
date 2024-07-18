@@ -13,7 +13,7 @@ public class MainController {
 	
 	//공연일정
 	//private final 서비스
-	@GetMapping
+	//@GetMapping
 	public void performance(Model model) {
 	}
 	
