@@ -6,6 +6,8 @@ import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
 
+import com.green.miracle.domain.dto.BoardDetailDTO;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,6 +16,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -23,7 +26,7 @@ import lombok.NoArgsConstructor;
 @DynamicUpdate
 @Getter
 @Builder
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor
 @Entity
 @Table(name = "board")
@@ -50,5 +53,23 @@ public class BoardEntity {
 	@CreationTimestamp
 	@Column(columnDefinition = "timestamp", nullable=false)
 	private LocalDate writeAt; // 작성일
+
+	public BoardDetailDTO toBoardDetailDTO() {
+		return BoardDetailDTO.builder()
+				.boardNo(boardNo)
+				.employee(employee)
+				.boardTitle(boardTitle)
+				.boardContent(boardContent)
+				.boardComment(boardComment)
+				.writeAt(writeAt)
+				.build();
+	}
+
+	public BoardEntity update(BoardDetailDTO dto) {
+		this.boardTitle=dto.getBoardTitle();
+		this.boardContent=dto.getBoardContent();
+		return this;
+		
+	}
 	
 }

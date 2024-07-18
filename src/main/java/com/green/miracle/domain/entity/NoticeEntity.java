@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
 
+import com.green.miracle.domain.dto.NoticeDetailDTO;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,6 +15,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,7 +25,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @Builder
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor
 @Table(name="notice")
 public class NoticeEntity {
@@ -45,5 +48,21 @@ public class NoticeEntity {
 	@Column(columnDefinition = "timestamp", nullable=false)
 	private LocalDate writeAt; // 작성일
 	
+	public NoticeDetailDTO toNoticeDetailDTO() {
+		return NoticeDetailDTO.builder()
+				.noticeNo(noticeNo)
+				.employee(employee)
+				.noticeTitle(noticeTitle)
+				.noticeContent(noticeContent)
+				.writeAt(writeAt)
+				.build();
+	}
+
+	public NoticeEntity update(NoticeDetailDTO dto) {
+		this.noticeTitle=dto.getNoticeTitle();
+		this.noticeContent=dto.getNoticeContent();
+		return this;
+		
+	}
 	
 }
