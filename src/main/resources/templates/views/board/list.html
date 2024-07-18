@@ -30,113 +30,44 @@
 <title>Notice</title>
 </head>
 <main>
-	 <div class="content">
-		<!-- Left section -->
-		<div class="left-box">
-			<p class="sub-title flex center">게시판</p>
-			<th:block th:insert="~{views/board/sub-menu}" />
-		</div>
-
-        <!-- Right section -->
-        <div class="right-section">
-        	<h2>HOME > 게시판</h2>
-            <div class="content_main_box">
-                <h4>게시판</h4>
-	                <div id="content-box" class="container">
-	                		<form>
-			       	 			<div class="search-wrap">
-		       	 					<div class="datepicker-wrap">
-		                                <input type="text" id="selectedDate" placeholder="날짜를 선택하세요." readonly>
-		                                <button type="button" id="datePickerButton"><i class="ri-calendar-2-line" style="font-size: 30px"></i></button>
-		                                <div id="datepicker"></div>
-                          			</div>
-			           					<input id="search" type="search" placeholder="검색어를 입력해주세요.">
-			            				<button class="btn" type="submit"><i class="ri-search-line" style="font-size: 24px"></i></button>
-			        			</div>
-		        			</form>
-					        <table>
-					            <thead>
-					                <tr class="post-body">
-					                    <th class="no">번호</th>
-					                    <th class="post-subtitle">제목</th>
-					                    <th class="writer">작성자</th>
-					                    <th class="post-date">작성일자</th>
-					                    <th class="view-count">조회수</th>
-					                </tr>
-					            </thead>
-					            <tbody>
-					            	<tr class="post-body">
-					                    <td>1</td>									
-					                    <td class="hover-effect">
-											<ul>
-												<li>
-													<a href="">게시판 안내입니다. 이용해주셔서 감사합니다</a>
-												</li>
-											</ul>
-										</td>
-					                    <td>김도영</td>
-					                    <td>2024.07.12</td>
-					                    <td>2</td>
-					                </tr>
-					                <tr class="post-body">
-					                    <td>2</td>
-					                    <td class="hover-effect">
-					                    	<ul>
-					                    		<li>
-					                    			<a href="">[게시판] 개인정보 처리방침 변경안내처리방침</a>
-					                    		</li>
-					                    	</ul>
-					                    </td>
-					                    <td>박태주</td>
-					                    <td>2024.07.11</td>
-					                    <td>3</td>
-					                </tr>
-					                <tr	class="post-body">
-					                    <td>3</td>
-					                    <td class="hover-effect">
-					                    	<ul>
-					                    		<li>
-					                    			<a href="">[게시판] 개인정보 처리방침 변경안내처리방침</a>
-					                    		</li>
-					                    	</ul>
-					                    </td>
-					                    <td>전용준</td>
-					                    <td>2024.07.10</td>
-					                    <td>4</td>
-					                </tr>
-					                <tr	class="post-body">
-					                    <td>4</td>
-					                    <td class="hover-effect">
-					                    	<ul>
-					                    		<li>
-					                    			<a href="">[게시판] 개인정보 처리방침 변경안내처리방침</a>
-					                    		</li>
-					                    	</ul>
-					                    </td>
-					                    <td>유해리</td>
-					                    <td>2024.07.10</td>
-					                    <td>5</td>
-					                </tr>
-					                <tr class="post-body">
-					                    <td>5</td>
-					                    <td class="hover-effect">
-					                    	<ul>
-					                    		<li>
-					                    			<a href="">[게시판] 개인정보 처리방침 변경안내처리방침</a>
-					                    		</li>
-					                    	</ul>
-					                    </td>
-					                    <td>윤민석</td>
-					                    <td>2024.07.09</td>
-					                    <td>5</td>
-					                </tr>
-					                
-					            </tbody>
-					       </table>
-	    		</div>
-            </div>
-        </div>
-        
-    </div>
+	<div class="flex container">
+		<!-- 좌측메뉴 -->
+		<section class="content-left">
+			<div class="left-box">
+				<p class="sub-title flex center">게시판</p>
+				<th:block th:insert="~{views/plan/list-menu}" />
+			</div>
+		</section>
+		<section class="content-right">
+			<div class="location">HOME > 게시판</div>
+			<div id="content-box">
+				<div class="list-name">게시판</div>
+				<form id="search-form">
+					<div class="search-wrap">
+						<input id="search" type="search" placeholder="검색어를 입력해주세요.">
+						<button class="btn" type="submit">검색</button>
+					</div>
+				</form>
+				<table>
+					<thead>
+						<tr class="post-body">
+							<th class="no">번호</th>
+							<th>제목</th>
+							<th>작성자</th>
+							<th>작성일자</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th th:each="dto : ${list}">
+							<td ></td>
+							</th>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+	</div>
+	</section>
+	</div>
 </main>
 </html>

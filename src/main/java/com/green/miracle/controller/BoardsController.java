@@ -1,17 +1,26 @@
 package com.green.miracle.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 
+import com.green.miracle.service.BoardService;
+
+import lombok.RequiredArgsConstructor;
+
 
 @Controller
+@RequiredArgsConstructor
 public class BoardsController {
 	
+	private final BoardService service;
+	
 	@GetMapping("/boards")
-	public String list() {
+	public String list(Model model) {
+		service.findAllProcess(model);
 		return "/views/board/list";
 	}
 	
