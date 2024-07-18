@@ -3,7 +3,7 @@ package com.green.miracle.domain.dto;
 import lombok.Data;
 
 @Data
-public class BotQuestionDTO {
+public class ChatBotQuestionDTO {
 
 	private long qNo;
 	private String question;
