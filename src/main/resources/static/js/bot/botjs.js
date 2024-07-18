@@ -1,4 +1,3 @@
-
 function resetChatbot() {
 	$('.message-container1').hide();
 	$('.contact-buttons').hide();
@@ -50,6 +49,10 @@ function resetChatbot() {
 		$('#scheduleAnswer2').css('display', 'flex');
 		$('#scheduleAnswer1').hide();
 	}
+
+/*var socket = new SockJS('/ws');
+var stompClient = Stomp.over(socket);*/
+
 
 function btnMsgSendClicked() {
     // 입력 필드의 값을 가져오기
