@@ -9,7 +9,7 @@ th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
 	<title>인사관리</title>
 	<script src="/js/hrm/detail.js"></script>
 </head>
-	<main>
+	<main class="admin">
 		<header class ="title">조직도</header>
 		<form action="/admin/hr/mgm" method="post">
             <button type="submit" class="images">
@@ -24,12 +24,7 @@ th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
 	                    <span>MIRCALE</span>	
 	                </div>
 	                <ul class="dep">
-	                    <li>
-	                        <div class="depName">영업부</div>
-	                        <div class="emp">
-								 <span class="empName" onclick="showEmployeeDetail('김한솔')">김한솔</span>
-							</div>
-							<!-- <li th:each="department : ${departments}">
+							<li th:each="department : ${departments}">
 		                        <div class="depName" th:text="${department.depName}"></div>
 		                        <div class="depNum" th:text="${department.depNum}"></div>
 		                        <ul class="team">
@@ -42,66 +37,7 @@ th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
 		                                </div>
 		                            </li>
 		                        </ul>
-		                    </li> -->
-	                        <ul class="team">
-	                            <li class="sales-team">
-	                                <div class="teamName">영업팀</div>
-	                                <div class="emp">
-	                                	<span class="empName" onclick="showEmployeeDetail('유해리')">유해리</span>
-	                                	<span class="bar">|</span>
-	                                	<span class="empRank">팀장</span>	
-	                                </div>
-	                                <div class="emp">
-	                                	<span class="empName">박민규</span>
-	                                	<span class="bar">|</span>
-	                                	<span class="empRank">대리</span>	
-	                                </div>
-	                                <div class="emp">
-	                                	<span class="empName">신현직</span>
-	                                	<span class="bar">|</span>
-	                                	<span class="empRank">부장</span>	
-	                                </div>
-	                                <div class="emp">
-	                                	<span class="empName">이지원</span>
-	                                	<span class="bar">|</span>	 
-	                                	<span class="empRank">차장</span>	
-	                                </div>
-	                                <div class="emp">
-	                                	<span class="empName">정하나</span>
-	                                	<span class="bar">|</span>	 
-	                                	<span class="empRank">사원</span>	
-	                                </div>
-	                                <div class="emp">
-	                                	<span class="empName">홍길동</span>
-	                                	<span class="bar">|</span>
-	                                	<span class="empRank">사원</span>
-	                                </div>
-	                            </li>
-	                            <li class="marketing-team">
-	                                <div class="teamName">마케팅팀</div>
-	                                <div class="emp">
-	                               		<span class="empName" onclick="showEmployeeDetail('박태주')">박태주</span>
-	                                	<span class="bar">|</span>
-	                                	<span class="empRank">팀장</span>	
-	                                </div>
-	                                <div class="emp">
-	                                	<span class="empName" onclick="showEmployeeDetail('김하얀')">김하얀</span> 
-	                                	<span class="bar">|</span>
-	                                	<span class="empRank">대리</span>
-	                                </div>
-	                                <div class="emp">
-	                                	<span class="empName">문유리</span>	 
-	                                	<span class="bar">|</span>
-	                                	<span class="empRank">사원</span>
-	                                </div>
-	                                <div class="emp">
-	                                	<span class="empName">이혜지</span>	 
-	                                	<span class="bar">|</span>
-	                                	<span class="empRank">사원</span>
-	                                </div>
-	                            </li>
-	                        </ul>
-	                    </li>
+		                    </li>
 	                    <li>
 	                        <div class="depName">관리부</div>
 	                        <div class="emp">
