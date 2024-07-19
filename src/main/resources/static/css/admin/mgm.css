@@ -61,9 +61,9 @@
     display: flex;
     flex-direction: column;
     margin-top: -40px;
-    margin-left: -40px;
+    margin-left: -45px;
     width: 700px;
-	height: 980px;
+	height: 970px;
     padding : 100px 40px;
     background-color: #ffffff;
     border: 1px solid var(--main-grey);
@@ -114,10 +114,10 @@
 /* 직원 정보 테이블 스타일 */
 .employee-info {
 	margin-top: -40px;
-    margin-right: -40px;
+    margin-right: -20px;
     padding: 20px;
-    width: 1100px;
-	height: 980px;
+    width: 1090px;
+	height: 970px;
     background-color: #fff;
     border: 1px solid var(--main-grey);
     border-radius: 10px;
@@ -125,7 +125,7 @@
 
 
 .employee-info table {
-	margin-top: 70px;
+	margin-top: 100px;
     width: 100%;
     border-collapse: collapse;
 }
@@ -162,4 +162,37 @@ select {
     padding: 5px;
     border: 1px solid var(--main-grey);
     border-radius: 4px;
+}
+
+/* 페이지네이션 스타일링 */
+.pagination ul {
+	list-style: none;
+	display: flex;
+	gap: 5px;
+}
+
+.pagination li {
+	margin: 0;
+}
+
+.pagination a {
+	display: block;
+	padding: 5px 5px;
+	text-decoration: none;
+	color: black; /* 원하는 기본 색상 */
+}
+
+/* 페이지네이션 고정 스타일링 */
+.pagination {
+    position: absolute;       /* 부모 요소에 대해 절대 위치 지정 */
+    bottom: 20px;             /* 부모 요소의 하단에서 20px 떨어진 위치 */
+    left: 65%;                /* 부모 요소의 중앙에 수평 배치 */
+    transform: translateX(-50%); /* 중앙 정렬을 위해 왼쪽으로 이동 */
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+}
+
+.pagination .active {
+    font-weight : bold;
 }

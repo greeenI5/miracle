@@ -10,7 +10,9 @@ public interface AdminHrService {
 	
 	void findAll(Model model);
 
-	void ListProcess(Model model);
+	void deleteProcess(long no);
+
+	void ListProcess(int pageNumber, Model model);
 
 	
 

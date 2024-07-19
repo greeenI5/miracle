@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
 <head>
+	<meta name="_csrf" th:content="${_csrf.token}">
+	<meta name="_csrf_header" th:content="${_csrf.headerName}">
     <link rel="stylesheet" href="/css/admin/mgm.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script th:src="@{/js/hrm/admin.js}"></script>
@@ -10,7 +12,12 @@
 <main>
     <div class="container">
         <div class="employee-add">
-            <form id="employee-form" th:action="@{/admin/hr/mgm}" method="post">
+        	<!-- 오류 메시지 표시 영역 추가 -->
+            <div th:if="${errorMessage}" style="color: red;">
+                <p th:text="${errorMessage}"></p>
+            </div>
+            <form id="employee-form" th:action="@{/admin/hr/mgm}" method="post" th:object="${adminHrSaveDTO}">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
             <h1 class="title1">직원추가</h1>
 				<div>
 					<!-- 이미지 클릭 시 사진 바뀜 -->
@@ -28,7 +35,7 @@
                 </div>
                 <div class="password-container">
                     <span>비밀번호</span>
-                    <input type="password" id="empPassword" class="box" name="password" placeholder="사원번호와 동일">
+                    <input type="password" id="empPassword" class="box" name="password" placeholder="사원번호와 동일" autocomplete="new-password">
                     <i class="toggle-password" onclick="togglePasswordVisibility()">🔒</i>
                 </div>
                 <div>
@@ -37,15 +44,22 @@
                 </div>
                 <div>
                     <span>권한</span> 
-                    <select id="ROLE" class="box" name="roles">
-                        <option value="employee">사원</option>
-                        <option value="admin">관리자</option>
-                    </select>
-                </div>
+                    <select name="roles">
+							<th:block
+								th:each="role : ${T(com.green.miracle.domain.entity.Role).values()}">
+								<option th:value="${role}" th:text="${role.roleName}"></option>
+							</th:block>
+						</select>
+					</div>
                 <div>
                     <span>직급</span> 
-                    <input type="text" id="empPosition" class="box" name="position" placeholder="직급">
-                </div>
+                    <select name="position">
+							<th:block
+								th:each="position : ${T(com.green.miracle.domain.entity.Position).values()}">
+								<option th:value="${position}" th:text="${position.roleName}"></option>
+							</th:block>
+						</select>
+					</div>
                 <div>
                     <span>부서코드</span> 
                     <select id="depCode" class="box" name="depCode">
@@ -61,54 +75,71 @@
                 </div>
                 <div>
                     <span>이메일</span> 
-                    <input type="email" id="empEmail" class="box" name="email" placeholder="이메일">
+                    <input type="email" id="empEmail" class="box" name="email" placeholder="이메일" autocomplete="new-email">
                 </div>
-                <button type="button" onclick="addEmployee()">등록</button>
+                <button type="submit" onclick="addEmployee()">등록</button>
             </form>
         </div>
-        <div class="employee-info">
-            <h1 class="title2">직원정보</h1>
-            <table>
-                <thead>
-                    <tr>
-                        <th>사원번호</th>
-                        <th>사원명</th>
-                        <th>권한</th>
-                        <th>직급</th>
-                        <th>부서코드</th>
-                        <th>핸드폰번호</th>
-                        <th>비고</th>
-                    </tr>
-                </thead>
-                <tbody id="employee-table-body">
-                    <tr>
-                        <td>1001</td>
-                        <td>김한솔</td>
-                        <td>사원</td>
-                        <td>팀장</td>
-                        <td>영업팀</td>
-                        <td>010-0000-0000</td>
-						<td>
-							<button onclick="editEmployee(this)">수정</button>
-							<button onclick="deleteEmployee(this)">삭제</button>
-						</td>
-					</tr>
-                    <tr th:each="dto:${list}">
-                        <td th:text="${dto.empNo}"></td>
-                        <td th:text="${dto.name}"></td>
-                        <td th:text="${dto.roles}"></td>
-                        <td th:text="${dto.position}"></td>
-                        <td th:text="${dto.depCode}"></td>
-                        <td th:text="${dto.phone}"></td>
-                        <td>
-                            <button onclick="editEmployee(this)">수정</button>
-                            <button onclick="deleteEmployee(this)">삭제</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
+			<div class="employee-info">
+				<h1 class="title2">직원정보</h1>
+				<table>
+					<thead>
+						<tr>
+							<th>사원번호</th>
+							<th>사원명</th>
+							<th>권한</th>
+							<th>직급</th>
+							<th>부서코드</th>
+							<th>핸드폰번호</th>
+							<th>비고</th>
+						</tr>
+					</thead>
+					<tbody id="employee-table-body">
+						<tr th:each="dto:${list}" th:id="'employee-' + ${dto.empNo}">
+							<td th:text="${dto.empNo}"></td>
+							<td th:text="${dto.name}"></td>
+							<td>
+								<!-- roles가 Set<Role>일 경우 --> <span
+								th:each="role : ${dto.roles}" th:text="${role.roleName}"></span>
+							</td>
+							<td th:text="${dto.position.roleName}"></td>
+							<td th:text="${dto.depCode}"></td>
+							<td th:text="${dto.phone}"></td>
+							<td>
+								<button onclick="editEmployee(this)">수정</button>
+								<button th:onclick="deleteEmployee(this)">삭제</button> <!-- <button th:onclick=|deleteEmployee(${dto.no})|>삭제</button> -->
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<!-- 페이지네이션 링크 -->
+				<div class="pagination">
+					<ul>
+						<!-- 처음 페이지 링크 -->
+						<li th:if="${currentPage > 0}">
+							<a th:href="@{/admin/hr/mgm(pageNumber=0)}"> << </a>
+						</li>
+						<!-- 이전 페이지 링크 -->
+						<li th:if="${currentPage > 0}">
+							<a th:href="@{/admin/hr/mgm(pageNumber=${currentPage - 1})}"> < </a>
+						</li>
+						<!-- 페이지 번호 링크 -->
+						<li th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
+							<a th:href="@{/admin/hr/mgm(pageNumber=${i})}" th:text="${i + 1}"
+								th:classappend="${i == currentPage ? 'active' : ''}"></a>
+						</li>
+						<!-- 다음 페이지 링크 -->
+						<li th:if="${currentPage < totalPages - 1}">
+							<a th:href="@{/admin/hr/mgm(pageNumber=${currentPage + 1})}"> > </a>
+						</li>
+						<!-- 마지막 페이지 링크 -->
+						<li th:if="${currentPage < totalPages - 1}">
+							<a th:href="@{/admin/hr/mgm(pageNumber=${totalPages - 1})}"> >> </a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
 </main>
 </body>
 </html>

@@ -3,19 +3,35 @@
  */
 
 /*백엔드 기능 구현 후 확인해보기*/
+const token = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+const header = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
+
 
 document.addEventListener("DOMContentLoaded", function() {
     const urlParams = new URLSearchParams(window.location.search);
     const empName = urlParams.get('empName');
     
     if (empName) {
-        fetch(`/employeeDetail?empName=${empName}`)
-            .then(response => response.text())
-            .then(html => {
-                document.body.innerHTML = html;
-                showEmployeeDetail(empName);  // 사원 정보 로드 후 툴팁을 보여주는 로직 호출
-            })
-            .catch(error => console.error('Error loading employee details:', error));
+        // URL 쿼리 문자열에 empName을 포함한 GET 요청
+        fetch(`/employeeDetail?empName=${encodeURIComponent(empName)}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                [header]: token // CSRF 토큰 헤더 추가
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json(); // 응답을 JSON으로 변환
+        })
+        .then(data => {
+            // 서버에서 반환된 데이터로 HTML 업데이트
+            updateEmployeeDetail(data);
+            showEmployeeDetail(empName);  // 사원 정보 로드 후 툴팁을 보여주는 로직 호출
+        })
+        .catch(error => console.error('Error loading employee details:', error));
     }
 });
 

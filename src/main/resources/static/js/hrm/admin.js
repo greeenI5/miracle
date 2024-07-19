@@ -1,6 +1,23 @@
 /**
  * ID의 값을 비밀번호에 복사
  */
+
+$(function() {
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content") || 'X-CSRF-TOKEN'; // 기본값 설정
+
+    console.log('CSRF Token:', token);
+    console.log('CSRF Header:', header);
+
+    $(document).ajaxSend(function(e, xhr, options) {
+        if (token && header) {
+            xhr.setRequestHeader(header, token);
+        } else {
+            console.error('CSRF Token or Header is missing.');
+        }
+    });
+});
+
 function syncEmpIdWithPassword() {
     const empId = document.getElementById('empId').value;
     const empPassword = document.getElementById('empPassword');
@@ -121,7 +138,7 @@ function addEmployeeToTable(employee) {
     const tableBody = document.getElementById("employee-table-body");
     const newRow = document.createElement("tr");
     
-    newRow.id = `employee-${employee.empId}`; // 직원 ID로 행 ID 설정
+    newRow.id = `employee-${employee.empNo}`; // 직원 ID로 행 ID 설정
     newRow.innerHTML = `
         <td>${employee.empId}</td>
         <td data-original-name="${employee.name}">${employee.name}</td>
@@ -201,18 +218,22 @@ function completeEdit(button) {
  */
 function deleteEmployee(button) {
     const row = button.parentElement.parentElement;
-    const empId = row.id.split('-')[1]; // ID에서 empId 추출
+    const empNo = row.id.replace('employee-', ''); // 'employee-'를 제거하여 empNo 추출
+
+    console.log('Employee No:', empNo);
+
     const confirmDelete = confirm("정말로 삭제하시겠습니까?");
-    
+
     if (confirmDelete) {
         $.ajax({
             type: "DELETE",
-           	url: "/admin/hr/mgm",
+            url: `/admin/hr/mgm/${empNo}`, // empNo를 URL에 포함시킵니다.
             success: function(response) {
                 alert("직원이 성공적으로 삭제되었습니다.");
                 row.remove(); // 행 삭제
             },
             error: function(error) {
+                console.error("직원 삭제 중 오류가 발생했습니다.", error);
                 alert("직원 삭제 중 오류가 발생했습니다.");
             }
         });
