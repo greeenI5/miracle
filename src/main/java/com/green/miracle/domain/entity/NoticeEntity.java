@@ -4,6 +4,8 @@ import java.time.LocalDate;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.green.miracle.domain.dto.NoticeDetailDTO;
 
@@ -59,10 +61,10 @@ public class NoticeEntity {
 	}
 
 	public NoticeEntity update(NoticeDetailDTO dto) {
-		this.noticeTitle=dto.getNoticeTitle();
-		this.noticeContent=dto.getNoticeContent();
-		return this;
-		
+	    this.noticeTitle = dto.getNoticeTitle();
+	    this.noticeContent = dto.getNoticeContent();
+	    
+	    return this;
 	}
 	
 }

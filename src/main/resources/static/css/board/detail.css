@@ -13,8 +13,24 @@
 }
 
 .right-section {
-    padding: 20px;
+    padding: 40px;
     overflow-y: auto;
+}
+
+.update-post-no, .update-post-title, .update-post-date {
+	font-size: 24px;
+	padding: 20px;
+}
+
+.update-post-content, .update-input-title {
+	border: 3px solid var(--main-grey);
+    padding: 10px;
+    border-radius: 10px;
+	font-size: 18px;
+}
+
+.update-post-content {
+	width: 100%;
 }
 
 .write-btn {

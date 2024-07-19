@@ -32,6 +32,7 @@
 	    	<div class="post-box">
 		    	<h2 class="add">글쓰기</h2>
 		        <form th:action="@{/admin/notices/form}" method="post">
+					<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 		            <div id="title-box">
 		                <label class="font" for="title">제목:</label>
 		                <input type="text" id="title" name="title" required>
@@ -42,6 +43,7 @@
 		            </div>
 					
 		            <div>
+						
 		                <button type="submit">등록</button>
 		            </div>
 		        </form>
