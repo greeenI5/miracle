@@ -2,6 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org" 
       th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
 <head>
+	<meta name="_csrf" content="${_csrf.token}" />
+	<meta name="_csrf_header" content="${_csrf.headerName}" />
 	<link rel="stylesheet" href="/css/emp/detail.css">
 	<link rel="stylesheet" href="/css/emp/emp.css">
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
