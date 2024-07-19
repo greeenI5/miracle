@@ -32,7 +32,7 @@ public class NoticeController {
 	
 	@GetMapping("/admin/notices/form")
 	public String noticeForm() {
-		return "/views/admin/notice/form";
+		return "/views/admin/notices/form";
 	}
 	
 	//
@@ -52,13 +52,13 @@ public class NoticeController {
 	@PutMapping("/admin/notices/{no}")
 	public String update(@PathVariable("no") long no, NoticeDetailDTO dto) {	
 		service.updateProcess(no, dto);
-		return "redirect:/views/notices/detail";
+		return "redirect:/notices/{no}";
 	}
 	
 	@DeleteMapping("/admin/notices/{no}")
 	public String delete(@PathVariable("no") long no) {	
 		service.deleteProcess(no);
-		return "redirect:/views/notices/detail";
+		return "redirect:/notices";
 	}
 	
 	

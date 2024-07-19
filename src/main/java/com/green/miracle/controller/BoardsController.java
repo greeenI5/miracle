@@ -30,7 +30,7 @@ public class BoardsController {
 	@PostMapping("/boards/form")
 	public String write(BoardCreateDTO dto) {
 		service.saveProcess(dto);
-		return "redirect:/board";
+		return "redirect:/boards";
 	}
 	
 	@GetMapping("/boards/form")
@@ -45,15 +45,15 @@ public class BoardsController {
 		return "/views/board/detail";
 	}
 	
-	@PutMapping("/board/{no}")
+	@PutMapping("/boards/{no}")
 	public String update(@PathVariable("no") long no, BoardDetailDTO dto) {
 		service.updateProcess(no, dto);
-		return "redirect:/views/board/detail";
+		return "redirect:/boards/{no}";
 	}
 	
-	@DeleteMapping("/board/{no}")
+	@DeleteMapping("/boards/{no}")
 	public String delete(@PathVariable("no") long no) {
 		service.deleteProcess(no);
-		return "redirect:/views/board/detail";
+		return "redirect:/boards";
 	}
 }

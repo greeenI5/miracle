@@ -59,11 +59,16 @@ body > main > div > p > span {
 	min-width: 100px;
 }
 
+.edit-fields {
+    display: none;
+}
+
+
 #edit-password-button {
 	min-width: 100px;
 	cursor: pointer;
 }
 
-#save-button, #fix-button {
+#save-button, #fix-button, #cancel-button {
 	cursor: pointer;
 }
