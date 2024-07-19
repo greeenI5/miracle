@@ -51,6 +51,7 @@ public class SecurityConfig {
 	          //form 로그인 설정 (기본 설정 사용)
 	          .formLogin(login -> login
 	        		  .loginPage("/login") //로그인 페이지로 이동하는 url
+	        		  .failureUrl("/login?error=true") //로그인 실패시 url
 	        		  .permitAll()
 	        		  
 	        		  .usernameParameter("email")
