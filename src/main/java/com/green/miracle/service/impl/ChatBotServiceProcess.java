@@ -1,5 +1,9 @@
 package com.green.miracle.service.impl;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Service;
 
 import com.green.miracle.domain.dto.ChatBotQuestionDTO;
@@ -13,13 +17,20 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ChatBotServiceProcess implements ChatBotService{
 
-	private final ChatBotRepository chatBotRepository;
-	// ChatBotRepository 인터페이스를 통한 데이터베이스 접근을 담당하는 필드
+	  private final ChatBotRepository chatBotRepository;
 	
-	@Override
-	public ChatBotEntity getAnswerByQuestion(String question) {
-		// ChatBotRepository를 사용하여 데이터베이스에서 질문에 대한 답변을 조회
-        return chatBotRepository.findAnswerByQuestion(question);
-    }
-	
-}
+	  @Override
+	    public List<ChatBotQuestionDTO> getAllChatBots() {
+	        return chatBotRepository.findAll().stream()
+	                .map(this::convertToDTO)
+	                .collect(Collectors.toList());
+	    }
+
+	    private ChatBotQuestionDTO convertToDTO(ChatBotEntity entity) {
+	        return new ChatBotQuestionDTO(
+	                entity.getQNo(),
+	                entity.getQuestion(),
+	                entity.getAnswer()
+	        );
+	    }
+	}
