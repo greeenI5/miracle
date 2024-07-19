@@ -7,20 +7,23 @@ document.addEventListener("DOMContentLoaded", function() {
             const row = document.createElement("tr");
 
             row.innerHTML = `
-                <td>${plan.no}</td>
-                <td><a th:href="@{/performance/plan/{plan_no}(plan_no=${plan.no})}" class="plan-name">${plan.name}</a></td>
-                <td>${plan.author}</td>
-                <td>${plan.date}</td>
+                <td>${plan.planNo}</td>
+                <td><a href="/performance/plan/${plan.planNo}" class="plan-name">${plan.perTitle}</a></td>
+                <td>${plan.employee.name}</td>
+                <td>${plan.writeAt}</td>
             `;
 
             planList.appendChild(row);
         });
     }
 
-    // Fetch plans from the backend using Thymeleaf model attribute
-    const plansData = /*[[${plans}]]*/ [];  // This will be replaced with actual model data from Thymeleaf
-
-    addPlansToTable(plansData);
+    // Fetch plans from the backend
+    fetch('/api/plans')
+        .then(response => response.json())
+        .then(plansData => {
+            addPlansToTable(plansData);
+        })
+        .catch(error => console.error('Error fetching plans:', error));
 
     // Handle search form submission
     const searchForm = document.getElementById("search-form");
@@ -28,17 +31,22 @@ document.addEventListener("DOMContentLoaded", function() {
         event.preventDefault();
         const searchInput = document.getElementById("search").value.toLowerCase();
 
-        const filteredPlans = plansData.filter(plan =>
-            plan.name.toLowerCase().includes(searchInput) ||
-            plan.author.toLowerCase().includes(searchInput)
-        );
+        fetch('/api/plans')
+            .then(response => response.json())
+            .then(plansData => {
+                const filteredPlans = plansData.filter(plans =>
+                    plans.perTitle.toLowerCase().includes(searchInput) ||
+                    plans.employee.name.toLowerCase().includes(searchInput)
+                );
 
-        // Clear existing table rows
-        while (planList.firstChild) {
-            planList.removeChild(planList.firstChild);
-        }
+                // Clear existing table rows
+                while (planList.firstChild) {
+                    planList.removeChild(planList.firstChild);
+                }
 
-        // Add filtered plans to the table
-        addPlansToTable(filteredPlans);
+                // Add filtered plans to the table
+                addPlansToTable(filteredPlans);
+            })
+            .catch(error => console.error('Error filtering plans:', error));
     });
 });

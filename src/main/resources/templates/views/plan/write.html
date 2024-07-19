@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
 <head>
+	<meta name="_csrf" th:content="${_csrf.token}" />
+	<meta name="_csrf_header" th:content="${_csrf.headerName}" />	
     <script defer src="/js/plan/write.js"></script> <!-- scripts.js 경로 수정 -->
     <link rel="stylesheet" href="/css/plan/write.css"> <!-- styles.css 경로 수정 -->
 </head>
 
 <main>
     <form id="performanceForm" method="post" enctype="multipart/form-data">
+		<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
     	<div class="flex container">
 	        <div class="content-top">
 	            <div class="logo-preview">
@@ -16,13 +19,13 @@
 	                    <div class="image-preview">
 	                        <img id="imagePreview" src="#" alt="Image Preview" style="display: none;">
 	                    </div>
-	                    <input type="file" id="image" name="image" accept="image/*" style="display: none;" required>
-	                    <label for="image" class="upload-label">포스터 (420mm x 594mm):</label>
-	                    <button type="button" class="upload-button" onclick="document.getElementById('image').click();">파일 선택</button>
+	                    <input type="file" id="perPoster" name="imageInput" accept="image/*" style="display: none;" required>
+	                    <label for="perPoster" class="upload-label">포스터 (420mm x 594mm):</label>
+	                    <button type="button" class="upload-button" onclick="document.getElementById('perPoster').click();">파일 선택</button>
 	                </div>
 	                <div class="form-group">
-	                    <label for="description">기획의도:</label>
-	                    <textarea id="description" name="description" required></textarea>
+	                    <label for="perContent">기획의도:</label>
+	                    <textarea id="perContent" name="perContent" required></textarea>
 	                </div>
                 </div>
                 <div class="content-right">
@@ -30,35 +33,35 @@
 	       			<p class="subtitle" style="color: #2e3d86">PERFORMANCE REPORT</p>
 	        		<hr style="margin: 20px 0; margin-bottom: 20px;">
 	                <div class="form-group">
-	                    <label for="date">작성일:</label>
-	                    <input type="date" id="date" name="date" required>
+	                    <label for="writeAt">작성일:</label>
+	                    <input type="date" id="writeAt" name="writeAt" required>
 	                </div>
 	                <div class="form-group">
-	                    <label for="planner">기획총괄:</label>
-	                    <input type="text" id="planner" name="planner" placeholder="기획자명" required>
+	                    <label for="employee">기획총괄:</label>
+	                    <input type="text" id="employee" name="employee" placeholder="기획자명" required>
 	                </div>
 	                <div class="form-group">
-	                    <label for="title">공연명:</label>
-	                    <input type="text" id="title" name="title" placeholder="공연명" required>
+	                    <label for="perTitle">공연명:</label>
+	                    <input type="text" id="perTitle" name="perTitle" placeholder="공연명" required>
 	                </div>   
 	                <div class="form-group">
-	                    <label for="genre">장르:</label>
-	                    <select id="genre" name="genre" required>
-	                        <option value="" disabled selected>장르 선택</option>
-	                        <option value="뮤지컬">뮤지컬</option>
-	                        <option value="강연">강연</option>
-	                        <option value="연극">연극</option>
-	                        <option value="콘서트">콘서트</option>
-	                        <option value="마술">마술</option>
-	                    </select>
+	                    <label for="perType">장르:</label>
+	                    <select id="perType" name="perType" required>
+						    <option value="" disabled selected>장르 선택</option>
+						    <option value="MUSICAL">뮤지컬</option>
+						    <option value="LECTURE">강연</option>
+						    <option value="ROLEPLAY">연극</option>
+						    <option value="CONCERT">콘서트</option>
+						    <option value="MAGIC">마술</option>
+						</select>
 	                </div>
 	                <div class="form-group">
-	                    <label for="startDate">공연 시작일:</label>
-	                    <input type="date" id="startDate" name="startDate" required>
+	                    <label for="startAt">공연 시작일:</label>
+	                    <input type="date" id="startAt" name="startAt" required>
 	                </div>
 	                <div class="form-group">
-	                    <label for="endDate">공연 종료일:</label>
-	                    <input type="date" id="endDate" name="endDate" required>
+	                    <label for="finishAt">공연 종료일:</label>
+	                    <input type="date" id="finishAt" name="finishAt" required>
 	                </div>
 	                <div class="form-group">
 	                    <label for="location">장소:</label>

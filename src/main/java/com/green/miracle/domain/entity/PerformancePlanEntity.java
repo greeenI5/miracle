@@ -6,6 +6,8 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -40,6 +42,10 @@ public class PerformancePlanEntity {
 	
 	@Column(nullable=false)//not null
 	private String perContent; // 기획내용
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name = "perType", nullable=false)//not null
+	private PerType perType; // 장르
 	
 	@Column(nullable=false)//not null
 	private LocalDate startAt; //시작일

@@ -3,14 +3,14 @@ document.addEventListener('DOMContentLoaded', function() {
     function getPlanData() {
         return {
             logo: '/images/logo/m-logo.png',
-            image: '/path/to/saved/image.jpg',
-            description: '여기에 저장된 기획의도가 표시됩니다.',
-            date: '2024-07-15',
-            planner: '기획자명',
-            title: '공연명',
-            genre: '뮤지컬',
-            startDate: '2024-08-01',
-            endDate: '2024-08-31',
+            perPoster: '/path/to/saved/image.jpg',
+            perContent: '여기에 저장된 기획의도가 표시됩니다.',
+            writeAt: '2024-07-15',
+            employee: '기획자명',
+            perTitle: '공연명',
+            perType: '뮤지컬',
+            startAt: '2024-08-01',
+            finishAt: '2024-08-31',
             location: '서울'
         };
     }
@@ -19,20 +19,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 데이터를 HTML 요소에 삽입
     document.getElementById('logoPreview').src = data.logo;
-    document.getElementById('imagePreview').src = data.image;
-    document.getElementById('description').textContent = data.description;
-    document.getElementById('date').textContent = data.date;
-    document.getElementById('planner').textContent = data.planner;
-    document.getElementById('title').textContent = data.title;
-    document.getElementById('genre').textContent = data.genre;
-    document.getElementById('startDate').textContent = data.startDate;
-    document.getElementById('endDate').textContent = data.endDate;
+    document.getElementById('perPoster').src = data.perPoster;
+    document.getElementById('perContent').textContent = data.perContent;
+    document.getElementById('writeAt').textContent = data.writeAt;
+    document.getElementById('employee').textContent = data.employee;
+    document.getElementById('perTitle').textContent = data.perTitle;
+    document.getElementById('perType').textContent = data.perType;
+    document.getElementById('startAt').textContent = data.startAt;
+    document.getElementById('finishAt').textContent = data.finishAt;
     document.getElementById('location').textContent = data.location;
 
     // 결재 승인 버튼 클릭 이벤트 핸들러
     document.getElementById('approvalButton').addEventListener('click', function() {
         // 실제 구현에서는 fetch나 axios 등을 사용하여 서버로 데이터 전송
-        fetch('/approval/request', {
+        fetch('/approval/plan', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

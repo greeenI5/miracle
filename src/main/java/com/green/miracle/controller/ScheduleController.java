@@ -24,12 +24,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ScheduleController {
 	
 	private final ScheduleService service;
-	
-	@GetMapping("/detail")
+	/*
+	@GetMapping("/")
 	public String getSchedule(ScheduleEntity scheduleEntity, Model model) { //캘린더에서 일정 출력  
 		service.findProcess(scheduleEntity,model);
 		return "/views/schedule/calendar";
-	}
+	}*/
 	
 	@PostMapping("/save")
     public ResponseEntity<String> saveSchedule(@RequestBody ScheduleCreateDTO dto) {

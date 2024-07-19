@@ -96,7 +96,7 @@ input[type="file"] {
 
 textarea {
     resize: none; /* 사용자가 크기를 조정하지 못하도록 설정 */
-    height: 240px; /* 원하는 고정 높이 설정 */
+    height: 160px; /* 원하는 고정 높이 설정 */
     overflow: auto; /* 내용이 넘칠 경우 스크롤 생기도록 설정 */
 }
 
