@@ -2,8 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org" 
       th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
 <head>
-    <script defer src="/js/plan/list.js"></script>
-    <link rel="stylesheet" href="/css/plan/list.css">
+    <script defer src="/js/approval/list.js"></script>
+    <link rel="stylesheet" href="/css/approval/list.css">
     <meta charset="UTF-8">
     <title>Plan List</title>
 </head>
@@ -12,14 +12,14 @@
         <!-- 좌측메뉴 -->
         <section class="content-left">
             <div class="left-box">
-                <p class="sub-title flex center">기획목록</p>
-                <th:block th:insert="~{views/plan/list-menu}" />
+                <p class="sub-title flex center">결재보류</p>
+                <th:block th:insert="~{views/approval/list-menu}" />
             </div>
         </section>
         <section class="content-right">
-			<div class="location">HOME > 기획목록</div>
+			<div class="location">HOME > 결재보류</div>
                 <div id="content-box">
-					<div class="list-name">기획서</div>
+					<div class="list-name">결재보류</div>
                     <form id="search-form">
                         <div class="search-wrap">
                             <input id="search" type="search" placeholder="검색어를 입력해주세요.">

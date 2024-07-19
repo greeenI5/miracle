@@ -7,11 +7,11 @@ document.addEventListener("DOMContentLoaded", function() {
             const row = document.createElement("tr");
 
             row.innerHTML = `
-                <td>${plan.plan_no}</td>
-                <td><a th:href="@{/approval/plan/{plan_no}(plan_no=${plan.no})}" class="plan-name">${plan.name}</a></td>
-                <td>${plan.author}</td>
-                <td>${plan.date}</td>
-                <td><button class="approve-button" data-id="${plan.no}">승인</button></td>
+                <td>${plan.planNo}</td>
+                <td><a href="/performance/plan/${plan.planNo}" class="plan-name">${plan.perTitle}</a></td>
+                <td>${plan.employee.name}</td>
+                <td>${plan.writeAt}</td>
+                <td><button class="approve-button" data-id="${plan.planNo}">승인</button></td>
             `;
 
             planList.appendChild(row);

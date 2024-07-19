@@ -17,7 +17,7 @@ public class PlanServiceProcess implements Planservice{
 	
 	@Override
 	public void findAllProcess(Model model) {
-		model.addAttribute("list",repository.findAll());
+		model.addAttribute("plans",repository.findAll());
 		
 	}
 
