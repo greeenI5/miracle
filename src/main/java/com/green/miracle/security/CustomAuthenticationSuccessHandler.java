@@ -43,7 +43,6 @@ public class CustomAuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 			request.getSession().removeAttribute("prevPage");
 		}
 		
-		
 		redirectStrategy.sendRedirect(request, response, targetUrl); //성공하면 인덱스로 넘어감
 		//redirectStrategy.sendRedirect(request, response, getDefaultTargetUrl());
 	}

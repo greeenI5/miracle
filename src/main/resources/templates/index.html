@@ -10,8 +10,9 @@ th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
         	<div class="card-top flex">
         		<div class="profile-pic"><div class="user-image"></div></div>
         		<div class = "info">
-		            <p class="name">홍길동 사원</p>
+		            <p class="name" th:text="|${#authentication.principal.name} 사원|">사원이름</p>
 		            <p class="department">기획팀</p>
+		            <p>남은 시간: <span id="time"></span></p>
 	            </div>
             </div>
         </div>
@@ -83,12 +84,12 @@ th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
 	  				<span id="selectedMonth" class="selected-month"></span>
 	  				<span id="selectedDay" class="selected-day"></span>
 	  				<div class="checklist">
-				        <label><input type="checkbox"> 공연 음향 체크</label>
-				        <label><input type="checkbox"> 유니폼 수령</label>
-				        <label><input type="checkbox"> 공연 음향 체크</label>
-				        <label><input type="checkbox"> 이벤트 물품 확인</label>
+				        <label><input type="checkbox" class="check-item" data-label=""> 공연 음향 체크</label>
+				        <label><input type="checkbox" class="check-item" data-label=""> 유니폼 수령</label>
+				        <label><input type="checkbox" class="check-item" data-label=""> 공연 음향 체크</label>
+				        <label><input type="checkbox" class="check-item" data-label=""> 이벤트 물품 확인</label>
 				    </div>
-				    <button class="schedule-button">확인</button>
+				    <button class="schedule-button" onclick="saveChecklist()">확인</button>
 				</div>
 			</div>  
         </div>

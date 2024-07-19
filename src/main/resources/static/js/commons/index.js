@@ -119,6 +119,52 @@ setInterval(updateCurrentTime, 1000); // 1초마다 시간 업데이트
   document.getElementById('selectedMonth').innerHTML = monthEnglishNames[currentMonth] +' ';
   document.getElementById('selectedDay').innerHTML = selectedDate;
   
+
+////일정 체크
+$(document).ready(function() {
+    loadChecklist();
+});
+// 체크리스트 상태를 저장하는 함수
+function saveChecklist() {
+    const checkItems = document.querySelectorAll('.check-item');
+    const checklistState = {};
+    // 각 체크 항목의 상태를 객체에 저장
+    checkItems.forEach(item => {
+        checklistState[item.dataset.label] = item.checked;
+    });
+    // 체크리스트 상태를 로컬 스토리지에 JSON 형태로 저장
+    localStorage.setItem('checklistState', JSON.stringify(checklistState));
+    // UI 업데이트
+    updateChecklistUI();
+}
+// 체크리스트를 로드하는 함수
+function loadChecklist() {
+    // 로컬 스토리지에서 체크리스트 상태를 가져옴 (없으면 빈 객체 사용)
+    const checklistState = JSON.parse(localStorage.getItem('checklistState')) || {};
+    // 모든 체크 항목에 대해 상태 적용
+    document.querySelectorAll('.check-item').forEach(item => {
+        if (checklistState[item.dataset.label]) {
+            item.checked = true;
+            item.parentElement.classList.add('checked');
+        } else {
+            item.checked = false;
+            item.parentElement.classList.remove('checked');
+        }
+    });
+}
+// 체크리스트 UI를 업데이트하는 함수
+function updateChecklistUI() {
+    // 모든 체크 항목에 대해 UI 상태 업데이트
+    document.querySelectorAll('.check-item').forEach(item => {
+        if (item.checked) {
+            item.parentElement.classList.add('checked');
+        } else {
+            item.parentElement.classList.remove('checked');
+        }
+    });
+}
+
+  
 //출근하기, 퇴근하기 버튼
 function activateButton(button) {
     var startButton = document.getElementById('start-work-button');
@@ -189,3 +235,33 @@ function formatTimeDuration(duration) {
     const seconds = duration.seconds; // 초
     return `${hours}h ${minutes}m ${seconds+1}s`; // 시간, 분, 초 형식의 문자열 반환
 }
+
+
+/*로그인 세션 남은 시간
+// 남은 시간 타이머 시작 함수
+function startTimer(duration, display) {
+    var timer = duration, hours, minutes, seconds;
+    setInterval(function () {
+        hours = parseInt(timer / 3600, 10);
+        minutes = parseInt((timer % 3600) / 60, 10);
+        seconds = parseInt(timer % 60, 10);
+
+        hours = hours < 10 ? "0" + hours : hours;
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.textContent = hours + ":" + minutes + ":" + seconds;
+
+        if (--timer < 0) {
+            window.location = '/logout';  // 세션 타임아웃 후 로그아웃 페이지로 이동
+        }
+    }, 1000);
+}
+
+window.onload = function () {
+    // Thymeleaf로부터 받은 데이터 삽입
+    var remainingTime = [[${remainingTime}]] / 1000; // 밀리초를 초로 변환
+    var display = document.querySelector('#time'); // 타이머를 표시할 HTML 요소 선택
+    startTimer(remainingTime, display); // 타이머 시작
+};
+*/

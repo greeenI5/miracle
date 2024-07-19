@@ -12,6 +12,10 @@ main {
 }  
 */
 
+.checked{
+	text-decoration:line-through;
+}
+
 .grid-container {
 	display: grid;
     grid-template-columns: repeat(3, 1fr);

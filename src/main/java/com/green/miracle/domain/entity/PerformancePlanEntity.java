@@ -2,6 +2,7 @@ package com.green.miracle.domain.entity;
 
 import java.time.LocalDate;
 
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
 import jakarta.persistence.Column;
@@ -56,6 +57,8 @@ public class PerformancePlanEntity {
 	@Column(columnDefinition = "timestamp", nullable=false)
 	private LocalDate writeAt; // 작성일
 	
+	@Column(nullable=true)
+	@ColumnDefault("0")
 	private int approval; //승인여부
 
 }
