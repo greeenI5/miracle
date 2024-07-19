@@ -68,7 +68,7 @@
             <div id="chat">
             <section class="chat-top">
 				<div id="current_date">
-  					<script>
+					<script>
         				const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
         				document.getElementById("current_date").innerHTML = new Date().toLocaleDateString('ko-KR', options);
     				</script>
@@ -144,7 +144,9 @@
 				</div>
 				
 				<!-- 입력메세지가 출력되는 부분 -->
-				<div id="messageDisplay"></div>
+				<div id="messageDisplay" >
+					
+				</div>
 				<div id="serverBotMessage" class="server-message-container"></div>
 			</main>
 			

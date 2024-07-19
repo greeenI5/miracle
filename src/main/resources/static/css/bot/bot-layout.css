@@ -50,13 +50,14 @@
     transform: scale(0.5);
     opacity: 0;
     pointer-events: none;
-    overflow: hidden; /* 크기에 넘치는부분은 숨기기 */
+    overflow-y: auto; /* 스크롤 */
     border: solid var(--sub-navy) 2px;
     border-radius: 5.5px;
     transform-origin: bottom right;
     box-shadow: 0 32px 64px -48px rgb(0,0,0,0.5);	
     transition: all 0.1s ease;
 }
+
 
 .show-chatbot #bot-container {
 	transform: scale(1);
@@ -147,6 +148,26 @@
 	font-size: 14px;
 }
 
+.user-message{
+	display: flex;
+	flex-direction: column;
+	background-color: var(--sub-navy);
+	color: #333333;
+	max-width:270px;
+	padding: 6px 10px;
+	text-align: right;
+	letter-spacing: -0.5px;
+	margin-bottom: 5px;
+	border-radius: 5px;
+	box-shadow: 0 1px 1px 0 rgb(0 0 0 / 10%);
+	font-size: 14px;
+}
+
+div#messageDisplay.bot-message{
+	display: inline-block;
+	text-align: right;
+}
+
 
 .button-container {
     display: flex;
@@ -191,31 +212,14 @@
     align-items: center;
 }
 
-#question{
-    width: 310px;
-    height: 35px;
-    border: none;
-    position: relative;
-}
+
 
 input#question:focus {
     outline: none;
 }
 
-#messagePart {
-	display: flex;
-	flex-direction: column;
-	background-color: var(--sub-navy);
-	color: #333333;
-	max-width:270px;
-	padding: 6px 10px;
-	text-align: right;
-	letter-spacing: -0.5px;
-	margin-bottom: 5px;
-	border-radius: 5px;
-	box-shadow: 0 1px 1px 0 rgb(0 0 0 / 10%);
-	font-size: 14px;
-}
+
+
 
 .btn-send{
 	display: flex;
