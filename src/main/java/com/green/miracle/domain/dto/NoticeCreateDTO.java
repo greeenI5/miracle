@@ -17,6 +17,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class NoticeCreateDTO {
+	
 	private long noticeNo; // 글 번호
 	private EmployeeEntity employee; //사원번호 (fk)
 	private String noticeTitle; // 공지사항 제목

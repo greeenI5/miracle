@@ -235,33 +235,3 @@ function formatTimeDuration(duration) {
     const seconds = duration.seconds; // 초
     return `${hours}h ${minutes}m ${seconds+1}s`; // 시간, 분, 초 형식의 문자열 반환
 }
-
-
-/*로그인 세션 남은 시간
-// 남은 시간 타이머 시작 함수
-function startTimer(duration, display) {
-    var timer = duration, hours, minutes, seconds;
-    setInterval(function () {
-        hours = parseInt(timer / 3600, 10);
-        minutes = parseInt((timer % 3600) / 60, 10);
-        seconds = parseInt(timer % 60, 10);
-
-        hours = hours < 10 ? "0" + hours : hours;
-        minutes = minutes < 10 ? "0" + minutes : minutes;
-        seconds = seconds < 10 ? "0" + seconds : seconds;
-
-        display.textContent = hours + ":" + minutes + ":" + seconds;
-
-        if (--timer < 0) {
-            window.location = '/logout';  // 세션 타임아웃 후 로그아웃 페이지로 이동
-        }
-    }, 1000);
-}
-
-window.onload = function () {
-    // Thymeleaf로부터 받은 데이터 삽입
-    var remainingTime = [[${remainingTime}]] / 1000; // 밀리초를 초로 변환
-    var display = document.querySelector('#time'); // 타이머를 표시할 HTML 요소 선택
-    startTimer(remainingTime, display); // 타이머 시작
-};
-*/

@@ -1,12 +1,16 @@
 package com.green.miracle.service.impl;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 
 import com.green.miracle.domain.dto.BoardCreateDTO;
 import com.green.miracle.domain.dto.BoardDetailDTO;
 import com.green.miracle.domain.entity.BoardEntity;
+import com.green.miracle.domain.entity.EmployeeEntity;
 import com.green.miracle.domain.repository.BoardEntityRepository;
+import com.green.miracle.domain.repository.EmployeeEntityRepository;
+import com.green.miracle.security.CustomUserDetails;
 import com.green.miracle.service.BoardService;
 
 import lombok.RequiredArgsConstructor;
@@ -16,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 public class BoardServiceProcess implements BoardService {
 	
 	private final BoardEntityRepository repository;
+	private final EmployeeEntityRepository empRepository;
 	
 	@Override
 	public void findAllProcess(Model model) {
@@ -23,9 +28,9 @@ public class BoardServiceProcess implements BoardService {
 	}
 
 	@Override
-	public void saveProcess(BoardCreateDTO dto) {
+	public void saveProcess(BoardCreateDTO dto, CustomUserDetails user) {
+		dto.setEmployee(empRepository.findByEmail(user.getEmail()).orElseThrow());
 		repository.save(dto.toEntity());
-		
 	}
 
 	@Override
@@ -35,6 +40,7 @@ public class BoardServiceProcess implements BoardService {
 	}
 
 	@Override
+	@Transactional
 	public void updateProcess(long no, BoardDetailDTO dto) {
 		repository.findById(no).orElseThrow().update(dto);
 	}

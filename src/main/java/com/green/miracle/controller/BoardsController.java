@@ -1,5 +1,6 @@
 package com.green.miracle.controller;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 
 import com.green.miracle.domain.dto.BoardCreateDTO;
 import com.green.miracle.domain.dto.BoardDetailDTO;
+import com.green.miracle.security.CustomUserDetails;
 import com.green.miracle.service.BoardService;
 
 import lombok.RequiredArgsConstructor;
@@ -28,8 +30,8 @@ public class BoardsController {
 	}
 	
 	@PostMapping("/boards/form")
-	public String write(BoardCreateDTO dto) {
-		service.saveProcess(dto);
+	public String write(BoardCreateDTO dto, @AuthenticationPrincipal CustomUserDetails user) {
+		service.saveProcess(dto, user);
 		return "redirect:/boards";
 	}
 	

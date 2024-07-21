@@ -9,6 +9,7 @@ main {
     grid-column: 2 / -1;
     grid-row: 2 / -1;
     padding: 30px;
+    overflow-y: auto; /* 추가: 컨텐츠가 넘칠 경우 스크롤바 표시 */
 }
 #header {
     grid-column: 1 / -1;
@@ -19,13 +20,16 @@ main {
     align-items: center;
     justify-content: space-between;
     padding: 0 20px;
+    
+    position: sticky; /* 추가: sticky 위치 고정 */
+    top: 0;           /* 추가: 화면 상단에 고정 */
+    z-index: 1000;    /* 추가: 다른 콘텐츠 위에 표시 */
 }
 
 #header .logo {
     font-size: 24px;
     font-weight: bold;
 }
-
 #header .user-info {
     display: flex;
     align-items: center;
@@ -38,15 +42,21 @@ main {
 }
 
 #header > .header-right > .user-info > i{
-    font-size: 35px;
+    font-size: 25px;
     margin : 0px 5px;
 }
 
 #header .username {
-    margin-right: 10px;
     color: white;
+    font-weight: 500;
 }
-
+#time-icon{
+	font-size: 20px !important;
+}
+#remaining-time{
+	margin-left: 5px;
+	margin-right : 15px;
+}
 
 
 #sidebar {
@@ -54,6 +64,11 @@ main {
     color: var(--main-navy);   
     grid-column: 1 / 2;
     grid-row: 2 / -1;
+    
+    position: sticky; /* 추가: sticky 위치 고정 */
+    top: 70px;        /* 추가: 헤더 바로 아래에 고정 */
+    height: calc(100vh - 70px); /* 추가: 전체 높이에서 헤더 높이만큼 뺀 값 */
+    overflow-y: auto; /* 추가: 컨텐츠가 넘칠 경우 스크롤바 표시 */
 }
 
 #sidebar > ul {

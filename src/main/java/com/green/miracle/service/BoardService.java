@@ -4,12 +4,13 @@ import org.springframework.ui.Model;
 
 import com.green.miracle.domain.dto.BoardCreateDTO;
 import com.green.miracle.domain.dto.BoardDetailDTO;
+import com.green.miracle.security.CustomUserDetails;
 
 public interface BoardService {
 	
 	void findAllProcess(Model model);
 	
-	void saveProcess(BoardCreateDTO dto);
+	void saveProcess(BoardCreateDTO dto, CustomUserDetails user);
 
 	void detailProcess(long no, Model model);
 
