@@ -10,9 +10,8 @@ th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
         	<div class="card-top flex">
         		<div class="profile-pic"><div class="user-image"></div></div>
         		<div class = "info">
-		            <p class="name" th:text="|${#authentication.principal.name} 사원|">사원이름</p>
-		            <p class="department">기획팀</p>
-		            <p>남은 시간: <span id="time"></span></p>
+		            <p class="name" th:text="|${emp.name} 사원|">사원이름</p>
+		            <p class="department" th:text="${dep.depName}">기획팀</p>
 	            </div>
             </div>
         </div>
@@ -73,9 +72,7 @@ th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
 									<th>토</th>
 								</tr>
 							</thead>
-							<tbody id="calendarBody">
-	
-							</tbody>
+							<tbody id="calendarBody"></tbody>
 						</table>
 					</div>
 				</div>
@@ -125,31 +122,11 @@ th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
 	            <h2>공지사항</h2>
 	            <a href="/notices"><i class="ri-arrow-right-s-line circle"></i></a>
 	        </div>
-	        <ul class="notices">
+	        <ul class="notices" th:each="notice : ${notices}">
 	            <li class="notice-item">
 	                <span class="tag">알림</span>
-	                <span class="text">2023년 근로소득 연말정산 안내의 건</span>
-	                <span class="date">2024.06.24</span>
-	            </li>
-	            <li class="notice-item">
-	                <span class="tag">알림</span>
-	                <span class="text">산업안전보건법령의 요지 게시의 건</span>
-	                <span class="date">2024.05.20</span>
-	            </li>
-	            <li class="notice-item">
-	                <span class="tag">알림</span>
-	                <span class="text">사명 변경에 따른 CI 공지의 건</span>
-	                <span class="date">2024.05.19</span>
-	            </li>
-	            <li class="notice-item">
-	                <span class="tag">알림</span>
-	                <span class="text">2023년 근로소득 연말정산 안내의 건</span>
-	                <span class="date">2024.02.03</span>
-	            </li>
-	            <li class="notice-item">
-	                <span class="tag">알림</span>
-	                <span class="text">2023년 근로소득 연말정산 안내의 건</span>
-	                <span class="date">2024.02.03</span>
+	                <span class="text" th:text="${notice.noticeTitle}">제목</span>
+	                <span class="date" th:text="${notice.writeAt}">날짜</span>
 	            </li>
 	        </ul>
         </div>
@@ -159,31 +136,11 @@ th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
 	            <h2>자유 게시판</h2>
 	            <a href="/boards"><i class="ri-arrow-right-s-line circle"></i></a>
 	        </div>
-	        <ul class="notices">
+	        <ul class="notices" th:each="board : ${boards}">
 	            <li class="notice-item">
 	                <span class="tag">알림</span>
-	                <span class="text">SWG 업무분장_2024</span>
-	                <span class="date">2024.06.24</span>
-	            </li>
-	            <li class="notice-item">
-	                <span class="tag">알림</span>
-	                <span class="text">사업자등록증(2020.05.06)</span>
-	                <span class="date">2024.05.10</span>
-	            </li>
-	            <li class="notice-item">
-	                <span class="tag">알림</span>
-	                <span class="text">직접생산증명서</span>
-	                <span class="date">2023.07.22</span>
-	            </li>
-	            <li class="notice-item">
-	                <span class="tag">알림</span>
-	                <span class="text"> oT사업본부 업무분장_2023</span>
-	                <span class="date">2022.02.03</span>
-	            </li>
-	            <li class="notice-item">
-	                <span class="tag">알림</span>
-	                <span class="text">2023년 근로소득 연말정산 안내의 건</span>
-	                <span class="date">2024.02.03</span>
+	                <span class="text" th:text="${board.boardTitle}">제목</span>
+	                <span class="date" th:text="${board.writeAt}">날짜</span>
 	            </li>
 	        </ul>
         </div>

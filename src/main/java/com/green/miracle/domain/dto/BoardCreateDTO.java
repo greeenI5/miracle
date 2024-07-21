@@ -5,6 +5,9 @@ import java.time.LocalDate;
 import com.green.miracle.domain.entity.BoardEntity;
 import com.green.miracle.domain.entity.EmployeeEntity;
 
+import lombok.Setter;
+
+@Setter
 public class BoardCreateDTO {
 	private long boardNo; // 글번호 (pk)
 	private EmployeeEntity employee; //사원번호 (fk)

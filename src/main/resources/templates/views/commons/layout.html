@@ -8,8 +8,7 @@ th:fragment="layout(pHead,pMain)">
     <title>MIRACLE</title>
     <link rel="stylesheet" href="/css/commons/common.css">
     <link rel="stylesheet" href="/css/commons/layout.css">
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css"
-    	  rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="icon" href="/images/logo/favicon.ico">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     
@@ -26,8 +25,11 @@ th:fragment="layout(pHead,pMain)">
 		</div>
 		<div class="header-right">
 			<div class="user-info">
+				<i class="ri-time-line" id="time-icon"></i>
+				<span>자동 로그아웃</span>
+				<span id="remaining-time" th:text="${remainingTime}"></span>
 				<i class="ri-account-circle-line"></i>
-				<a href="/mypage" class="username">홍길동</a>
+				<a href="/mypage" class="username" th:text="${emp.name}">사원이름</a>
 			</div>
 		</div>
 	</div>
@@ -37,13 +39,15 @@ th:fragment="layout(pHead,pMain)">
 			<li><a href="/notices"><i class="ri-community-line"></i> <span>게시판</span></a></li>
 			<li><a href="/schedule"><i class="ri-calendar-2-line"></i> <span>개인일정</span></a></li>
 			<li><a href="/performance/plan"><i class="ri-calendar-schedule-line"></i> <span>공연기획</span></a></li>
-			<li><a href="/email"><i class="ri-mail-line"></i><span>메일함</span></a></li>
+			<li><a href="/mails"><i class="ri-mail-line"></i><span>메일함</span></a></li>
 			<li><a href="/hr"><i class="ri-account-box-line"></i> <span>조직도</span></a></li>
 			<li><a href="/admin/approval/plan"><i class="ri-clipboard-line"></i> <span>전자결재</span></a></li>
 			<li><a href="/logout"> <i class="ri-logout-box-r-line"></i><span>로그아웃</span></a></li>
 		</ul>
 	</nav>
+	<script src="/js/commons/layout.js"></script>
 	<main th:replace="${pMain}"></main>
+	
 	<!-- ////////////////////////////////////////////////챗봇영역///////////////////////////////////////////////////////////////////// -->
 	<footer>
 		<button class="chatbot-toggler">
