@@ -1,9 +1,13 @@
 package com.green.miracle.service.impl;
 
+import java.time.LocalDate;
+
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.green.miracle.domain.dto.PlanCreateDTO;
+import com.green.miracle.domain.entity.PerType;
 import com.green.miracle.domain.repository.PlanEntityRepository;
 import com.green.miracle.service.Planservice;
 
@@ -21,9 +25,22 @@ public class PlanServiceProcess implements Planservice{
 		
 	}
 
+
+
+
 	@Override
-	public void saveProcess(PlanCreateDTO dto) {
-		repository.save(dto.toEntity());
+	public void savePlan(String perContent, String employee, String perTitle, PerType perType, LocalDate startAt,
+			LocalDate finishAt, String location, LocalDate writeAt, MultipartFile perPoster) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+
+	@Override
+	public void save(String perType, MultipartFile file) {
+		// TODO Auto-generated method stub
 		
 	}
 

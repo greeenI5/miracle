@@ -31,7 +31,7 @@ public class PlanCreateDTO {
 	
 	public PerformancePlanEntity toEntity() {
 		return PerformancePlanEntity.builder()
-				.employee(employee)
+				.employee(employee) // Assuming employee ID is passed
 				.perTitle(perTitle)
 				.perType(perType)
 				.perContent(perContent)
