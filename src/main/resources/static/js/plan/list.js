@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // Fetch plans from the backend
-    fetch('/api/plans')
+    fetch('/performance/plan')
         .then(response => response.json())
         .then(plansData => {
             addPlansToTable(plansData);
@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function() {
         event.preventDefault();
         const searchInput = document.getElementById("search").value.toLowerCase();
 
-        fetch('/api/plans')
+        fetch('/performance/plan')
             .then(response => response.json())
             .then(plansData => {
                 const filteredPlans = plansData.filter(plans =>
