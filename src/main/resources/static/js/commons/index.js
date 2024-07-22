@@ -56,13 +56,13 @@ setInterval(updateCurrentTime, 1000); // 1초마다 시간 업데이트
   let monthEnglishNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
   
   function updateCalendar(month, year) {
-    // Update current month/year display
+    // 현재 날짜 업데이트
     document.getElementById('currentMonthYear').textContent = year + '년 ' + monthNames[month];
 
-    // Calculate days in the month
+    // 월에 따른 일 계산
     let daysInMonth = new Date(year, month + 1, 0).getDate();
 
-    // Generate calendar body
+    // calendar body
     let dateCounter = 1;
     let html = '';
     for (let i = 0; i < 6; i++) { // Maximum 6 weeks (6 rows)
@@ -112,6 +112,27 @@ setInterval(updateCurrentTime, 1000); // 1초마다 시간 업데이트
     updateCalendar(currentMonth, currentYear);
     document.getElementById('selectedMonth').innerHTML = monthEnglishNames[currentMonth] +' ';
     document.getElementById('selectedDay').innerHTML = selectedDate;
+    
+    const token = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+	const header = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
+    
+    // 선택된 날짜를 서버로 전달 (수정된 부분 시작)
+    const selectedFullDate = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(selectedDate).padStart(2, '0')}`;
+    fetch('/api/date', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            [header]: token
+        },
+        body: JSON.stringify({ date: selectedFullDate })
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Success:', data);
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
   }
 
   // Initialize calendar on page load
