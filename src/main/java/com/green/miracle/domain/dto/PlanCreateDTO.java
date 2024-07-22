@@ -2,6 +2,8 @@ package com.green.miracle.domain.dto;
 
 import java.time.LocalDate;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.green.miracle.domain.entity.EmployeeEntity;
 import com.green.miracle.domain.entity.PerType;
 import com.green.miracle.domain.entity.PerformancePlanEntity;
@@ -21,7 +23,7 @@ public class PlanCreateDTO {
 	
 	private EmployeeEntity employee;
 	private String perTitle;
-	private PerType perType; //enum
+	private PerType perType;
 	private String perContent;
 	private LocalDate startAt;
 	private LocalDate finishAt;
@@ -31,16 +33,16 @@ public class PlanCreateDTO {
 	
 	public PerformancePlanEntity toEntity() {
 		return PerformancePlanEntity.builder()
-				.employee(employee) // Assuming employee ID is passed
+				//.perPoster(perPoster != null ? perPoster.getOriginalFilename() : null)
+				.perPoster(perPoster)
+				.employee(employee)
 				.perTitle(perTitle)
 				.perType(perType)
 				.perContent(perContent)
 				.startAt(startAt)
 				.finishAt(finishAt)
 				.location(location)
-				.perPoster(perPoster)
 				.writeAt(writeAt)
 				.build();
-		
 	}
 }

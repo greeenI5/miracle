@@ -4,13 +4,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.green.miracle.domain.repository.ApprovalEntityRepository;
-import com.green.miracle.service.Approvalservice;
+import com.green.miracle.service.ApprovalService;
 
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Service
-public class ApprovalserviceProcess implements Approvalservice{
+public class ApprovalServiceProcess implements ApprovalService{
 	
 	private final ApprovalEntityRepository repository; 
 	

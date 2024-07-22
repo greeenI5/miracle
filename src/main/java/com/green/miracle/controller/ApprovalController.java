@@ -5,9 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.green.miracle.service.Approvalservice;
-import com.green.miracle.service.Planservice;
-
+import com.green.miracle.service.ApprovalService;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.web.bind.annotation.PutMapping;
@@ -21,7 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 @Controller
 public class ApprovalController {
 	
-	private final Approvalservice service;
+	private final ApprovalService service;
 	
 	/*////////////////////////////////////////*/
 	/*                  목  록                 */

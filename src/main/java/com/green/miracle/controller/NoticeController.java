@@ -1,5 +1,6 @@
 package com.green.miracle.controller;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.green.miracle.domain.dto.NoticeCreateDTO;
 import com.green.miracle.domain.dto.NoticeDetailDTO;
+import com.green.miracle.security.CustomUserDetails;
 import com.green.miracle.service.impl.NoticeServiceProcess;
 
 import lombok.RequiredArgsConstructor;
@@ -37,8 +39,8 @@ public class NoticeController {
 	
 	//
 	@PostMapping("/admin/notices/form")
-	public String write(NoticeCreateDTO dto) {
-		service.saveProcess(dto);
+	public String write(NoticeCreateDTO dto, @AuthenticationPrincipal CustomUserDetails user) {
+		service.saveProcess(dto, user);
 		return "redirect:/notices";
 	}
 	

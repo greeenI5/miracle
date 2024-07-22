@@ -6,9 +6,12 @@ import org.springframework.ui.Model;
 import com.green.miracle.domain.dto.NoticeCreateDTO;
 import com.green.miracle.domain.dto.NoticeDetailDTO;
 import com.green.miracle.domain.entity.NoticeEntity;
+import com.green.miracle.domain.repository.EmployeeEntityRepository;
 import com.green.miracle.domain.repository.NoticeEntityRepository;
+import com.green.miracle.security.CustomUserDetails;
 import com.green.miracle.service.NoticeService;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -17,15 +20,17 @@ public class NoticeServiceProcess implements NoticeService{
 	
 	private final NoticeEntityRepository repository;
 	
+	private final EmployeeEntityRepository empRepository;
+	
 	@Override
 	public void findAllProcess(Model model) {
 		model.addAttribute("list", repository.findAll());
 		
 	}
-
+	
 	@Override
-	public void saveProcess(NoticeCreateDTO dto) {
-		
+	public void saveProcess(NoticeCreateDTO dto, CustomUserDetails user) {
+		dto.setEmployee(empRepository.findByEmail(user.getEmail()).orElseThrow());
 		repository.save(dto.toEntity());
 		
 	}
@@ -37,7 +42,9 @@ public class NoticeServiceProcess implements NoticeService{
 		model.addAttribute("detail", result.toNoticeDetailDTO());
 		
 	}
-
+	
+	@Override
+	@Transactional
 	public void updateProcess(long no, NoticeDetailDTO dto) {
 		repository.findById(no).orElseThrow().update(dto);
 		
