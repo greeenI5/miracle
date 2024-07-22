@@ -2,7 +2,7 @@ package com.green.miracle.service;
 
 import org.springframework.ui.Model;
 
-public interface Approvalservice {
+public interface ApprovalService {
 
 	void findByApprovalRequest(Model model);
 
