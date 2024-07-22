@@ -47,6 +47,7 @@
 	right: 40px;
 	bottom: 100px;
     width: 362px;
+    height: 540px;
     transform: scale(0.5);
     opacity: 0;
     pointer-events: none;
@@ -56,6 +57,7 @@
     transform-origin: bottom right;
     box-shadow: 0 32px 64px -48px rgb(0,0,0,0.5);	
     transition: all 0.1s ease;
+    grid-template-rows: auto 1fr auto; 
 }
 
 
@@ -65,6 +67,9 @@
     pointer-events: auto;
 }
 
+#bot-header{
+	 grid-row: 1;
+}
 
 #bot-header>div{
 	width: 100%;
@@ -80,6 +85,7 @@
 
 .bot-menu{
 	width: 100%;
+	height: 70px;
 	justify-content: space-between;
 }
 
@@ -101,29 +107,21 @@
 
 #bot-main {
 	width: 100%;
-    height: 450px;
+    height: 460px;
 	background-color:white;
-	margin-top: 10px;
+	grid-row: 2; /* main을 두 번째 행에 고정 */
+/* 	margin-top: 10px; */
+	overflow-y: auto;
+	padding: 0px;
+	margin: 0px;
 	
 }
-#bot-main>#chat>.chat-top{
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	margin-bottom: 10px;
-}
 
-#current_date{
-	text-align: center;
-	width: 180px;
-	background-color: var(--main-navy);
-	border-radius: 80px;
-	font-size: 14px;
-	color: white;
-}
-
-.message-container{
-	display: flex;
+#bot-main .date,
+#bot-main .time{
+	margin: 5px 0 10px;
+	color: #777;
+	font-size: 12px;
 }
 
 #bot-icon img{
@@ -133,43 +131,35 @@
 	
 }
 
-.bot-message{
-	display: flex;
-	flex-direction: column;
-	background-color: var(--sub-navy);
-	color: #333333;
-	max-width:270px;
-	padding: 6px 10px;
-	text-align: left;
-	letter-spacing: -0.5px;
-	margin-bottom: 5px;
-	border-radius: 5px;
-	box-shadow: 0 1px 1px 0 rgb(0 0 0 / 10%);
-	font-size: 14px;
-}
 
+.msg{
+	display:flex;
+}
 .user-message{
-	display: flex;
-	flex-direction: column;
-	background-color: var(--sub-navy);
-	color: #333333;
-	max-width:270px;
-	padding: 6px 10px;
-	text-align: right;
-	letter-spacing: -0.5px;
-	margin-bottom: 5px;
-	border-radius: 5px;
-	box-shadow: 0 1px 1px 0 rgb(0 0 0 / 10%);
-	font-size: 14px;
+	justify-content: flex-end;
+	margin-right: 10px;
+}
+.bot-message{
+	justify-content: flex-start;
+	margin-left: 10px;
 }
 
-div#messageDisplay.bot-message{
-	display: inline-block;
-	text-align: right;
+.bot-message>p,
+.user-message>p{
+	background-color: var(--sub-navy);
+	border-radius: 5px;
+	box-shadow: 0 1px 1px 0 rgb(0 0 0 / 10%);
+	color: #333333;
+	padding: 6px 10px;
+	margin-top: 5px;
+	
 }
+
+
 
 
 .button-container {
+	
     display: flex;
     flex-direction: column;
     align-items:flex-start;
@@ -203,6 +193,7 @@ div#messageDisplay.bot-message{
     background-color: #fff;
 	padding: 0;
 	margin: 0;
+	grid-row: 3; /* footer를 세 번째 행에 고정 */
 }
 
 #bot-footer>.btm{
@@ -212,14 +203,20 @@ div#messageDisplay.bot-message{
     align-items: center;
 }
 
+#question{
+    width: 310px;
+    height: 35px;
+    border: none;
+    position: relative;
+}
 
+#question:focus {
+    outline: none;
+}
 
 input#question:focus {
     outline: none;
 }
-
-
-
 
 .btn-send{
 	display: flex;
