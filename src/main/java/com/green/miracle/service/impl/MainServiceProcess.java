@@ -2,13 +2,17 @@ package com.green.miracle.service.impl;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import com.green.miracle.domain.dto.DateRequestDTO;
 import com.green.miracle.domain.entity.EmployeeEntity;
 import com.green.miracle.domain.repository.BoardEntityRepository;
 import com.green.miracle.domain.repository.DepartmentEntityRepository;
@@ -19,6 +23,7 @@ import com.green.miracle.security.CustomUserDetails;
 import com.green.miracle.service.MainService;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -44,6 +49,22 @@ public class MainServiceProcess implements MainService{
 
 	}
 
+	@Override
+	public void scheduleProcess(Model model, LocalDate cilckDate, CustomUserDetails user) {
+		EmployeeEntity employee = employeeRep.findByEmail(user.getEmail()).orElseThrow();
+		model.addAttribute("schedules", scheduleRep.findByEmployeeAndStartAt(employee, cilckDate));
+	}
+	
+	
+	@Override
+	public List<DateRequestDTO> scheduleProcess2(LocalDate clickDate, CustomUserDetails user) {
+	    EmployeeEntity employee = employeeRep.findByEmail(user.getEmail()).orElseThrow();
+	    return scheduleRep.findByEmployeeAndStartAt(employee, clickDate)
+	        .stream()
+	        .map(schedule -> new DateRequestDTO(schedule.getSchTitle()))
+	        .collect(Collectors.toList());
+	}
+	
 
 	@Override
 	public void sessionTime(Model model, HttpSession session) {
@@ -64,5 +85,6 @@ public class MainServiceProcess implements MainService{
         model.addAttribute("remainingTime", remainingTimeFormatted);
 		
 	}
+
 	
 }
