@@ -3,6 +3,7 @@ package com.green.miracle.service;
 import org.springframework.ui.Model;
 
 import com.green.miracle.domain.dto.AdminHrSaveDTO;
+import com.green.miracle.domain.dto.AdminHrUpdate;
 
 public interface AdminHrService {
 	
@@ -10,9 +11,13 @@ public interface AdminHrService {
 	
 	void findAll(Model model);
 
-	void deleteProcess(long no);
+	void deleteProcess(long empNo);
 
 	void ListProcess(int pageNumber, Model model);
+
+	void UpdateProcess(long empNo, AdminHrUpdate dto);
+
+	String getNextEmployeeNumber();
 
 	
 

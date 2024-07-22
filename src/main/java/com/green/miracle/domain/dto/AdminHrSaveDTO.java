@@ -29,12 +29,12 @@ public class AdminHrSaveDTO {
     private Set<Role> roles; // 역할들
     private long depCode; // 부서코드
     
-    public EmployeeEntity toEntity(DepartmentEntity department, PasswordEncoder pe) {
+    public EmployeeEntity toEntity(DepartmentEntity department, PasswordEncoder passwordEncoder) {
         return EmployeeEntity.builder()
                 .empNo(empNo)
                 .name(name)
                 .email(email)
-                .password(pe.encode(password))
+                .password(passwordEncoder.encode(password))
                 .phone(phone)
                 .position(position)
                 .department(department) // DepartmentEntity 객체를 직접 설정

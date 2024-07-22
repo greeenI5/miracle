@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.green.miracle.domain.dto.AdminHrListDTO;
+import com.green.miracle.domain.dto.AdminHrUpdate;
+
 
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
@@ -99,5 +101,15 @@ public class EmployeeEntity{
 	            .phone(phone)
 	            .build();
 	}
+
+	public EmployeeEntity update(AdminHrUpdate dto) {
+        this.empNo = dto.getEmpNo();
+        this.name = dto.getName();
+        this.roles = dto.getRoles();
+        this.position = dto.getPosition();
+        this.department = department; // 부서 객체 설정
+        this.phone = dto.getPhone();
+        return this;
+    }
 	
 }
