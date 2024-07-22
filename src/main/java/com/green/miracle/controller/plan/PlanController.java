@@ -1,4 +1,7 @@
-package com.green.miracle.controller;
+package com.green.miracle.controller.plan;
+
+import java.io.IOException;
+import java.time.LocalDate;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -6,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.green.miracle.domain.dto.PlanCreateDTO;
 import com.green.miracle.domain.entity.PerType;
@@ -16,7 +20,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @RequestMapping("/performance")
 @Controller
-public class PerformancePlanController {
+public class PlanController {
 	
 	private final Planservice service;
 	
@@ -38,19 +42,23 @@ public class PerformancePlanController {
 		return "views/plan/write";
 	}
 	
-	@PostMapping("/plan/{planNo}")
-	public String write (
-			@RequestParam("perType") String perTypeStr,
-			PlanCreateDTO dto) {
-		
-		PerType perType = PerType.fromString(perTypeStr);
-	    dto.setPerType(perType);
-		
-		service.saveProcess(dto);
-		
-		return "redirect:/performance/plan";
-	}
-	
+
+    @PostMapping("/plan/{planNo}")
+    public String submitForm(
+            @RequestParam("perContent") String perContent,
+            @RequestParam("employee") String employee,
+            @RequestParam("perTitle") String perTitle,
+            @RequestParam("perType") PerType perType,
+            @RequestParam("startAt") LocalDate startAt,
+            @RequestParam("finishAt") LocalDate finishAt,
+            @RequestParam("location") String location,
+            @RequestParam("writeAt") LocalDate writeAt,
+            @RequestParam("perPoster") MultipartFile perPoster
+    ) {
+        service.savePlan(perContent, employee, perTitle, perType, startAt, finishAt, location, writeAt, perPoster);
+        
+        return "redirect:/performance/plan";
+    }
 	/*////////////////////////////////////////*/
 	/*               상 세 보 기                */
 	/*////////////////////////////////////////*/
