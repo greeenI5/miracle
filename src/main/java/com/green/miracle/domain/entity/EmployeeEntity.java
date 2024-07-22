@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.green.miracle.domain.dto.AdminHrListDTO;
+import com.green.miracle.domain.dto.AdminHrUpdate;
 import com.green.miracle.domain.dto.EmployeeUpdateDTO;
 import com.green.miracle.domain.dto.MyPageDTO;
 
@@ -104,5 +105,14 @@ public class EmployeeEntity {
 		return this;
 	}
 
-
+	public EmployeeEntity update(AdminHrUpdate dto) {
+        this.empNo = dto.getEmpNo();
+        this.name = dto.getName();
+        this.roles = dto.getRoles();
+        this.position = dto.getPosition();
+        this.department = department; // 부서 객체 설정
+        this.phone = dto.getPhone();
+        return this;
+    }
+	
 }
