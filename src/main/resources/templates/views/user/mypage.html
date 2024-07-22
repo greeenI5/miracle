@@ -1,148 +1,172 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
+
 <head>
-    <link rel="stylesheet" href="/css/mypage/mypage.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <title>MyPage</title>
-    <script>
-		$(document).ready(function() {
-		    // 프로필 사진 변경 처리
-		    function previewProfilePic(event) {
-		        const input = event.target;
-		        const reader = new FileReader();
-		        reader.onload = function() {
-		            const dataURL = reader.result;
-		            const profilePic = document.getElementById('profilePic');
-		            profilePic.src = dataURL;
-		            profilePic.style.display = 'block'; // 이미지 표시
-		        };
-		        reader.readAsDataURL(input.files[0]);
-		    }
-		
-		    // 파일 업로드 input 요소에 이벤트 리스너 추가
-		    document.getElementById('empProfilePic').addEventListener('change', function(event) {
-		        previewProfilePic(event);
-		    });
-		
-		    // 저장 버튼 클릭 시 AJAX 요청을 통해 프로필 정보 저장
-		    $('#save-button').click(function() {
-		        var editNameValue = $('#edit-name').val();
-		        var editEmailValue = $('#edit-email').val();
-		        var editPhoneValue = $('#edit-phone').val();
-		
-		        // AJAX 요청 구성
-		        $.ajax({
-		            url: '/save-profile',  // 실제 요청할 URL 입력
-		            type: 'POST',
-		            contentType: 'application/json',
-		            data: JSON.stringify({
-		                name: editNameValue,
-		                email: editEmailValue,
-		                phone: editPhoneValue
-		            }),
-		            success: function(response) {
-		                // 서버로부터 성공적인 응답을 받았을 때 처리
-		                $('#profile-name').text('이름: ' + editNameValue);
-		                $('#profile-email').text('이메일: ' + editEmailValue);
-		                $('#profile-phone').text('핸드폰: ' + editPhoneValue);
-		
-		                // 입력값 초기화
-		                $('#edit-name, #edit-email, #edit-phone, #edit-password').val('');
-		
-		                // 입력 필드 숨기기
-		                $('.edit-fields').hide();
-		                $('#fix-button').show(); // 수정 버튼 보이기
-		                $('#cancel-button').hide(); // 수정 취소 버튼 숨기기
-		
-		                alert('프로필이 저장되었습니다.');
-		            },
-		            error: function() {
-		                alert('프로필 저장에 실패했습니다.');
-		            }
-		        });
-		    });
-		
-		    // 수정 버튼 클릭 시 입력 필드 보이기
-		    $('#fix-button').click(function() {
-		        $('.edit-fields').show(); // .edit-fields 클래스를 가진 요소들을 보이게 함
-		        $(this).hide(); // 수정 버튼 숨기기
-		        $('#cancel-button').show(); // 수정 취소 버튼 보이기
-		
-		        // 부서 입력 필드 비활성화
-		        $('#edit-department').prop('disabled', true);
-		    });
-		
-		    // 수정 취소 버튼 클릭 시 입력 필드 숨기고 수정 버튼 보이기
-		    $('#cancel-button').click(function() {
-		        $('.edit-fields').hide(); // .edit-fields 클래스를 가진 요소들을 숨김
-		        $('#fix-button').show(); // 수정 버튼 보이기
-		        $(this).hide(); // 수정 취소 버튼 숨기기
-		
-		        // 수정 이전 값으로 돌려놓기 (예시)
-		        $('#edit-name').val('');
-		        $('#edit-email').val('');
-		        $('#edit-phone').val('');
-		
-		        // 부서 입력 필드 다시 활성화
-		        $('#edit-department').prop('disabled', false);
-		    });
-		
-		    // 비밀번호 수정 버튼 클릭 시 비밀번호 입력란 토글
-		    $('#edit-password-button').click(function() {
-		        var passwordField = $('#edit-password');
-		        var isVisible = passwordField.css('display') !== 'none';
-		
-		        if (!isVisible) {
-		            passwordField.show().focus();
-		            $(this).text('비밀번호 취소');
-		        } else {
-		            passwordField.hide();
-		            $(this).text('비밀번호 수정');
-		            passwordField.val(''); // 비밀번호 입력란 초기화
-		        }
-		    });
+	<link rel="stylesheet" href="/css/mypage/mypage.css">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<title>MyPage</title>
+	<meta name="_csrf" th:content="${_csrf.token}" />
+	<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+	<script>
+		const token = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+		const header = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
+		$.ajaxSetup({
+			beforeSend: function (xhr) {
+				//xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken);
+				xhr.setRequestHeader(header, token);
+			}
 		});
-    </script>
+		$(document).ready(function () {
+			// 프로필 사진 변경 처리
+			function previewProfilePic(event) {
+				const input = event.target;
+				const reader = new FileReader();
+				reader.onload = function () {
+					const dataURL = reader.result;
+					const profilePic = document.getElementById('profilePic');
+					profilePic.src = dataURL;
+					profilePic.style.display = 'block'; // 이미지 표시
+				};
+				reader.readAsDataURL(input.files[0]);
+			}
+
+			// 파일 업로드 input 요소에 이벤트 리스너 추가
+			document.getElementById('empProfilePic').addEventListener('change', function (event) {
+				previewProfilePic(event);
+			});
+
+			var flag=false;
+			// 저장 버튼 클릭 시 AJAX 요청을 통해 프로필 정보 저장
+			$('#save-button').click(function () {
+				
+				if(flag)return;
+				flag=true;
+				var editNameValue = $('#edit-name').val();
+				var editEmailValue = $('#edit-email').val();
+				var editPhoneValue = $('#edit-phone').val();
+				var editPasswordValue = $('#edit-password').val();
+
+				// AJAX 요청 구성
+				$.ajax({
+					url: '/mypage',  // 실제 요청할 URL 입력
+					type: 'PUT',
+					contentType: 'application/json',
+					data: JSON.stringify({
+						name: editNameValue,
+						email: editEmailValue,
+						phone: editPhoneValue,
+						password: editPasswordValue
+					}),
+					success: function (response) {
+						// 서버로부터 성공적인 응답을 받았을 때 처리
+						$('#profile-name').text('이름: ' + editNameValue);
+						$('#profile-email').text('이메일: ' + editEmailValue);
+						$('#profile-phone').text('핸드폰: ' + editPhoneValue);
+						$('#profile-password').text('비밀번호: ' + editPasswordValue);
+
+						// 입력값 초기화
+						$('#edit-name, #edit-email, #edit-phone, #edit-password').val('');
+
+						// 입력 필드 숨기기
+						$('.edit-fields').hide();
+						$('#fix-button').show(); // 수정 버튼 보이기
+						$('#cancel-button').hide(); // 수정 취소 버튼 숨기기
+
+						alert('프로필이 저장되었습니다.');
+						flag=false;
+					},
+					error: function () {
+						alert('프로필 저장에 실패했습니다.');
+					}
+				});
+			});
+
+			// 수정 버튼 클릭 시 입력 필드 보이기
+			$('#fix-button').click(function () {
+				$('.edit-fields').show(); // .edit-fields 클래스를 가진 요소들을 보이게 함
+				$(this).hide(); // 수정 버튼 숨기기
+				$('#cancel-button').show(); // 수정 취소 버튼 보이기
+
+				// 부서 입력 필드 비활성화
+				$('#edit-department').prop('disabled', true);
+			});
+
+			// 수정 취소 버튼 클릭 시 입력 필드 숨기고 수정 버튼 보이기
+			$('#cancel-button').click(function () {
+				$('.edit-fields').hide(); // .edit-fields 클래스를 가진 요소들을 숨김
+				$('#fix-button').show(); // 수정 버튼 보이기
+				$(this).hide(); // 수정 취소 버튼 숨기기
+
+				// 수정 이전 값으로 돌려놓기 (예시)
+				$('#edit-name').val('');
+				$('#edit-email').val('');
+				$('#edit-phone').val('');
+
+				// 부서 입력 필드 다시 활성화
+				$('#edit-department').prop('disabled', false);
+			});
+
+			// 비밀번호 수정 버튼 클릭 시 비밀번호 입력란 토글
+			$('#edit-password-button').click(function () {
+				var passwordField = $('#edit-password');
+				var isVisible = passwordField.css('display') !== 'none';
+
+				if (!isVisible) {
+					passwordField.show().focus();
+					$(this).text('비밀번호 취소');
+				} else {
+					passwordField.hide();
+					$(this).text('비밀번호 수정');
+					passwordField.val(''); // 비밀번호 입력란 초기화
+				}
+			});
+		});
+	</script>
 </head>
 <main>
-    <div class="profile">
-        <h1 class="profile-mainTitle">프로필 수정</h1>
-        <div class="profile-pic-container">
-            <img id="profilePic" src="/images/hrm/profile.png" alt="프로필 사진"
-                 onclick="document.getElementById('empProfilePic').click();">
-            <input type="file" id="empProfilePic" class="box"
-                   name="empProfilePic" accept="image/*" style="display: none;">
-        </div>
-        <p>
-            <span id="profile-name">이름:</span>
-            <input type="text" id="edit-name" class="edit-fields" placeholder="이름을 입력하세요">
-        </p>
-        <p>
-            <span id="profile-department">부서:</span>
-            <input type="text" id="edit-department" class="edit-fields" placeholder="부서명을 입력하세요">
-        </p>
-        <p>
-            <span>직급:</span>
-            <span>사원</span>
-        </p>
-        <p>
-            <span id="profile-email">이메일:</span>
-            <input type="email" id="edit-email" class="edit-fields" placeholder="이메일을 입력하세요">
-        </p>
-        <p>
-            <span>비밀번호:</span>
-            <input id="edit-password" type="password" class="edit-fields" style="display: none;" placeholder="비밀번호를 입력하세요">
-            <button id="edit-password-button">비밀번호 수정</button>
-        </p>
-        <p>
-            <span id="profile-phone">핸드폰:</span>
-            <input type="tel" id="edit-phone" class="edit-fields" placeholder="핸드폰 번호를 입력하세요">
-        </p>
-        <br>
-        <button id="save-button" style="background-color: #2E3D86; color: white;">저장</button>
-        <button id="fix-button">수정</button>
-        <button id="cancel-button" style="display: none;">수정 취소</button>
-    </div>
+	<div class="profile">
+		<h1 class="profile-mainTitle">프로필 수정</h1>
+		<div class="profile-pic-container">
+			<img id="profilePic" src="/images/hrm/profile.png" alt="프로필 사진"
+				onclick="document.getElementById('empProfilePic').click();">
+			<input type="file" id="empProfilePic" class="box" name="empProfilePic" accept="image/*"
+				style="display: none;">
+		</div>
+		<p>
+			<span>이름:</span>
+			<span id="profile-name" th:text="${emp.name}"></span>
+			<input type="text" id="edit-name" class="edit-fields" placeholder="이름을 입력하세요" name="name">
+		</p>
+		<p>
+			<span>부서:</span>
+			<span id="profile-department" th:text="${dep}"></span>
+		</p>
+		<p>
+			<span>직급:</span>
+			<span id="profile-position" th:text="${emp.position.positionName()}"></span>
+		</p>
+		<p>
+			<span>이메일:</span>
+			<span id="profile-email" th:text="${emp.email}"></span>
+			<input type="email" id="edit-email" class="edit-fields" placeholder="이메일을 입력하세요" name="email">
+		</p>
+		<p>
+			<span>비밀번호:</span>
+			<span id="profile-password">*************</span>
+			<input id="edit-password" type="password" class="edit-fields" style="display: none;"
+				placeholder="비밀번호를 입력하세요" name="password">
+			<button id="edit-password-button">비밀번호 수정</button>
+		</p>
+		<p>
+			<span>핸드폰:</span>
+			<span id="profile-phone" th:text="${emp.phone}" ></span>
+			<input type="tel" id="edit-phone" class="edit-fields" placeholder="핸드폰 번호를 입력하세요" name="phone">
+		</p>
+		<br>
+		<button id="save-button" style="background-color: #2E3D86; color: white;">저장</button>
+		<button id="fix-button">수정</button>
+		<button id="cancel-button" style="display: none;">수정 취소</button>
+	</div>
 </main>
+
 </html>

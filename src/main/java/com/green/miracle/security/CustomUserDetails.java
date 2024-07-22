@@ -18,6 +18,7 @@ private static final long serialVersionUID = 1L; //1L : 시리얼 정보 // 닉�
 	
 	private String email; //=username
 	private String name; //한글이름
+	private String depCode;
 	
 	public CustomUserDetails(EmployeeEntity entity) {
 		super(entity.getEmail(), entity.getPassword(),
@@ -28,4 +29,8 @@ private static final long serialVersionUID = 1L; //1L : 시리얼 정보 // 닉�
 		name=entity.getName();
 	}
 
+	public String getDepCode() {
+        return depCode;
+    }
+	
 }
