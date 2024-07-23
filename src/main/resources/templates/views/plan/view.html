@@ -13,12 +13,12 @@
                 </div>
                 <div class="form-group">
                     <div class="image-preview">
-                        <img id="imagePreview" src="/path/to/saved/image.jpg" alt="Image Preview" style="display: block;">
+                        <img id="imagePreview" src="/images/poster/poster2.jpg" alt="Image Preview" style="display: block;">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="description">기획의도:</label>
-                    <p id="description">여기에 저장된 기획의도가 표시됩니다.</p>
+                    <p id="description"><span th:text="${plan.perContent}"></span></p>
                 </div>
             </div>
             <div class="content-left">
@@ -27,34 +27,31 @@
                 <hr style="margin: 20px 0; margin-bottom: 20px;">
                 <div class="form-group">
                     <label for="date">작성일:</label>
-                    <p id="date">2024-07-15</p>
+                    <p id="date"><span th:text="${plan.writeAt}"></span></p>
                 </div>
                 <div class="form-group">
                     <label for="planner">기획총괄:</label>
-                    <p id="planner">기획자명</p>
+                    <p id="planner"><span th:text="${plan.employee.name}"></span></p>
                 </div>
                 <div class="form-group">
                     <label for="title">공연명:</label>
-                    <p id="title">공연명</p>
+                    <p id="title"><span th:text="${plan.perTitle}"></span></p>
                 </div>
                 <div class="form-group">
                     <label for="genre">장르:</label>
-                    <p id="genre">뮤지컬</p>
+                    <p id="genre"><span th:text="${plan.perType}"></span></p>
                 </div>
                 <div class="form-group">
                     <label for="startDate">공연 시작일:</label>
-                    <p id="startDate">2024-08-01</p>
+                    <p id="startDate"><span th:text="${plan.startAt}"></span></p>
                 </div>
                 <div class="form-group">
                     <label for="endDate">공연 종료일:</label>
-                    <p id="endDate">2024-08-31</p>
+                    <p id="endDate"><span th:text="${plan.finishAt}"></span></p>
                 </div>
                 <div class="form-group">
                     <label for="location">장소:</label>
-                    <p id="location">서울</p>
-                </div>
-                <div class="button-container">
-                    <button type="button" id="approvalRequestButton" class="submit-button">결재요청</button>
+                    <p id="location"><span th:text="${plan.location}"></span></p>
                 </div>
             </div>
         </div>

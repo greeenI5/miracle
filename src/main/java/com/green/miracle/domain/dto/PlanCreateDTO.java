@@ -20,29 +20,28 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PlanCreateDTO {
-	
-	private EmployeeEntity employee;
-	private String perTitle;
-	private PerType perType;
-	private String perContent;
-	private LocalDate startAt;
-	private LocalDate finishAt;
-	private String location;
-	private String perPoster;
-	private LocalDate writeAt;
-	
-	public PerformancePlanEntity toEntity() {
-		return PerformancePlanEntity.builder()
-				//.perPoster(perPoster != null ? perPoster.getOriginalFilename() : null)
-				.perPoster(perPoster)
-				.employee(employee)
-				.perTitle(perTitle)
-				.perType(perType)
-				.perContent(perContent)
-				.startAt(startAt)
-				.finishAt(finishAt)
-				.location(location)
-				.writeAt(writeAt)
-				.build();
-	}
+    
+    private EmployeeEntity employee;
+    private String perTitle;
+    private PerType perType;
+    private String perContent;
+    private LocalDate startAt;
+    private LocalDate finishAt;
+    private String location;
+    private MultipartFile perPoster;
+    private LocalDate writeAt;
+    
+    public PerformancePlanEntity toEntity() {
+        return PerformancePlanEntity.builder()
+                .employee(employee)
+                .perTitle(perTitle)
+                .perType(perType)
+                .perContent(perContent)
+                .startAt(startAt)
+                .finishAt(finishAt)
+                .location(location)
+                .perPoster(perPoster != null ? perPoster.getOriginalFilename() : null)
+                .writeAt(writeAt)
+                .build();
+    }
 }

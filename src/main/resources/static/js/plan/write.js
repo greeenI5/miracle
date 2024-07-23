@@ -26,41 +26,4 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // 폼 제출 이벤트 리스너를 추가합니다.
-    uploadForm.addEventListener('submit', function(event) {
-        // 폼의 기본 제출 동작을 방지합니다.
-        event.preventDefault();
-
-        // FormData 객체를 생성하고, 파일 데이터를 추가합니다.
-        const formData = new FormData();
-        formData.append('perPoster', fileInput.files[0]);
-        
-        const token = document.querySelector('meta[name="_csrf"]').getAttribute('content');
-				const header = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
-
-        // fetch API를 사용하여 파일을 서버로 전송합니다.
-        fetch('/plan/create', {
-            method: 'POST',
-            headers: {
-				        [header]: token
-				    },
-            body: formData
-        })
-        .then(response => {
-            // 서버 응답이 성공적이면 텍스트로 변환하여 반환합니다.
-            if (response.ok) {
-                return response.text();
-            }
-            // 응답이 성공적이지 않으면 에러를 던집니다.
-            throw new Error('Network response was not ok.');
-        })
-        .then(responseText => {
-            // 서버 응답을 콘솔에 출력합니다.
-            console.log('Success:', responseText);
-        })
-        .catch(error => {
-            // 에러가 발생하면 콘솔에 에러를 출력합니다.
-            console.error('Error:', error);
-        });
-    });
 });

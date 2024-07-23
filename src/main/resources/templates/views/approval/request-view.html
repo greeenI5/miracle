@@ -53,6 +53,16 @@
                     <label for="location">장소:</label>
                     <p id="location"><span th:text="${plan.location}"></span></p>
                 </div>
+                <div class="button-container flex">
+                    <button type="button" id="approvalButton" class="submit-button">결재승인</button>
+                    <button type="button" id="approvalButton" class="submit-button">결재보류</button>
+                </div>
+                <!-- 데이터 업데이트를 위한 폼 -->
+			    <form th:action="@{/update/{id}(id=${data.id})}" method="post">
+			        <input type="hidden" name="id" th:value="${data.id}" /><!-- 데이터 ID -->
+			        <input type="hidden" name="newValue" value="1" /><!-- 새로운 int 값 -->
+			        <button type="submit">Update Value</button><!-- 제출 버튼 -->
+			    </form>
             </div>
         </div>
     </main>
