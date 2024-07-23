@@ -43,7 +43,7 @@ public class BoardEntity {
 	@Column(columnDefinition = "varchar(255)", nullable = false)
 	private String boardTitle; //글제목
 	
-	@Column(columnDefinition = "blob", nullable = false)
+	@Column(columnDefinition = "text", nullable = false)
 	private String boardContent; //글내용
 	
 	@Column(columnDefinition = "bigint")
