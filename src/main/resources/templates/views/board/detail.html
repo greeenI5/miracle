@@ -3,8 +3,6 @@
 
 <head>
 	<meta charset="UTF-8">
-	<meta name="_csrf" th:content="${_csrf.token}" />
-	<meta name="_csrf_header" th:content="${_csrf.headerName}" />
 	<link rel="stylesheet" href="/css/board/detail.css">
 	<title>Insert title here</title>
 
@@ -39,17 +37,8 @@
 		<!-- Right section -->
 		<div class="right-section">
 			<div id="default-mode">
-				<ul>
-					<li th:text="${detail.boardNo}" class="update-post-no">번호</li>
-					<li th:text="${detail.boardTitle}" class="update-post-title">제목</li>
-					<li>
-						<dl class="update-post-date">
-							<dt>최종 수정일</dt>
-							<dd th:text="${detail.writeAt}"></dd>
-						</dl>
-					</li>
-					<li th:utext="${detail.boardContent}" class="update-post-content">내용</li>
-					<li>
+				<ul class="update-post-box">
+					<li class="update-btn-area">
 						<div>
 							<button class="update-btn" onclick="btnUpdateClicked()">수정</button>
 							<form th:action="|/boards/${detail.boardNo}|" onsubmit="return btnDeleteClicked()"
@@ -60,6 +49,17 @@
 							</form>
 						</div>
 					</li>
+					<ul class="update-post-header">
+						<li th:text="${detail.boardNo}" class="update-post-no">번호</li>
+						<li th:text="${detail.boardTitle}" class="update-post-title">제목</li>
+						<li>
+							<dl class="update-post-date">
+								<dd th:text="${detail.writeAt}"></dd>
+							</dl>
+						</li>
+					</ul>
+					<li th:utext="${detail.boardContent}" class="update-post-content">내용</li>
+
 				</ul>
 			</div>
 
@@ -68,25 +68,27 @@
 				<input type="hidden" name="_method" value="put">
 				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 				<ul>
-					<li th:text="${detail.boardNo}" class="update-post-no">번호</li>
-					<li class="update-post-title">
-						<input name="boardTitle" type="text" th:value="${detail.boardTitle}" class="update-input-title">
+					<li class="update-btn-area">
+						<button type="submit" class="update-btn">수정완료</button>
+						<button type="button" onclick="btnCancelClicked()" class="delete-btn">취소</button>
 					</li>
-					<li>
-						<dl class="update-post-date">
-							<dt>최종 수정일</dt>
-							<dd th:text="${detail.writeAt}"></dd>
-						</dl>
-					</li>
+					<ul class="update-post-header">
+						<li th:text="${detail.boardNo}" class="update-post-no">번호</li>
+						<li class="update-post-title">
+							<input name="boardTitle" type="text" th:value="${detail.boardTitle}"
+								class="update-input-title">
+						</li>
+						<li>
+							<dl class="update-post-date">
+								<dd th:text="${detail.writeAt}"></dd>
+							</dl>
+						</li>
+					</ul>
 					<li>
 						<textarea name="boardContent" class="update-post-content"
 							th:utext="${detail.boardContent}"></textarea>
 					</li>
-					<li>
 
-						<button type="submit" class="update-btn">수정완료</button>
-						<button type="button" onclick="btnCancelClicked()" class="delete-btn">취소</button>
-					</li>
 				</ul>
 			</form>
 		</div>

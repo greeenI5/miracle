@@ -9,7 +9,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
+@ToString
 @Getter
 @Setter
 @Builder
@@ -20,6 +22,5 @@ public class BoardDetailDTO {
 	private EmployeeEntity employee; //사원번호 (fk)
 	private String boardTitle; //글제목
 	private String boardContent; //글내용
-	private long boardComment; //댓글수
 	private LocalDate writeAt; // 작성일
 }

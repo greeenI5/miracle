@@ -35,12 +35,13 @@
 				previewProfilePic(event);
 			});
 
-			var flag=false;
-			// 저장 버튼 클릭 시 AJAX 요청을 통해 프로필 정보 저장
+			var flag = false; // AJAX 요청 중복 실행을 방지하는 플래그 변수
+
 			$('#save-button').click(function () {
-				
-				if(flag)return;
-				flag=true;
+				if (flag) return; // flag가 true인 경우 함수 실행을 중지하고 빠져 나갑니다.
+				flag = true; // flag를 true로 설정하여 다음 요청이 실행되지 않도록 합니다.
+
+				// 입력 필드에서 값을 가져옵니다.
 				var editNameValue = $('#edit-name').val();
 				var editEmailValue = $('#edit-email').val();
 				var editPhoneValue = $('#edit-phone').val();
@@ -48,38 +49,45 @@
 
 				// AJAX 요청 구성
 				$.ajax({
-					url: '/mypage',  // 실제 요청할 URL 입력
-					type: 'PUT',
-					contentType: 'application/json',
-					data: JSON.stringify({
+					url: '/mypage', // 요청할 URL을 지정합니다.
+					type: 'PUT', // HTTP 메서드를 PUT으로 설정합니다.
+					contentType: 'application/json', // 요청 데이터 타입을 JSON으로 설정합니다.
+					data: JSON.stringify({ // 전송할 데이터를 JSON 형식으로 변환하여 설정합니다.
 						name: editNameValue,
 						email: editEmailValue,
 						phone: editPhoneValue,
 						password: editPasswordValue
 					}),
-					success: function (response) {
-						// 서버로부터 성공적인 응답을 받았을 때 처리
+					success: function (response) { // 서버로부터 성공적인 응답을 받았을 때 처리할 함수입니다.
+						// 서버에서 반환된 데이터를 사용하여 프로필 정보를 업데이트합니다.
 						$('#profile-name').text('이름: ' + editNameValue);
 						$('#profile-email').text('이메일: ' + editEmailValue);
 						$('#profile-phone').text('핸드폰: ' + editPhoneValue);
 						$('#profile-password').text('비밀번호: ' + editPasswordValue);
 
-						// 입력값 초기화
+						// 입력값을 초기화합니다.
 						$('#edit-name, #edit-email, #edit-phone, #edit-password').val('');
 
-						// 입력 필드 숨기기
+						// 입력 필드를 숨기고 수정 버튼을 보이게 합니다.
 						$('.edit-fields').hide();
 						$('#fix-button').show(); // 수정 버튼 보이기
 						$('#cancel-button').hide(); // 수정 취소 버튼 숨기기
 
-						alert('프로필이 저장되었습니다.');
-						flag=false;
+						alert('프로필이 저장되었습니다.'); // 사용자에게 성공 메시지를 알립니다.
 					},
-					error: function () {
-						alert('프로필 저장에 실패했습니다.');
+					error: function () { // AJAX 요청이 실패했을 때 실행할 함수입니다.
+						alert('프로필 저장에 실패했습니다.'); // 사용자에게 실패 메시지를 알립니다.
+
+						// 저장에 실패했으므로 flag를 다시 false로 설정하여 다음 요청을 실행할 수 있도록 합니다.
+						flag = false;
+					},
+					complete: function () { // AJAX 요청이 완료된 후 실행할 함수입니다. (성공하든 실패하든 실행됨)
+						flag = false; // flag를 다시 false로 설정하여 다음 요청을 실행할 수 있도록 합니다.
 					}
 				});
 			});
+
+
 
 			// 수정 버튼 클릭 시 입력 필드 보이기
 			$('#fix-button').click(function () {
@@ -150,7 +158,7 @@
 			<span id="profile-email" th:text="${emp.email}"></span>
 			<input type="email" id="edit-email" class="edit-fields" placeholder="이메일을 입력하세요" name="email">
 		</p>
-		<p>
+		<p class="password-box">
 			<span>비밀번호:</span>
 			<span id="profile-password">*************</span>
 			<input id="edit-password" type="password" class="edit-fields" style="display: none;"
@@ -159,7 +167,7 @@
 		</p>
 		<p>
 			<span>핸드폰:</span>
-			<span id="profile-phone" th:text="${emp.phone}" ></span>
+			<span id="profile-phone" th:text="${emp.phone}"></span>
 			<input type="tel" id="edit-phone" class="edit-fields" placeholder="핸드폰 번호를 입력하세요" name="phone">
 		</p>
 		<br>

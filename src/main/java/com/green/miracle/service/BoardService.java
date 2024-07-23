@@ -4,6 +4,7 @@ import org.springframework.ui.Model;
 
 import com.green.miracle.domain.dto.BoardCreateDTO;
 import com.green.miracle.domain.dto.BoardDetailDTO;
+import com.green.miracle.domain.dto.BoardUpdateDTO;
 import com.green.miracle.security.CustomUserDetails;
 
 public interface BoardService {
@@ -14,7 +15,7 @@ public interface BoardService {
 
 	void detailProcess(long no, Model model);
 
-	void updateProcess(long no, BoardDetailDTO dto);
+	void updateProcess(long no, BoardUpdateDTO dto);
 
 	void deleteProcess(long no);
 }
