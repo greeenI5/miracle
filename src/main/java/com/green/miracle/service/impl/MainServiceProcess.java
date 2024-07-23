@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.green.miracle.domain.dto.DateRequestDTO;
+import com.green.miracle.domain.dto.scheduleDTO;
 import com.green.miracle.domain.entity.EmployeeEntity;
 import com.green.miracle.domain.repository.BoardEntityRepository;
 import com.green.miracle.domain.repository.DepartmentEntityRepository;
@@ -57,11 +58,11 @@ public class MainServiceProcess implements MainService{
 	
 	
 	@Override
-	public List<DateRequestDTO> scheduleProcess2(LocalDate clickDate, CustomUserDetails user) {
+	public List<scheduleDTO> scheduleProcess2(LocalDate clickDate, CustomUserDetails user) {
 	    EmployeeEntity employee = employeeRep.findByEmail(user.getEmail()).orElseThrow();
 	    return scheduleRep.findByEmployeeAndStartAt(employee, clickDate)
 	        .stream()
-	        .map(schedule -> new DateRequestDTO(schedule.getSchTitle()))
+	        .map(schedule -> new scheduleDTO(schedule.getSchTitle()))
 	        .collect(Collectors.toList());
 	}
 	

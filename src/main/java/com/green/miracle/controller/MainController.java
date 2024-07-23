@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import com.green.miracle.domain.dto.DateRequestDTO;
+import com.green.miracle.domain.dto.scheduleDTO;
 import com.green.miracle.security.CustomUserDetails;
 import com.green.miracle.service.MainService;
 import lombok.RequiredArgsConstructor;
@@ -36,7 +37,7 @@ public class MainController {
 	
 	@PostMapping("/api/date")
 	@ResponseBody
-	public List<DateRequestDTO> date(@RequestBody DateRequestDTO dateRequest, @AuthenticationPrincipal CustomUserDetails user) {
+	public List<scheduleDTO> date(@RequestBody DateRequestDTO dateRequest, @AuthenticationPrincipal CustomUserDetails user) {
 		LocalDate clickDate = dateRequest.getDate();
 		return service.scheduleProcess2(clickDate, user);
 	}
