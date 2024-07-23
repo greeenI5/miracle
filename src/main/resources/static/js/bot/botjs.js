@@ -4,8 +4,7 @@ const header = document.querySelector('meta[name="_csrf_header"]').getAttribute(
 
 var stompClient = null;
 var key;
-let flag=false;
-
+let initialMessageShown = false; //초기메세지 1번만 출력되는 플래그
 
 function formatTime(now){
 	
@@ -40,6 +39,7 @@ $(function() {
             connectSocket(); // 소켓 연결 함수 호출
         } else {
             disconnectSocket(); // 소켓 연결 해제 함수 호출
+            clearChat(); // 채팅 내용을 초기화
         }
     });
 
@@ -59,27 +59,30 @@ function connectSocket() {
 			var now=new Date();
 			var time=formatTime(now);
 			var date=formatDate(now);
-			var tag= `
-					<div class="flex center">${date}</div>
-					<div class="msg bot flex">
-						<div id="b-icon">
-						</div>
-						<div class="message">
-							<div class="part">
-								<p>${msgObj}</p>
+			if (!initialMessageShown) {
+				var tag= `
+						<div class="date flex center">${date}</div>
+						<div class="msg bot flex">
+							<div id="b-icon">
 							</div>
-							<div class="time">${time}</div>
-								<div class="button-container">
-								<button class="bot-category" id="showContact">연락처 알려줘</button>
-								<button class="bot-category" id="showSchedule">일정 알려줘</button>
-								<button class="bot-category" id="showNotice">공지사항 알려줘</button>
+							<div class="message">
+								<div class="bot-message part">
+									<p>${msgObj}</p>
+								</div>
+								<div class="time">${time}</div>
+									<div class="button-container">
+									<button class="bot-category" id="showContact">연락처 알려줘</button>
+									<button class="bot-category" id="showSchedule">일정 알려줘</button>
+									<button class="bot-category" id="showNotice">공지사항 알려줘</button>
+								</div>
 							</div>
 						</div>
-					</div>
-					`;
+						<div id="messageDisplay"></div>
+						`;
 			
 			sendMessage(tag);
-			
+			initialMessageShown = true; // 메시지가 한 번만 출력되도록 설정
+			}
 		});
 		
 		//자바스크립트 오브젝트 객체 - JSON
@@ -98,6 +101,14 @@ function connectSocket() {
 $(document).on("click", "#showContact", function() {
     fetchContactInfo();
     });
+// 일정 알려줘 버튼 클릭 시
+$(document).on("click", "#showSchedule", function() {
+    fetchScheduleInfo();
+    });
+// 일정 알려줘 버튼 클릭 시
+$(document).on("click", "#showNotice", function() {
+    fetchNoticeInfo();
+    });
 
 // 메시지 전송 버튼(btnMsgSend) 클릭 시
 function btnMsgSendClicked() {
@@ -110,6 +121,7 @@ function btnMsgSendClicked() {
 
     // 서버로 질문 전송
     stompClient.send("/app/search", {}, JSON.stringify({ question: question }));
+        // 입력 필드 비우기
     document.getElementById('question').value = '';
 }
 
@@ -117,29 +129,37 @@ function btnMsgSendClicked() {
 function displayUserMessage(message) {
     let messageContainer = document.getElementById('messageDisplay');
     let tag=`
-    <div class="msg  user-message">
+    <div class="user-message">
 		<p>${message}</p>
 	</div>
 	`;
     messageContainer.innerHTML += tag;
     
-    messageContainer.scrollTop = messageContainer.scrollHeight; // 스크롤을 제일 아래로 이동
+   scrollToBottom(messageContainer); // 스크롤을 제일 아래로 이동
 }
 
 // 봇의 메시지를 화면에 출력
 function displayMessage(message) {
     let messageContainer = document.getElementById('messageDisplay');
+
     let tag="";
     message.forEach(function(dto){
 		tag += `
-	    <div class="msg  bot-message">
-			<p>${dto.content}</p>
-		</div>
+	    	<div>
+				<button class="bot-sub-category"> <p>${dto.content}</p> </button>
+			</div>
 		`;
 	});
-	messageContainer.innerHTML += tag;
+	let tag1=`
+    <div class="flex">
+    	<div id="b-icon"></div>
+		<div class="part"><p>아래 메뉴를 선택해주세요.</p><div>
+		<div class="button-container">${tag}<div>
+	</div>
+	`;
+	messageContainer.innerHTML += tag1;
     
-    messageContainer.scrollTop = messageContainer.scrollHeight; // 스크롤을 제일 아래로 이동
+    scrollToBottom(messageContainer); // 스크롤을 제일 아래로 이동
 }
 
 // 웹소켓 연결 해제 함수
@@ -152,14 +172,31 @@ function disconnectSocket() {
         console.log("Socket is not connected.");
     }
 }
+// 채팅 내용을 초기화하는 함수
+function clearChat() {
+	let messageContainer = document.getElementById('messageDisplay');
+    	messageContainer.innerHTML = '';
+    }
+// 메시지 전송 함수
+function sendMessage(message) {
+    var messageContainer = document.getElementById('bot-main'); // 메시지를 표시할 컨테이너의 ID
+    if (messageContainer) {
+        messageContainer.innerHTML += message;
+        scrollToBottom(messageContainer); // 스크롤을 제일 아래로 이동
+    }
+}
+// 스크롤을 항상 아래로 이동시키는 함수
+function scrollToBottom(element) {
+    element.scrollTop = element.scrollHeight;
+}
 
-// 서버에서 연락처 정보를 가져와서 화면에 출력하는 함수
 $.ajaxSetup({
     beforeSend: function(xhr) {
         //xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken);
         xhr.setRequestHeader(header, token);
     }
 });
+// 서버에서 연락처 정보를 가져와서 화면에 출력하는 함수
 function fetchContactInfo() {
     $.ajax({
         url: "/chatbot/contact",
@@ -171,15 +208,40 @@ function fetchContactInfo() {
             
         },
         error: function(error) {
-            console.error("Error fetching contact info", error);
+            console.error("요청하신 연락처를 찾을 수 없습니다.", error);
+            displayMessage(error);
         }
     });
 }
-function sendMessage(message) {
-    var messageContainer = document.getElementById('bot-main'); // 메시지를 표시할 컨테이너의 ID
-    if (messageContainer) {
-        messageContainer.innerHTML += message;
-        messageContainer.scrollTop = messageContainer.scrollHeight; // 스크롤을 제일 아래로 이동
-    }
+function fetchScheduleInfo() {
+    $.ajax({
+        url: "/chatbot/schedule",
+        method: "GET",
+        data: {type:4},
+        success: function(data) {
+			console.log("--->>>",data);
+            displayMessage(data);
+            
+        },
+        error: function(error) {
+            console.error("요청하신 일정을 찾을 수 없습니다.", error);
+            displayMessage(error);
+        }
+    });
 }
-
+function fetchNoticeInfo() {
+    $.ajax({
+        url: "/chatbot/notice",
+        method: "GET",
+        data: {type:7},
+        success: function(data) {
+			console.log("--->>>",data);
+            displayMessage(data);
+            
+        },
+        error: function(error) {
+            console.error("요청하신 공지를 찾을 수 없습니다.", error);
+            displayMessage(error);
+        }
+    });
+}

@@ -27,10 +27,10 @@ public class ChatBotAnswerEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long answerNo; //질문번호 (pk)
 	
-	@Column(columnDefinition = "blob", nullable = false)
+	@Column(columnDefinition = "text", nullable = false)
 	private String keyword; // 키워드
 	
-	@Column(columnDefinition = "blob", nullable = false)
+	@Column(columnDefinition = "text", nullable = false)
 	private String content;// 대답
 
 }
