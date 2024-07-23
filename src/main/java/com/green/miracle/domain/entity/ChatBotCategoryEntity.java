@@ -29,7 +29,7 @@ public class ChatBotCategoryEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long cNo; // 카테고리 버튼 번호(pk)
 	
-	@Column(columnDefinition = "blob", nullable = false)
+	@Column(columnDefinition = "text", nullable = false)
 	private String content; // 버튼내용
 	
 	@ManyToOne

@@ -190,7 +190,7 @@ select {
     font-weight : bold;
 }
 
-input[disabled] {
+input[readonly] {
     background-color: var(--main-grey); /* 회색 배경으로 비활성화 상태를 나타냄 */
     cursor: not-allowed; /* 커서를 금지로 변경 */
 }

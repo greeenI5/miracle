@@ -2,6 +2,7 @@ package com.green.miracle.domain.dto;
 
 import java.util.Set;
 
+import com.green.miracle.domain.entity.DepartmentEntity;
 import com.green.miracle.domain.entity.Position;
 import com.green.miracle.domain.entity.Role;
 
@@ -12,7 +13,7 @@ import lombok.Getter;
 @Builder
 public class AdminHrListDTO {
     
-    private long empNo; // 사원번호
+	private long empNo; // 사원번호
     private String name; // 사원명
     private Set<Role> roles; // 역할들
     private Position position; // 직급
