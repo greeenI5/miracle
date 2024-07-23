@@ -27,27 +27,27 @@
                 </div>
                 <div>
                     <span>사원번호</span>
-                    <input type="text" id="empNo" class="box" name="empNo" th:value="${nextEmpNo}" disabled>
+                    <input type="text" id="empNo" class="box" name="empNo" th:value="${nextEmpNo}" readonly>
                 </div>
                 <div class="password-container">
                     <span>비밀번호</span>
-                    <input type="password" id="password" class="box" name="password" th:value="${nextEmpNo}" disabled>
+                    <input type="password" id="password" class="box" name="password" th:value="${nextEmpNo}" readonly>
                     <i class="toggle-password" onclick="togglePasswordVisibility()">🔒</i>
                 </div>
                 <div>
                     <span>이름</span>
-                    <input type="text" id="name" class="box" name="name" placeholder="이름">
+                    <input type="text" id="name" class="box" name="name" placeholder="이름" required >
                 </div>
                 <div>
                     <span>권한</span>
-                    <select name="roles">
+                    <select name="roles" id="roles">
                         <option th:each="role : ${T(com.green.miracle.domain.entity.Role).values()}"
                                 th:value="${role}" th:text="${role.roleName}"></option>
                     </select>
                 </div>
                 <div>
                     <span>직급</span>
-                    <select name="position">
+                    <select name="position" id="position">
                         <option th:each="position : ${T(com.green.miracle.domain.entity.Position).values()}"
                                 th:value="${position}" th:text="${position.roleName}"></option>
                     </select>
@@ -63,11 +63,11 @@
                 </div>
                 <div>
                     <span>핸드폰번호</span>
-                    <input type="text" id="phone" class="box phone-input" name="phone" placeholder="핸드폰번호">
+                    <input type="text" id="phone" class="box phone-input" name="phone" placeholder="핸드폰번호" required >
                 </div>
                 <div>
                     <span>이메일</span>
-                    <input type="email" id="email" class="box" name="email" placeholder="이메일" autocomplete="new-email">
+                    <input type="email" id="email" class="box" name="email" placeholder="이메일" autocomplete="new-email" required>
                 </div>
                 <button type="submit">등록</button>
             </form>
@@ -98,13 +98,13 @@
                         <td class="depCode" th:text="${dto.depCode}"></td>
                         <td th:text="${dto.phone}"></td>
                         <td>
-                            <button onclick="editEmployee(this)">수정</button>
+                            <button th:onclick="editEmployee(this)">수정</button>
                             <button th:onclick="deleteEmployee(this)">삭제</button>
                         </td>
                     </tr>
                 </tbody>
             </table>
-            <div class="pagination">
+            <div id="pagination" class="pagination">
                 <ul>
 					<li th:if="${currentPage != null and totalPages != null and currentPage > 0}">
 					    <a th:href="@{/admin/hr/mgm(pageNumber=0)}"> << </a>

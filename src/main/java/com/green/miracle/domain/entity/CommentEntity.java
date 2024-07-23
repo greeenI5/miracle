@@ -38,7 +38,7 @@ public class CommentEntity {
 	@JoinColumn(name = "boardNo", nullable = false) // 사원 외래키 private
 	private BoardEntity board; // 게시글
 
-	@Column(columnDefinition = "blob", nullable = false)
+	@Column(columnDefinition = "text", nullable = false)
 	private String commentContent; // 댓글 내용
 
 	@Column(nullable = false)

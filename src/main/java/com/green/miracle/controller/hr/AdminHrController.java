@@ -1,10 +1,12 @@
 package com.green.miracle.controller.hr;
 
+import com.green.miracle.domain.dto.AdminHrListDTO;
 import com.green.miracle.domain.dto.AdminHrSaveDTO;
 import com.green.miracle.domain.dto.AdminHrUpdate;
 import com.green.miracle.service.AdminHrService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,12 +14,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
-
+import org.springframework.web.bind.annotation.ResponseBody;
+@ToString
 @Controller
 @RequiredArgsConstructor
 public class AdminHrController {
@@ -26,10 +30,12 @@ public class AdminHrController {
 
     @GetMapping("/admin/hr")
     public String list(Model model) {
-        service.findAll(model);
+    	System.out.println(model);
+        service.HrListProcess(model);
         return "views/admin/hrm";
     }
-
+    
+    
     @GetMapping("/admin/hr/mgm")
     public String mgmList(@RequestParam(value = "pageNumber", defaultValue = "0") int pageNumber, Model model) {
         service.ListProcess(pageNumber, model);
@@ -38,27 +44,22 @@ public class AdminHrController {
         return "views/admin/mgm"; // 적절한 뷰 이름으로 변경
     }
     
+    
     @PostMapping("/admin/hr/mgm")
-    public String adminHrSave(AdminHrSaveDTO dto) {
-        service.SaveProcess(dto);
-        return "redirect:/admin/hr/mgm";
-    }
-    
-    @DeleteMapping("/admin/hr/mgm/{empNo}")
-    public ResponseEntity<Void> delete(@PathVariable("empNo") long empNo) {
-        try {
-            service.deleteProcess(empNo);
-            return ResponseEntity.noContent().build(); // 성공적으로 처리되면 204 No Content 반환
-        } catch (Exception e) {
-            // 예외 처리 및 로깅
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
-    }
-    
-    @PutMapping("/admin/hr/mgm/{empNo}")
-    public String update(long empNo, @RequestBody AdminHrUpdate dto) {
-    	System.out.println(dto);
-            service.UpdateProcess(empNo, dto);
+    public String adminHrSave(@ModelAttribute AdminHrSaveDTO dto) {
+            service.SaveProcess(dto);
             return "redirect:/admin/hr/mgm";
+    }
+    
+    @ResponseBody
+    @DeleteMapping("/admin/hr/mgm/{empNo}")
+    public void delete(@PathVariable("empNo") long empNo) {
+            service.deleteProcess(empNo);
+    }
+    
+    @ResponseBody
+    @PutMapping("/admin/hr/mgm/{empNo}")
+    public void update(@PathVariable("empNo") long empNo, @ModelAttribute AdminHrUpdate dto) {
+            service.UpdateProcess(empNo, dto);
     }
 }
