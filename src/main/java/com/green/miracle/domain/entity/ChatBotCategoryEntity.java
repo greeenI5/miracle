@@ -1,8 +1,8 @@
 package com.green.miracle.domain.entity;
 
-import java.time.LocalDateTime;
-
 import org.hibernate.annotations.DynamicUpdate;
+
+import com.green.miracle.domain.dto.ChatBotCategoryDTO;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -23,23 +23,23 @@ import lombok.NoArgsConstructor;
 @Getter
 @DynamicUpdate
 @Entity
-@Table(name = "chatLogs")
-public class ChatLogsEntity {
+@Table(name = "chatbotCategory")
+public class ChatBotCategoryEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long logNo; //로그번호 (pk)
+	private long cNo; // 카테고리 버튼 번호(pk)
+	
+	@Column(columnDefinition = "text", nullable = false)
+	private String content; // 버튼내용
 	
 	@ManyToOne
-	@JoinColumn(name = "empNo")
-	private EmployeeEntity employee; //사원번호 (fk)
+	@JoinColumn(name = "type")
+	private ChatBotCategoryEntity parent;// 타입
 	
-	@Column(columnDefinition = "timestamp", nullable = false)
-	private LocalDateTime logTime; //
-	
-	@Column(columnDefinition = "blob", nullable = false)
-	private String userText; //
-	
-	@Column(columnDefinition = "blob", nullable = false)
-	private String botResponse;// 챗봇이 응답한 멧
+	public ChatBotCategoryDTO toChatBotCategoryDTO() {
+		return ChatBotCategoryDTO.builder()
+				.cNo(cNo).content(content).type(parent.cNo)
+				.build();
+	}
 
 }

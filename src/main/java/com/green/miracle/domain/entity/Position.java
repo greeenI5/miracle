@@ -12,10 +12,10 @@ public enum Position {
     ,TEAM_LEADER("팀장")
     ;
 
-    private final String positionName;
+    private final String roleName;
 
-    public String positionName() {
-        return positionName;
+    public String roleName() {
+        return roleName;
     }
 }
 

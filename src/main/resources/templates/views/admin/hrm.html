@@ -11,10 +11,10 @@ th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
 	<title>인사관리</title>
 	<script src="/js/hrm/detail.js"></script>
 </head>
+<body>
 	<main class="admin">
 		<header class ="title">조직도</header>
-		<form th:action="@{/admin/hr/mgm}" method="post">
-		<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+		<form th:action="@{/admin/hr/mgm}" method="get">
 		            <button type="submit" class="images">
                 <img class="setting" src="/images/hrm/setting.png" alt="인사관리 설정창">
             </button>
@@ -27,16 +27,19 @@ th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
 	                    <span>MIRCALE</span>	
 	                </div>
 	                <ul class="dep">
-							<li th:each="department : ${departments}">
-		                        <div class="depName" th:text="${department.depName}"></div>
-		                        <div class="depNum" th:text="${department.depNum}"></div>
+	                <li>
+						<div class="depName">영업부</div>
+							<div class="emp">
+								<span class="empName" onclick="showEmployeeDetail('김한솔')">김한솔</span>
+							</div>
 		                        <ul class="team">
-		                            <li th:each="employee : ${department.employees}">
+		                            <li th:each="dto : ${list}">
+		                            	<div class="teamName" id="depCode">영업팀</div>
 		                                <div class="emp">
-		                                    <span class="empName" th:text="${employee.name}" 
-		                                          th:onclick="'showEmployeeDetail(' + ${employee.name} + ')'"></span>
+		                                    <span class="empName" th:text="${dto.name}" 
+		                                          th:onclick="'showEmployeeDetail(' + ${dto.name} + ')'"></span>
 		                                    <span class="bar">|</span>
-		                                    <span class="empRank" th:text="${employee.position}"></span>    
+		                                    <span class="empRank" th:text="${dto.position}"></span>    
 		                                </div>
 		                            </li>
 		                        </ul>
@@ -111,4 +114,5 @@ th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
 	    </div>
 	    <div class="tooltip" id="tooltip"></div>
 	</main>
+	</body>
 </html>

@@ -8,6 +8,7 @@ th:fragment="layout(pHead,pMain)">
     <title>MIRACLE</title>
     <link rel="stylesheet" href="/css/commons/common.css">
     <link rel="stylesheet" href="/css/commons/layout.css">
+    <link rel="stylesheet" href="/css/bot/bot-layout.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="icon" href="/images/logo/favicon.ico">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -16,6 +17,9 @@ th:fragment="layout(pHead,pMain)">
 	<script src="/webjars/sockjs-client/sockjs.min.js"></script>
 	<script src="/webjars/stomp-websocket/stomp.min.js"></script>
     
+    <meta name="_csrf" th:content="${_csrf.token}" />
+	<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+
     <th:block th:replace="${pHead}" />
 </head>
 <body>
@@ -63,99 +67,16 @@ th:fragment="layout(pHead,pMain)">
             		<div class="flex">
 	            		<span><i id="b-icon"></i></span>
 	            		<span><b>Miraclebot</b></span>
-	     
             		</div>
-            		
             	</section>             
             </div>
         </section>
-        <main id="bot-main">
-            <!-- 대화내용 들어가는 영역 -->
-            <div id="chat">
-            <section class="chat-top">
-				<div id="current_date">
-					<script>
-        				const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-        				document.getElementById("current_date").innerHTML = new Date().toLocaleDateString('ko-KR', options);
-    				</script>
-				</div>
-			</section>
-				<div class="message-container">
-				
-					<div id="bot-icon">
-						<img src="/images/bot/chatbot.png">
-					</div>
-					<div class="bot-message">
-						<p>안녕하세요? 미라클봇입니다.</p>
-						<p>카테고리를 선택해주세요.</p>
-					</div>	
-				</div>
-				<div class="button-container">
-					<button class="bot-category" id="showContact">연락처 알려줘</button>
-					<button class="bot-category" id="showSchedule">일정 알려줘</button>
-					<button class="bot-category" id="showNotice">공지사항 알려줘</button>
-				</div>
-            </div>
-       
-		<!-- 연락처 이름 입력 요청 -->
-			<div class="message-container1" style="display: none">
-				<div id="bot-icon">
-					<img src="/images/bot/chatbot.png">
-				</div>
-				<div class="bot-message">
-					<p>이름을 입력해주세요.</p>
-				</div>	
-			</div>
+        <!-- 대화내용 들어가는 영역 -->
+        
+        <div id="bot-main">	
 
-           <!-- 일정 종류 입력 요청 -->
-           <div id="chat">
-				<div class="message-container2" style="display: none">
-					<div id="bot-icon">
-						<img src="/images/bot/chatbot.png">
-					</div>
-					<div class="bot-message" >
-						<p>어떤 일정이 궁금하세요?</p>
-					</div>	
-				</div>
-				<div class="button-container schedules-buttons" style="display: none">
-					<button class="bot-category" onclick="showMessage5()">오늘의 일정</button>
-					<button class="bot-category" onclick="showMessage6()">공연 일정</button>
-				</div>
-            </div>
-            	<div class="flex" id="scheduleAnswer1" style="display: none">
-            		<div id="bot-icon">
-						<img src="/images/bot/chatbot.png">
-					</div>
-						<div class="bot-message">
-							<p>오늘의 일정을 알려드릴게요.</p>
-						</div>
-            	</div>
-            	<div class="flex" id="scheduleAnswer2" style="display: none">
-            		<div id="bot-icon">
-						<img src="/images/bot/chatbot.png">
-					</div>
-						<div class="bot-message">
-							<p>공연 일정을 알려드릴게요.</p>
-						</div>
-            	</div>
-            	
-				<!-- 공지사항 클릭후 메세지 -->
-				<div class="message-container3" style="display: none">
-					<div id="bot-icon">
-						<img src="/images/bot/chatbot.png">
-					</div>
-					<div class="bot-message">
-						<p>공지사항 키워드를 입력해주세요.</p>
-					</div>
-				</div>
-				
-				<!-- 입력메세지가 출력되는 부분 -->
-				<div id="messageDisplay" >
-					
-				</div>
-				<div id="serverBotMessage" class="server-message-container"></div>
-			</main>
-			
+
+		</div>
         <!-- 하단 채팅창 입니다. -->
         <section class="footer" id="bot-footer">
             <div class="btm">
