@@ -27,7 +27,7 @@ public class MyPageController {
 	
 	@PutMapping("/mypage")
 	public String update(@RequestBody EmployeeUpdateDTO dto, @AuthenticationPrincipal CustomUserDetails user) {
-		System.out.println(">>>"+dto);
+		System.out.println(">>>>>"+dto);
 		service.updateProcess(dto, user);
 		return "redirect:/mypage";
 	}

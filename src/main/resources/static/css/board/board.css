@@ -1,5 +1,5 @@
 @charset "UTF-8";
-@import url("/css/board/sub-menu.css");
+@import url("/css/mail/sidebar.css");
 
 .content {
     display: flex;
@@ -146,6 +146,11 @@ h4 {
 	display: grid;
     grid-template-columns: 1fr 5fr 1fr 1fr;
 	white-space: nowrap; /* 텍스트가 한 줄로 유지되도록 설정 */
+}
+
+.post-body:hover {
+	background-color: var(--sub-grey);
+	cursor: pointer;
 }
 
 body > main > div > div.right-section > div > div > form > div {

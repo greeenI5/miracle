@@ -1,8 +1,8 @@
 package com.green.miracle.service.impl;
 
 
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 
 import com.green.miracle.domain.dto.EmployeeUpdateDTO;
@@ -12,7 +12,6 @@ import com.green.miracle.domain.repository.EmployeeEntityRepository;
 import com.green.miracle.security.CustomUserDetails;
 import com.green.miracle.service.MyPageService;
 
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -24,7 +23,6 @@ public class MyPageServiceProcess implements MyPageService {
 	@Override
 	@Transactional
 	public void updateProcess(EmployeeUpdateDTO dto, CustomUserDetails user) {
-		user.getEmail();
 		// 비밀번호를 가져온다고 가정하고, 이를 인코딩하여 저장하고자 할 때
 		/* String encodedPassword = pe.encode(dto.getPassword()); */
 		// 인코딩된 비밀번호를 DTO에 다시 설정할 수 있음 (예시로 적용)

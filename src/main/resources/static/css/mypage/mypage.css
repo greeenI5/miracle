@@ -60,12 +60,13 @@ body > main > div > p > span {
 }
 
 .edit-fields {
+	width: 200px;
     display: none;
 }
 
 
 #edit-password-button {
-	min-width: 100px;
+	width: 200px;
 	cursor: pointer;
 }
 
