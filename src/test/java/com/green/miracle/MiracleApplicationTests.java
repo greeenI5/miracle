@@ -7,10 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.green.miracle.domain.entity.ChatBotCategoryEntity;
 import com.green.miracle.domain.entity.DepartmentEntity;
 import com.green.miracle.domain.entity.EmployeeEntity;
 import com.green.miracle.domain.entity.Position;
 import com.green.miracle.domain.entity.Role;
+import com.green.miracle.domain.repository.ChatBotRepository;
 import com.green.miracle.domain.repository.EmployeeEntityRepository;
 
 @SpringBootTest
@@ -20,6 +22,8 @@ class MiracleApplicationTests {
 	private EmployeeEntityRepository repository;
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+    @Autowired
+    private ChatBotRepository chatBotRepository;
 	
 	//@Test
 	public void insertEmployee(){
@@ -55,5 +59,7 @@ class MiracleApplicationTests {
 		employee.addRole(Role.ADMIN);
 		repository.save(employee);
 	}
+	
+	
 
 }

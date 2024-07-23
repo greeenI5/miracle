@@ -1,87 +1,47 @@
-/**
- * ID의 값을 비밀번호에 복사
- */
-
 $(function() {
     var token = $("meta[name='_csrf']").attr("content");
     var header = $("meta[name='_csrf_header']").attr("content") || 'X-CSRF-TOKEN'; // 기본값 설정
 
-    console.log('CSRF Token:', token);
-    console.log('CSRF Header:', header);
-
     $(document).ajaxSend(function(e, xhr, options) {
         if (token && header) {
             xhr.setRequestHeader(header, token);
-        } else {
-            console.error('CSRF Token or Header is missing.');
         }
     });
 });
 
-function syncEmpIdWithPassword() {
-    const empId = document.getElementById('empId').value;
-    const empPassword = document.getElementById('empPassword');
-    empPassword.value = empId;
+function syncEmpNoWithPassword() {
+    document.getElementById('password').value = document.getElementById('empNo').value;
 }
 
-/**
- * 비밀번호 가시성 토글
- */
 function togglePasswordVisibility() {
-    const passwordInput = document.getElementById('empPassword');
+    const passwordInput = document.getElementById('password');
     const toggleIcon = document.querySelector('.toggle-password');
-    if (passwordInput.type === 'password') {
-        passwordInput.type = 'text';
-        toggleIcon.textContent = '🔐';
-    } else {
-        passwordInput.type = 'password';
-        toggleIcon.textContent = '🔒';
-    }
+    const isPassword = passwordInput.type === 'password';
+    passwordInput.type = isPassword ? 'text' : 'password';
+    toggleIcon.textContent = isPassword ? '🔐' : '🔒';
 }
 
-/**
- * 이미지 미리보기
- */
 function previewProfilePic(event) {
     const input = event.target;
     const reader = new FileReader();
-
     reader.onload = function() {
-        const dataURL = reader.result;
-        const profilePic = document.getElementById('profilePic');
-        profilePic.src = dataURL;
+        document.getElementById('profilePic').src = reader.result;
     };
-
     reader.readAsDataURL(input.files[0]);
 }
 
-/**
- * 직원 추가
- */
 function addEmployee() {
-    var employeeData = {
-        empId: $('#empNo').val(),
-        empName: $('#name').val(),
-        ROLE: $('#roles').val(),
-        empPosition: $('#position').val(),
-        depCode: $('#depCode').val(),
-        empPhone: $('#phone').val(),
-        empPassword: $('#password').val(),
-        empEmail: $('#email').val()
-    };
-	
-	console.log(employeeData)
-	
+    var formData = new FormData(document.getElementById('employee-form'));
+
     $.ajax({
-        type: "POST",
         url: "/admin/hr/mgm",
-        contentType: "application/json",
-        data: JSON.stringify(employeeData),
+        type: "post",
+        data: formData,
+        processData: false,
+        contentType: false,
         success: function(response) {
             alert("직원이 성공적으로 추가되었습니다.");
-            // 테이블에 새 직원 추가
             addEmployeeToTable(response);
-            // 조직도에 직원 추가
             addEmployeeToOrgChart(response);
         },
         error: function(error) {
@@ -90,57 +50,38 @@ function addEmployee() {
     });
 }
 
-/**
- * 조직도에 직원 추가
- */
 function addEmployeeToOrgChart(employee) {
-    let teamClass;
+    const teamClasses = {
+        1000: '.sales-team',
+        1003: '.marketing-team',
+        1004: '.planning-team',
+        1005: '.stage-production-team'
+    };
 
-    switch (parseInt(employee.depCode)) {
-        case 1000:
-            teamClass = '.sales-team';
-            break;
-        case 1003:
-            teamClass = '.marketing-team';
-            break;
-        case 1004:
-            teamClass = '.planning-team';
-            break;
-        case 1005:
-            teamClass = '.stage-production-team';
-            break;
-        default:
-            console.error('Unknown team code.');
-            return;
-    }
-
-    const teamContainer = document.querySelector(`${teamClass} .team`);
-
-    if (teamContainer) {
-        const newEmployee = document.createElement("div");
-        newEmployee.className = "emp";
-        newEmployee.innerHTML = `
-            <span class="empName" onclick="showEmployeeDetail('${employee.name}')">${employee.name}</span>
-            <span class="bar">|</span>
-            <span class="empRank">${employee.ROLE}</span>
-        `;
-        teamContainer.appendChild(newEmployee);
+    const teamClass = teamClasses[employee.depCode];
+    if (teamClass) {
+        const teamContainer = document.querySelector(`${teamClass} .team`);
+        if (teamContainer) {
+            const newEmployee = document.createElement("div");
+            newEmployee.className = "emp";
+            newEmployee.innerHTML = `
+                <span class="empName" onclick="showEmployeeDetail('${employee.name}')">${employee.name}</span>
+                <span class="bar">|</span>
+                <span class="empRank">${employee.ROLE}</span>
+            `;
+            teamContainer.appendChild(newEmployee);
+        }
+    } else {
+        console.error('Unknown team code.');
     }
 }
 
-
-
-
-/**
- * 직원 테이블에 추가
- */
 function addEmployeeToTable(employee) {
     const tableBody = document.getElementById("employee-table-body");
     const newRow = document.createElement("tr");
-    
-    newRow.id = `employee-${employee.empNo}`; // 직원 ID로 행 ID 설정
+    newRow.id = `employee-${employee.empNo}`;
     newRow.innerHTML = `
-        <td>${employee.empId}</td>
+        <td>${employee.empNo}</td>
         <td data-original-name="${employee.name}">${employee.name}</td>
         <td>${employee.ROLE}</td>
         <td>${employee.position}</td>
@@ -151,28 +92,53 @@ function addEmployeeToTable(employee) {
             <button onclick="deleteEmployee(this)">삭제</button>
         </td>
     `;
-    
     tableBody.appendChild(newRow);
 }
 
+const departmentMap = {
+    "1000": "영업팀",
+    "1003": "마케팅팀",
+    "1004": "기획팀",
+    "1005": "무대연출팀"
+};
 
+const roleNameMap = {
+    "EMP": "사원",
+    "ADMIN": "관리자"
+};
 
-/**
- * 직원 수정
- */
+const positionNameMap = {
+    "EMPLOYEE": "사원",
+    "ASSISTANT_MANAGER": "대리",
+    "MANAGER": "과장",
+    "DEPUTY_GENERAL_MANAGER": "차장",
+    "GENERAL_MANAGER": "부장",
+    "TEAM_LEADER": "팀장"
+};
+
+function createSelectOptions(map, selectedValue) {
+    return Object.keys(map).map(key => `<option value="${key}" ${key === selectedValue ? 'selected' : ''}>${map[key]}</option>`).join('');
+}
+
 function editEmployee(button) {
     const row = button.parentElement.parentElement;
-    const empId = row.cells[0].innerText;
-
     for (let i = 1; i < row.cells.length - 1; i++) {
         const cell = row.cells[i];
-        const originalValue = cell.innerText;
+        const originalValue = cell.innerText.trim();
+        cell.dataset.originalValue = originalValue;
 
-        cell.dataset.originalValue = originalValue; // 원래 값 저장
-        cell.innerHTML = `<input type="text" value="${originalValue}">`; // 입력 필드로 변경
+        if (i === 4) { // 부서코드 셀
+            cell.innerHTML = `<select>${createSelectOptions(departmentMap, originalValue)}</select>`;
+        } else if (i === 2) { // 권한 셀
+            cell.innerHTML = `<select>${createSelectOptions(roleNameMap, originalValue)}</select>`;
+        } else if (i === 3) { // 직급 셀
+            cell.innerHTML = `<select>${createSelectOptions(positionNameMap, originalValue)}</select>`;
+        } else {
+            cell.innerHTML = `<input type="text" value="${originalValue}">`;
+        }
     }
 
-    button.innerText = "완료"; // 버튼 텍스트 변경
+    button.innerText = "완료";
     row.cells[6].innerHTML = `
         <button onclick="completeEdit(this)">완료</button>
         <button onclick="cancelEdit(this)">취소</button>
@@ -181,15 +147,10 @@ function editEmployee(button) {
 
 function cancelEdit(button) {
     const row = button.parentElement.parentElement;
-
     for (let i = 1; i < row.cells.length - 1; i++) {
         const cell = row.cells[i];
-        const originalValue = cell.dataset.originalValue;
-
-        cell.innerHTML = originalValue; // 원래 값으로 복원
+        cell.innerHTML = cell.dataset.originalValue;
     }
-
-    button.innerText = "수정"; // 버튼 텍스트 변경
     row.cells[6].innerHTML = `
         <button onclick="editEmployee(this)">수정</button>
         <button onclick="deleteEmployee(this)">삭제</button>
@@ -198,44 +159,78 @@ function cancelEdit(button) {
 
 function completeEdit(button) {
     const row = button.parentElement.parentElement;
+    const empNo = row.cells[0].innerText;
+    const name = row.cells[1].querySelector('input').value;
+    const roles = row.cells[2].querySelector('select').value;
+    const position = row.cells[3].querySelector('select').value;
+    const depCode = row.cells[4].querySelector('select').value;
+    const phone = row.cells[5].querySelector('input').value;
 
-    for (let i = 1; i < row.cells.length - 1; i++) {
-        const cell = row.cells[i];
-        const updatedValue = cell.querySelector('input').value;
+    const formData = new FormData();
+    formData.append('empNo', empNo);
+    formData.append('name', name);
+    formData.append('roles', roles);
+    formData.append('position', position);
+    formData.append('depCode', depCode);
+    formData.append('phone', phone);
 
-        cell.innerHTML = updatedValue; // 업데이트된 값으로 변경
-    }
-
-    button.innerText = "수정"; // 버튼 텍스트 변경
-    row.cells[6].innerHTML = `
-        <button onclick="editEmployee(this)">수정</button>
-        <button onclick="deleteEmployee(this)">삭제</button>
-    `;
+    $.ajax({
+        type: "PUT",
+        url: `/admin/hr/mgm/${empNo}`,
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(response) {
+            alert("업데이트가 완료되었습니다.");
+            row.cells[1].innerText = name;
+            row.cells[2].innerText = roleNameMap[roles];
+            row.cells[3].innerText = positionNameMap[position];
+            row.cells[4].innerText = departmentMap[depCode];
+            row.cells[5].innerText = phone;
+            row.cells[6].innerHTML = `
+                <button onclick="editEmployee(this)">수정</button>
+                <button onclick="deleteEmployee(this)">삭제</button>
+            `;
+        },
+        error: function(error) {
+            alert("업데이트 중 오류가 발생했습니다.");
+        }
+    });
 }
 
-/**
- * 직원 삭제
- */
 function deleteEmployee(button) {
     const row = button.parentElement.parentElement;
-    const empNo = row.id.replace('employee-', ''); // 'employee-'를 제거하여 empNo 추출
+    const empNo = row.id.replace('employee-', '');
 
-    console.log('Employee No:', empNo);
-
-    const confirmDelete = confirm("정말로 삭제하시겠습니까?");
-
-    if (confirmDelete) {
+    if (confirm("정말로 삭제하시겠습니까?")) {
         $.ajax({
             type: "DELETE",
-            url: `/admin/hr/mgm/${empNo}`, // empNo를 URL에 포함시킵니다.
-            success: function(response) {
+            url: `/admin/hr/mgm/${empNo}`,
+            success: function() {
                 alert("직원이 성공적으로 삭제되었습니다.");
-                row.remove(); // 행 삭제
+                row.remove();
             },
             error: function(error) {
-                console.error("직원 삭제 중 오류가 발생했습니다.", error);
                 alert("직원 삭제 중 오류가 발생했습니다.");
             }
         });
     }
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    const departmentMap = {
+        1000: '영업팀',
+        1003: '마케팅팀',
+        1004: '기획팀',
+        1005: '무대연출팀'
+    };
+
+    function updateDepartmentNames() {
+        document.querySelectorAll('#employee-table-body .depCode').forEach(row => {
+            const depCode = parseInt(row.textContent.trim(), 10);
+            row.textContent = departmentMap[depCode] || '알 수 없음';
+        });
+    }
+
+    updateDepartmentNames();
+});

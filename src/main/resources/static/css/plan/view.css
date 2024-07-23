@@ -17,6 +17,7 @@
 .content-top {
     text-align: left;
     margin-bottom: 20mm;
+    max-width: 350px;
 }
 
 .logo-preview {
@@ -54,6 +55,7 @@
 .content-left {
     display: flex;
     flex-direction: column;
+    max-width: 350px;
 }
 
 .form-group {

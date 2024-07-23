@@ -3,6 +3,8 @@
 th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
 <head>
 	<link rel="stylesheet" href="/css/commons/index.css">
+	<meta name="_csrf" th:content="${_csrf.token}" />
+	<meta name="_csrf_header" th:content="${_csrf.headerName}" />
 </head>
 <main>
 	<div class="grid-container">
@@ -80,12 +82,11 @@ th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
 				<div id="selectedDate" class="calendar-body">
 	  				<span id="selectedMonth" class="selected-month"></span>
 	  				<span id="selectedDay" class="selected-day"></span>
-	  				<div class="checklist">
-				        <label><input type="checkbox" class="check-item" data-label=""> 공연 음향 체크</label>
-				        <label><input type="checkbox" class="check-item" data-label=""> 유니폼 수령</label>
-				        <label><input type="checkbox" class="check-item" data-label=""> 공연 음향 체크</label>
-				        <label><input type="checkbox" class="check-item" data-label=""> 이벤트 물품 확인</label>
+	  				<div class="checklist" th:each="schedule:${schedules}">
+	  					<input type="checkbox" class="check-item" data-label="">
+				        <label th:text="${schedule.schTitle}">일정</label>
 				    </div>
+				    <div th:if="${#lists.isEmpty(schedules)}" class="no-schedule"> 일정이 없습니다. </div>
 				    <button class="schedule-button" onclick="saveChecklist()">확인</button>
 				</div>
 			</div>  
@@ -152,9 +153,9 @@ th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
             </div>
             <div class="left-time-bar">
             	<div class="buttons">
-                 <button class="button" id="start-work-button" onclick="activateButton(this); recordStartTime()">출근하기</button>
-                 <button class="button" id="end-work-button" onclick="activateButton(this); recordEndTime()">퇴근하기</button>
-             </div>
+                <button class="button" id="start-work-button" onclick="activateButton(this); recordStartTime()">출근하기</button>
+                <button class="button" id="end-work-button" onclick="activateButton(this); recordEndTime()">퇴근하기</button>
+            </div>
             	<div class="record-time">
             		<div class="working-start flex between">
             			<span>출근시간</span>

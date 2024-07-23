@@ -16,6 +16,7 @@
 .content-top {
     text-align: left;
     margin-bottom: 20mm;
+    max-width: 350px;
 }
 
 .logo-preview {
@@ -53,6 +54,7 @@
 .content-left {
     display: flex;
     flex-direction: column;
+    max-width: 350px;
 }
 
 .form-group {
@@ -116,5 +118,26 @@ p {
 }
 
 #approvalRequestButton:hover{
+    background-color: var(--main-navy-grey);
+}
+
+.button-container {
+    display: block;
+    justify-content: flex-end;
+    gap: 20px;
+    padding-bottom: 10mm; /* 버튼 컨테이너에 패딩 추가 */
+    float: right;
+}
+
+button[type="submit"], button[type="button"]{
+    font-size: 14pt;
+    padding: 5mm 10mm;
+    background-color: var(--sub-navy-grey);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover, button[type="button"]:hover {
     background-color: var(--main-navy-grey);
 }

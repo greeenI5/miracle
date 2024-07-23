@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

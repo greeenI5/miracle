@@ -38,7 +38,8 @@
                         <tbody id="plan-list">
 							<tr th:each="plan : ${plans}">
                                 <td th:text="${plan.planNo}"></td>
-                                <td><a th:href="@{/performance/plan/{plan_no}(plan_no=${plan.planNo})}" class="plan-name" th:text="${plan.perTitle}"></a></td>
+                                <!--<td><a th:href="@{/admin/approval/plan/{plan_no}(plan_no=${plan.planNo})}" class="plan-name" th:text="${plan.perTitle}"></a></td>-->
+                                <td><a th:href="|/admin/approval/plan/hold/${plan.planNo}|" class="plan-name" th:text="${plan.perTitle}"></a></td>
                                 <td th:text="${plan.employee.name}"></td>
                                 <td th:text="${plan.writeAt}"></td>
                             </tr>

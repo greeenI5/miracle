@@ -4,8 +4,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.green.miracle.domain.dto.AdminHrListDTO;
+import com.green.miracle.domain.dto.AdminHrUpdate;
+import com.green.miracle.domain.dto.EmployeeDTO;
 import com.green.miracle.domain.dto.EmployeeUpdateDTO;
 import com.green.miracle.domain.dto.MyPageDTO;
+import com.green.miracle.domain.repository.DepartmentEntityRepository;
 
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
@@ -26,7 +29,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
+@ToString
 @Getter // Setter는 주로 안 씀
 @Setter
 //시퀀스 생성시켜주는 기능 > name은 generator의 이름, sequenceName이 sequence의 이름
@@ -46,7 +51,7 @@ public class EmployeeEntity {
 	@Column(nullable = false)
 	private String name; // 사원명
 
-	@Column(nullable = false)
+	@Column(nullable = false, unique = true)
 	private String email; // 이메일
 
 	@Column(nullable = false)
@@ -96,7 +101,15 @@ public class EmployeeEntity {
 				.depCode(department.getDepCode()) // DepartmentEntity의 코드를 가져와서 설정
 				.phone(phone).build();
 	}
+	
+	public EmployeeDTO toListdto() {
+		return EmployeeDTO.builder()
+							.name(name).position(position)
+							.depCode(department.getDepCode()) // DepartmentEntity의 코드를 가져와서 설정
+							.build();
+	}
 
+	
 	public EmployeeEntity update(EmployeeUpdateDTO dto) {
 		this.email = dto.getEmail();
 		this.phone = dto.getPhone();
@@ -104,5 +117,14 @@ public class EmployeeEntity {
 		return this;
 	}
 
-
+	public EmployeeEntity update(AdminHrUpdate dto, DepartmentEntity departmentRepository) {
+        this.empNo = dto.getEmpNo();
+        this.name = dto.getName();
+        this.roles = dto.getRoles();
+        this.position = dto.getPosition();
+        this.department = departmentRepository; // 부서 객체 설정
+        this.phone = dto.getPhone();
+        return this;
+    }
+	
 }

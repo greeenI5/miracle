@@ -1,20 +1,21 @@
 package com.green.miracle.controller;
 
-import java.time.Duration;
+import java.time.LocalDate;
+import java.util.List;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
+import com.green.miracle.domain.dto.DateRequestDTO;
 import com.green.miracle.security.CustomUserDetails;
 import com.green.miracle.service.MainService;
-
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 
 @Controller
 @RequiredArgsConstructor
@@ -26,7 +27,29 @@ public class MainController {
 	public String list(Model model, @AuthenticationPrincipal CustomUserDetails user) {
 		//service.sessionTime(model, session); //GlobalControllerAdvice에 추가
         service.findAllProcess(model, user);
+        
+        LocalDate cilckDate = LocalDate.now();
+        service.scheduleProcess(model, cilckDate, user);
 		return "index";
 	}
+	
+	
+	@PostMapping("/api/date")
+	@ResponseBody
+	public List<DateRequestDTO> date(@RequestBody DateRequestDTO dateRequest, @AuthenticationPrincipal CustomUserDetails user) {
+		LocalDate clickDate = dateRequest.getDate();
+		return service.scheduleProcess2(clickDate, user);
+	}
+	
+	
+	/*
+	@PostMapping("/")
+	public String date(Model model, @RequestBody DateRequestDTO dateRequest, @AuthenticationPrincipal CustomUserDetails user) {
+		LocalDate cilckDate = dateRequest.getDate();
+		service.scheduleProcess(model, cilckDate, user);
+		return "redirect:/";
+	}
+	*/
+	
 
 }

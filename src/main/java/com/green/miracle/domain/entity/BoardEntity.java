@@ -40,11 +40,15 @@ public class BoardEntity {
 	private EmployeeEntity employee; // 사원번호 (fk)
 
 	@Column(columnDefinition = "varchar(255)", nullable = false)
-	private String boardTitle; // 글제목
-
-	@Column(columnDefinition = "blob", nullable = false)
-	private String boardContent; // 글내용
-
+	private String boardTitle; //글제목
+	
+	@Column(columnDefinition = "text", nullable = false)
+	private String boardContent; //글내용
+	
+	@Column(columnDefinition = "bigint")
+	@ColumnDefault("0")
+	private long boardComment; //댓글수
+	
 	@CreationTimestamp
 	@Column(columnDefinition = "timestamp", nullable = false)
 	private LocalDate writeAt; // 작성일

@@ -1,46 +1,62 @@
 package com.green.miracle.service.impl;
 
-import java.time.LocalDate;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.green.miracle.domain.dto.PlanCreateDTO;
-import com.green.miracle.domain.entity.PerType;
+import com.green.miracle.domain.entity.EmployeeEntity;
+import com.green.miracle.domain.entity.PerformancePlanEntity;
+import com.green.miracle.domain.repository.EmployeeEntityRepository;
 import com.green.miracle.domain.repository.PlanEntityRepository;
-import com.green.miracle.service.Planservice;
+import com.green.miracle.security.CustomUserDetails;
+import com.green.miracle.service.PlanService;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
 @Service
-public class PlanServiceProcess implements Planservice{
+@RequiredArgsConstructor
+public class PlanServiceProcess implements PlanService {
 
-	private final PlanEntityRepository repository; 
-	
-	@Override
-	public void findAllProcess(Model model) {
-		model.addAttribute("plans",repository.findAll());
-		
-	}
+    private final PlanEntityRepository repository;
+    private final EmployeeEntityRepository empRepository;
+    
+    @Override
+    public void findAllProcess(Model model) {
+    	model.addAttribute("plans", repository.findAll());
+    }
+    
+    @Transactional
+    public void savePlan(PlanCreateDTO dto, CustomUserDetails user) {
+        EmployeeEntity employee = empRepository.findByEmail(user.getEmail())
+            .orElseThrow(() -> new RuntimeException("Employee not found"));
+        PerformancePlanEntity plan = dto.toEntity();
+        plan.setEmployee(employee); // Ensure employee is set
+        repository.save(plan);
+    }
 
+    @Transactional
+    public void saveFile(PlanCreateDTO dto, String filename, CustomUserDetails user) {
+        PerformancePlanEntity plan = dto.toEntity();
+        plan.setPerPoster(filename);
+        plan.setEmployee(empRepository.findByEmail(user.getEmail())
+            .orElseThrow(() -> new RuntimeException("Employee not found")));
+        repository.save(plan);
+    }
 
-
-
-	@Override
-	public void savePlan(String perContent, String employee, String perTitle, PerType perType, LocalDate startAt,
-			LocalDate finishAt, String location, LocalDate writeAt, MultipartFile perPoster) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
-
-	@Override
-	public void save(String perType, MultipartFile file) {
-		// TODO Auto-generated method stub
+	@Override //id로 상세보기매핑
+	public PerformancePlanEntity findPlanById(long planNo) {
+		return repository.findById(planNo).orElse(null);
 		
 	}
 

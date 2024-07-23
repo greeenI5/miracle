@@ -41,8 +41,8 @@ public class NoticeEntity {
 
 	@Column(columnDefinition = "varchar(255)", nullable = false)
 	private String noticeTitle; // 공지사항 제목
-
-	@Column(columnDefinition = "blob", nullable = false)
+	
+	@Column(columnDefinition = "text", nullable =false)
 	private String noticeContent; // 공지사항 내용
 
 	@CreationTimestamp
