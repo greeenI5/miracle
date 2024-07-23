@@ -27,4 +27,22 @@ public class ChatBotServiceProcess implements ChatBotService {
                        .collect(Collectors.toList());
     }
 
+
+	@Override
+	public List<ChatBotCategoryDTO> getScheduleByType(long type) {
+        List<ChatBotCategoryEntity> bot = chatBotRepository.findAllByParent_cNo(type);
+        return bot.stream()
+                       .map(ChatBotCategoryEntity::toChatBotCategoryDTO)
+                       .collect(Collectors.toList());
+    }
+
+
+	@Override
+	public List<ChatBotCategoryDTO> getNoticeByType(long type) {
+        List<ChatBotCategoryEntity> bot = chatBotRepository.findAllByParent_cNo(type);
+        return bot.stream()
+                       .map(ChatBotCategoryEntity::toChatBotCategoryDTO)
+                       .collect(Collectors.toList());
+	}
+
 }

@@ -36,7 +36,6 @@ public class ChatBotCategoryEntity {
 	@JoinColumn(name = "type")
 	private ChatBotCategoryEntity parent;// 타입
 	
-	
 	public ChatBotCategoryDTO toChatBotCategoryDTO() {
 		return ChatBotCategoryDTO.builder()
 				.cNo(cNo).content(content).type(parent.cNo)

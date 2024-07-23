@@ -13,6 +13,10 @@ public interface ChatBotService {
 
 	List<ChatBotCategoryDTO> getContentByType(long type);
 
+	List<ChatBotCategoryDTO> getScheduleByType(long type);
+
+	List<ChatBotCategoryDTO> getNoticeByType(long type);
+
 
 
 }
