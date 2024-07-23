@@ -235,8 +235,8 @@ button:hover {
 }
 
 .checklist label {
-    display: flex;
-    align-items: center;
+    /* display: flex;
+    align-items: center; */
     font-size: 16px;
 }
 

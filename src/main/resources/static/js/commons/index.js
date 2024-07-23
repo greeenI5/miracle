@@ -116,7 +116,7 @@ setInterval(updateCurrentTime, 1000); // 1초마다 시간 업데이트
     const token = document.querySelector('meta[name="_csrf"]').getAttribute('content');
 	const header = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
     
-    // 선택된 날짜를 서버로 전달 (수정된 부분 시작)
+    // 선택된 날짜를 서버로 전달
     const selectedFullDate = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(selectedDate).padStart(2, '0')}`;
     fetch('/api/date', {
         method: 'POST',
@@ -129,11 +129,32 @@ setInterval(updateCurrentTime, 1000); // 1초마다 시간 업데이트
     .then(response => response.json())
     .then(data => {
         console.log('Success:', data);
+        updateScheduleList(data);
     })
     .catch((error) => {
         console.error('Error:', error);
     });
   }
+  
+  //비동기로 일정 목록 업데이트
+  function updateScheduleList(schedules) {
+    const scheduleContainer = document.querySelector('.checklist');
+    scheduleContainer.innerHTML = ''; // 기존 일정 목록 초기화
+
+    if (schedules.length > 0) {
+        schedules.forEach(schedule => {
+            const listItem = document.createElement('div');
+            listItem.className = 'checklist';
+            listItem.innerHTML = `
+                <input type="checkbox" class="check-item" data-label="">
+                <label>${schedule.schTitle}</label>
+            `;
+            scheduleContainer.appendChild(listItem);
+        });
+    } else {
+        scheduleContainer.innerHTML = '<div class="no-schedule">일정이 없습니다.</div>';
+    }
+ }
 
   // Initialize calendar on page load
   updateCalendar(currentMonth, currentYear);

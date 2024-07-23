@@ -15,11 +15,5 @@ public class DateRequestDTO {
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate date;
 	
-	private String schTitle;
-
-	public DateRequestDTO(String schTitle) {
-		super();
-		this.schTitle = schTitle;
-	}
 	
 }
