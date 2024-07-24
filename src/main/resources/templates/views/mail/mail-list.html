@@ -19,18 +19,9 @@ th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
 		        <div>
 		            <span>받은 메일함 </span>
 		            <span> 전체 메일</span>
-		            <span>19 </span>
-		            <span>/ 안 읽은 메일</span>
-		            <span>8 </span>
-		        </div>
-		        <div class="toolbar">
-		            <div>
-		                <button>스팸신고</button>
-		                <button>답장</button>
-		                <button>전달</button>
-		                <button>차단</button>
-		            </div>
-		            <button>읽음</button>
+		            <span th:text="${receiveMailFolder.totalCount}"></span>
+		            <span> / 안 읽은 메일</span>
+		            <span th:text="${receiveMailFolder.unreadCount}"></span>
 		        </div>
 		        <div th:utext="${emails}"></div>
 		        <div th:utext="${error}"></div>
@@ -44,48 +35,12 @@ th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
 		                </tr>
 		            </thead>
 		            <tbody>
-		                <tr>
-		                    <td><input type="checkbox"></td>
-		                    <td>이상현</td>
-		                    <td>2022년 9월 부서 회의 일정 메모사항</td>
-		                    <td>22-09-25 22:54</td>
-		                </tr>
-		                <tr>
-		                    <td><input type="checkbox"></td>
-		                    <td>조상미</td>
-		                    <td>개발 팀 정기 일정 공유</td>
-		                    <td>22-09-25 22:53</td>
-		                </tr>
-		                <tr>
-		                    <td><input type="checkbox"></td>
-		                    <td>한준수</td>
-		                    <td>[회의공지] 전략회의 (2022-09-26[월] 15:30)</td>
-		                    <td>22-09-25 22:51</td>
-		                </tr>
-		                <tr>
-		                    <td><input type="checkbox"></td>
-		                    <td>testgr13@gmail.com</td>
-		                    <td>SSL 인증서 신청에 따른 업무 절차 요청 건</td>
-		                    <td>22-09-25 22:48</td>
-		                </tr>
-		                <tr>
-		                    <td><input type="checkbox"></td>
-		                    <td>박우철</td>
-		                    <td>[공지] 백신패스에 따른 오프라인 교육 일정 변경 건</td>
-		                    <td>22-09-25 22:44</td>
-		                </tr>
-		                <tr>
-		                    <td><input type="checkbox"></td>
-		                    <td>김준혁</td>
-		                    <td>[서울시청] 2022년 일자리 건강검진안내</td>
-		                    <td>22-09-25 22:42</td>
-		                </tr>
-		                <tr>
-		                    <td><input type="checkbox"></td>
-		                    <td>정윤화</td>
-		                    <td>[공지] 주말 잔류 근무 일정 매뉴얼</td>
-		                    <td>22-09-25 22:35</td>
-		                </tr>
+			            <tr th:each="receiveMail:${receiveMailFolder.mails}">
+			            	<td><input type="checkbox"></td>
+							<td th:text="|${receiveMail.from.name} (${receiveMail.from.email})|">보낸 사람</td>
+							<td th:text="${receiveMail.subject}">제목</td>
+							<td th:text="${receiveMail.sentTime}">날짜</td>
+						</tr>
 		            </tbody>
 		        </table>
 		    </div>

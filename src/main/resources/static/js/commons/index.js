@@ -107,6 +107,7 @@ setInterval(updateCurrentTime, 1000); // 1초마다 시간 업데이트
     updateCalendar(currentMonth, currentYear);
   }
 
+//프론트에서 날짜 클릭할때 발생하는 이벤트
   function selectDate(date) {
     selectedDate = date;
     updateCalendar(currentMonth, currentYear);
@@ -134,31 +135,33 @@ setInterval(updateCurrentTime, 1000); // 1초마다 시간 업데이트
     .catch((error) => {
         console.error('Error:', error);
     });
-  }
-  
-  //비동기로 일정 목록 업데이트
-function updateScheduleList(schedules) {
-    const scheduleContainer = document.querySelector('.checklist');
-    scheduleContainer.innerHTML = ''; // 기존 일정 목록 초기화
-
-    if (schedules.length > 0) {
-        const maxSchedules = 4;
-        const count = Math.min(schedules.length, maxSchedules); // 최대 4개 또는 일정 배열의 길이 중 작은 값
-
-        for (let i = 0; i < count; i++) {
-            const schedule = schedules[i];
-            const listItem = document.createElement('label');
-            listItem.className = 'checklist-item';
-            listItem.innerHTML = `
-                <input type="checkbox" class="check-item">
-                <span class="check-label">${schedule.schTitle}</span> <!-- 기존 코드에서 label을 span으로 수정 -->
-            `;
-            scheduleContainer.appendChild(listItem);
-        }
-    } else {
-        scheduleContainer.innerHTML = '<div class="no-schedule">일정이 없습니다.</div>';
-    }
+    
+    //비동기로 일정 목록 업데이트
+	function updateScheduleList(schedules) {
+	    const scheduleContainer = document.querySelector('.checklist');
+	    scheduleContainer.innerHTML = ''; // 기존 일정 목록 초기화
+	
+	    if (schedules.length > 0) {
+	        const maxSchedules = 4;
+	        const count = Math.min(schedules.length, maxSchedules); // 최대 4개 또는 일정 배열의 길이 중 작은 값
+	
+	        for (let i = 0; i < count; i++) {
+	            const schedule = schedules[i];
+	            const listItem = document.createElement('label');
+	            listItem.className = 'checklist-item';
+	            listItem.innerHTML = `
+	                <input type="checkbox" class="check-item">
+	                <span class="check-label">${schedule.schTitle}</span> <!-- 기존 코드에서 label을 span으로 수정 -->
+	            `;
+	            scheduleContainer.appendChild(listItem);
+	        }
+	    } else {
+	        scheduleContainer.innerHTML = '<div class="checklist">일정이 없습니다.</div>';
+	    }
+	}	
 }
+  
+	
 
 // Initialize calendar on page load
 updateCalendar(currentMonth, currentYear);
