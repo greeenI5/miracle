@@ -2,7 +2,6 @@ package com.green.miracle.service;
 
 import org.springframework.ui.Model;
 
-import com.green.miracle.domain.dto.AdminHrListDTO;
 import com.green.miracle.domain.dto.AdminHrSaveDTO;
 import com.green.miracle.domain.dto.AdminHrUpdate;
 
@@ -19,7 +18,5 @@ public interface AdminHrService {
 	String getNextEmployeeNumber();
 
 	void HrListProcess(Model model);
-
 	
-
 }

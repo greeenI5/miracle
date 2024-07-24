@@ -7,8 +7,7 @@ import com.green.miracle.domain.dto.AdminHrListDTO;
 import com.green.miracle.domain.dto.AdminHrUpdate;
 import com.green.miracle.domain.dto.EmployeeDTO;
 import com.green.miracle.domain.dto.EmployeeUpdateDTO;
-import com.green.miracle.domain.dto.MyPageDTO;
-import com.green.miracle.domain.repository.DepartmentEntityRepository;
+import com.green.miracle.domain.dto.HrDetailDTO;
 
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
@@ -126,5 +125,13 @@ public class EmployeeEntity {
         this.phone = dto.getPhone();
         return this;
     }
+
+	public HrDetailDTO toHrDetailDTO() {
+		return HrDetailDTO.builder()
+				.name(name).email(email)
+				.phone(phone).position(position)
+				.depCode(department.getDepCode())
+				.build();
+	}
 	
 }
