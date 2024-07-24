@@ -8,10 +8,10 @@ body {
 
 i {
 	font-size : 20px;
-	color: white;
+	color: var(--sub-grey);
 }
 ::placeholder, select {
-    color: white;
+    color: var(--sub-grey);
     font-family: "Noto Sans KR", sans-serif;
     letter-spacing: 1px;
 }
@@ -29,7 +29,7 @@ button {
     background-color: #2B3879;
     padding: 30px;
     border-radius: 8px;
-    color: white;
+    color: var(--sub-grey);
     text-align: center;
     width: 400px;
     height: 450px;
@@ -84,12 +84,12 @@ button {
     border-radius: 4px;
     box-sizing: border-box;
     background-color: #2B3879;
-    color: white;
-    border: 2px solid white;
+    color: var(--sub-grey);
+    border: 2px solid var(--sub-grey);
 }
 
 .login-button {
-    background-color: white;
+    background-color: var(--sub-grey);
     color: var(--main-navy);
     border: none;
     border-radius: 20px;
