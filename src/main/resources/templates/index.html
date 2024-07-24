@@ -21,27 +21,17 @@ th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
         <div class="item2">
 			<div class="container-header">
 	            <h2>공연일정</h2>
-	            <a href="/schedule/performance"><i class="ri-arrow-right-s-line circle"></i></a>
+	            <a href="/performance/plan"><i class="ri-arrow-right-s-line circle"></i></a>
 	        </div>
 	        <div class="content-container">
-		        <div class="post-container">
-			        <div class="exhibition">
-			            <img src="/images/poster/poster1.jpg">
-			            <div class="details">
-			                <h2>마술</h2>
-			                <p>포스터가 흐름들로</p>
-			                <p>2024.04.30</p>
-			                <p>두산아트센터</p>
-			                <button class="detail-btn">상세보기</button>
-			            </div>
-			        </div>
-			        <div class="exhibition">
+		        <div class="post-container" >
+			        <div class="exhibition" th:each="plan: ${plans}">
 			            <img src="/images/poster/poster2.jpg">
 			            <div class="details">
-			                <h2>마술</h2>
-			                <p>M Butterfly</p>
-			                <p>2024.07.13</p>
-			                <p>아트스페이스 리움</p>
+			                <h2 th:text="${plan.PerType.typeName()}">장르</h2>
+			                <p th:text="${plan.perTitle}">포스터 제목</p>
+			                <p th:text="${plan.finishAt}">종료일</p>
+			                <p th:text="${plan.location}">공연장소</p>
 			                <button class="detail-btn">상세보기</button>
 			            </div>
 			        </div>
@@ -80,15 +70,17 @@ th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
 				</div>
 			
 				<div id="selectedDate" class="calendar-body">
-	  				<span id="selectedMonth" class="selected-month"></span>
-	  				<span id="selectedDay" class="selected-day"></span>
-	  				<div class="checklist" th:each="schedule:${schedules}">
-	  					<input type="checkbox" class="check-item" data-label="">
-				        <label th:text="${schedule.schTitle}">일정</label>
-				    </div>
-				    <div th:if="${#lists.isEmpty(schedules)}" class="no-schedule"> 일정이 없습니다. </div>
-				    <button class="schedule-button" onclick="saveChecklist()">확인</button>
-				</div>
+			        <span id="selectedMonth" class="selected-month"></span>
+			        <span id="selectedDay" class="selected-day"></span>
+			        <div class="checklist">
+			            <label class="checklist-item" th:each="schedule: ${schedules}">
+			                <input type="checkbox" class="check-item">
+			                <span th:text="${schedule.schTitle}" class="check-label">일정</span>
+			            </label>
+			        </div>
+			        <div th:if="${#lists.isEmpty(schedules)}" class="no-schedule">일정이 없습니다.</div>
+			        <button class="schedule-button" onclick="saveChecklist()">확인</button>
+			    </div>
 			</div>  
         </div>
         
@@ -125,8 +117,10 @@ th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
 	        </div>
 	        <ul class="notices" th:each="notice : ${notices}">
 	            <li class="notice-item">
-	                <span class="tag">알림</span>
-	                <span class="text" th:text="${notice.noticeTitle}">제목</span>
+	            	<div class="flex">
+		                <div class="tag">알림</div>
+		                <div class="text" th:text="${notice.noticeTitle}">제목</div>
+	                </div>
 	                <span class="date" th:text="${notice.writeAt}">날짜</span>
 	            </li>
 	        </ul>
@@ -139,8 +133,10 @@ th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
 	        </div>
 	        <ul class="notices" th:each="board : ${boards}">
 	            <li class="notice-item">
-	                <span class="tag">알림</span>
-	                <span class="text" th:text="${board.boardTitle}">제목</span>
+	            	<div class="flex">
+		                <div class="tag">알림</div>
+		                <div class="text" th:text="${board.boardTitle}">제목</div>
+	                </div>
 	                <span class="date" th:text="${board.writeAt}">날짜</span>
 	            </li>
 	        </ul>

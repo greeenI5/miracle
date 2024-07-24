@@ -42,15 +42,5 @@ public class MainController {
 		return service.scheduleProcess2(clickDate, user);
 	}
 	
-	
-	/*
-	@PostMapping("/")
-	public String date(Model model, @RequestBody DateRequestDTO dateRequest, @AuthenticationPrincipal CustomUserDetails user) {
-		LocalDate cilckDate = dateRequest.getDate();
-		service.scheduleProcess(model, cilckDate, user);
-		return "redirect:/";
-	}
-	*/
-	
 
 }

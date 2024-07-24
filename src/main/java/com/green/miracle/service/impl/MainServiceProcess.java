@@ -4,21 +4,20 @@ import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
-import com.green.miracle.domain.dto.DateRequestDTO;
 import com.green.miracle.domain.dto.scheduleDTO;
 import com.green.miracle.domain.entity.EmployeeEntity;
+import com.green.miracle.domain.entity.PerformancePlanEntity;
+import com.green.miracle.domain.entity.ScheduleEntity;
 import com.green.miracle.domain.repository.BoardEntityRepository;
 import com.green.miracle.domain.repository.DepartmentEntityRepository;
 import com.green.miracle.domain.repository.EmployeeEntityRepository;
 import com.green.miracle.domain.repository.NoticeEntityRepository;
+import com.green.miracle.domain.repository.PlanEntityRepository;
 import com.green.miracle.domain.repository.ScheduleEntityRepository;
 import com.green.miracle.security.CustomUserDetails;
 import com.green.miracle.service.MainService;
@@ -36,6 +35,7 @@ public class MainServiceProcess implements MainService{
 	private final BoardEntityRepository boardRep;
 	private final ScheduleEntityRepository scheduleRep;
 	private final DepartmentEntityRepository departmentRep;
+	private final PlanEntityRepository planRep;
 	
 	
 	@Override
@@ -44,16 +44,34 @@ public class MainServiceProcess implements MainService{
 		
 		//model.addAttribute("emp", employee); //GlobalControllerAdvice에 추가
 		model.addAttribute("dep", departmentRep.findByDepCode(employee.getDepartment().getDepCode()));
-		
 		model.addAttribute("notices", noticeRep.findAll());
 		model.addAttribute("boards", boardRep.findAll());
-
+		model.addAttribute("notices", noticeRep.findAll());
+	    model.addAttribute("boards", boardRep.findAll());
+	    model.addAttribute("plans", planRep.findAll().stream()
+	    									.limit(2)
+	    									.collect(Collectors.toList()));
 	}
-
+	
+	/*
 	@Override
 	public void scheduleProcess(Model model, LocalDate cilckDate, CustomUserDetails user) {
 		EmployeeEntity employee = employeeRep.findByEmail(user.getEmail()).orElseThrow();
 		model.addAttribute("schedules", scheduleRep.findByEmployeeAndStartAt(employee, cilckDate));
+	}
+	*/
+
+	
+	@Override
+	public void scheduleProcess(Model model, LocalDate cilckDate, CustomUserDetails user) {
+		EmployeeEntity employee = employeeRep.findByEmail(user.getEmail()).orElseThrow();
+		
+		List<ScheduleEntity> allSchedules = scheduleRep.findByEmployeeAndStartAt(employee, cilckDate);
+		List<ScheduleEntity> filterSchedules = allSchedules.stream()
+                								.filter(schedule -> schedule.getStartAt().equals(cilckDate))
+                								.limit(4) // 최대 4개까지만 가져오게 함
+                								.collect(Collectors.toList());
+		model.addAttribute("schedules", filterSchedules);
 	}
 	
 	

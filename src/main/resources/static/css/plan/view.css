@@ -14,7 +14,7 @@
 }
 
 
-.content-top {
+.content-left {
     text-align: left;
     margin-bottom: 20mm;
     max-width: 350px;
@@ -52,7 +52,7 @@
     margin: 0;
 }
 
-.content-left {
+.content-right {
     display: flex;
     flex-direction: column;
     max-width: 350px;
