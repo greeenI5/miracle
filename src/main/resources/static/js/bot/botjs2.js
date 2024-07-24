@@ -4,8 +4,6 @@ const header = document.querySelector('meta[name="_csrf_header"]').getAttribute(
 
 var stompClient = null;
 var key;
-var now = new Date();
-var time = formatTime(now);
 let initialMessageShown = false; // 초기 메시지 1번만 출력되는 플래그
 
 function formatTime(now) {
@@ -123,168 +121,50 @@ function displayUserMessage(content) {
     let messageContainer = document.getElementById('messageDisplay');
     let tag = `
     <div class="user-message">
-    	<div class="user-time">${time}</div>
         <p>${content}</p>
     </div>
     `;
     messageContainer.innerHTML += tag;
-    
     scrollToBottom(messageContainer); // 스크롤을 제일 아래로 이동
 }
 
-// 봇의 메시지를 화면에 출력-1
+// 봇의 메시지를 화면에 출력
 function displayMessage(message) {
     let messageContainer = document.getElementById('messageDisplay');
 
-    let tag = "";
-    message.forEach(function(dto) {
-        tag += `
-            <div>
-                <button class="child-category" data-content="${dto.content}"> <p>${dto.content}</p> </button>
-            </div>
-        `;
-    });
-    let tag1 = `
-    <div class="flex">
-        <div id="b-icon"></div>
-        <div class="part">
-        	<p>메뉴를 선택해주세요.</p>
-        	<div class="bot-time">${time}</div>
-        	<div class="button-container">${tag}</div>
+    // `forEach` 대신 `map`과 `join`을 사용하여 tag를 생성
+    let tag = message.map(dto => `
+        <div>
+            <button class="child-category" data-content="${dto.content}"> <p>${dto.content}</p> </button>
         </div>
-    </div>
-    `;
-    messageContainer.innerHTML += tag1;
-
-    // 버튼 클릭 이벤트 리스너 추가
-	let buttons = document.querySelectorAll('.child-category');
-		buttons.forEach((button, index) => {
-    	button.addEventListener('click', function() {
-        // 클릭된 버튼의 content 추출
-        let content = button.getAttribute('data-content');
-        // 사용자 메시지로 출력
-        displayUserMessage(content);
-
-        // 인덱스를 사용하여 각각의 버튼에 다른 이벤트 처리
-        if (index === 0) {
-            // 첫 번째 버튼 클릭 시의 작업
-            console.log("첫 번째 버튼 클릭됨");
-            fetchContactDpt()
-        } else if (index === 1) {
-            // 두 번째 버튼 클릭 시의 작업
-            console.log("두 번째 버튼 클릭됨");
-			searchNameMessage();
-        }
-    });
-});
-
-    scrollToBottom(messageContainer); // 스크롤을 제일 아래로 이동
-}
-function searchNameMessage() {
-	let messageContainer = document.getElementById('messageDisplay');
- 	let tag = `
- 		<div class="bot-message part">
- 			<div id="b-icon"></div>
-   			<p>이름을 검색해보세요.</p>
-   			<div class="bot-time">${time}</div>
-		 </div>
-			`;
-			 messageContainer.innerHTML += tag;    
-    			scrollToBottom(messageContainer); // 스크롤을 제일 아래로 이동
-}
-// 봇의 메시지를 화면에 출력-child
-function displayMessage1(message) {
-    let messageContainer = document.getElementById('messageDisplay');
-
-    let tag = "";
-    message.forEach(function(dto) {
-        tag += `
-            <div>
-                <button class="grand-child-category" data-content="${dto.content}"> <p>${dto.content}</p> </button>
-            </div>
-        `;
-    });
+    `).join('');
 
     // 메뉴 출력
     let tag1 = `
-    <div class="flex">
+    <div>
         <div id="b-icon"></div>
-        <div class="part">
-        	<p>부서를 선택해주세요.</p>
-        	<div class="bot-time">${time}</div>
-        	<div class="button-container">${tag}</div>
-        </div>
+        <div class="bot-message part"><p>아래 메뉴를 선택해주세요.</p></div>
+        <div class="button-container">${tag}</div>
     </div>
     `;
     messageContainer.innerHTML += tag1;
 
-    // 버튼 클릭 이벤트 리스너 추가
-	let buttons = document.querySelectorAll('.grand-child-category');
-		buttons.forEach((button, index) => {
-    	button.addEventListener('click', function() {
-        // 클릭된 버튼의 content 추출
-        let content = button.getAttribute('data-content');
-        // 사용자 메시지로 출력
-        displayUserMessage(content);
-
-        // 인덱스를 사용하여 각각의 버튼에 다른 이벤트 처리
-        if (index === 0) {
-            // 첫 번째 버튼 클릭 시의 작업
-            console.log("첫 번째 버튼 클릭됨");
-            fetchContactDptS1();
-        } else if (index === 1) {
-            // 두 번째 버튼 클릭 시의 작업
-            console.log("두 번째 버튼 클릭됨");
-            // 여기에 두 번째 버튼 클릭 시 수행할 작업을 추가
-        }
-    });
-});
-
-    scrollToBottom(messageContainer); // 스크롤을 제일 아래로 이동
-    
-}
-// 봇의 메시지를 화면에 출력-child
-function displayMessage2(message) {
-    let messageContainer = document.getElementById('messageDisplay');
-
-    let tag = "";
-    message.forEach(function(dto) {
-        tag += `
-            <div>
-                <div class="grand-child-category1" data-content="${dto.content}"> <p>${dto.content}</p> </div>
-            </div>
-        `;
-    });
-
-    // 메뉴 출력
-    let tag1 = `
-    <div class="flex">
-        <div id="b-icon"></div>
-        <div class="part">
-        	<p>영업팀의 연락처입니다.</p>
-        	<div class="bot-time">${time}</div>
-        	<div class="button-container">${tag}</div>
-        	<button >되돌아가기</button>
-        </div>
-    </div>
-    `;
-    messageContainer.innerHTML += tag1;
-
-    // 버튼 클릭 이벤트 리스너 추가
-    let buttons = document.querySelectorAll('grand-child-category1');
-    buttons.forEach(button => {
-        button.addEventListener('click', function() {
+    // 이벤트 위임을 사용하여 버튼 클릭 이벤트 처리
+    //클릭된 content를 사용자 메세지 입력처럼 화면에 출력
+    messageContainer.addEventListener('click', function(event) {
+        if (event.target && event.target.matches('.child-category')) {
             // 클릭된 버튼의 content 추출
-            let content = button.getAttribute('data-content');
+            let content = event.target.getAttribute('data-content');
             // 사용자 메시지로 출력
             displayUserMessage(content);
             
-        });
+        }
+        
     });
-
+	
     scrollToBottom(messageContainer); // 스크롤을 제일 아래로 이동
-    
 }
+
 // 웹소켓 연결 해제 함수
 function disconnectSocket() {
     if (stompClient !== null) {
@@ -329,7 +209,6 @@ function fetchContactInfo() {
         method: "GET",
         data: { type: 1 },
         success: function(data) {
-			displayUserMessage("연락처 알려줘");
             displayMessage(data);
         },
         error: function(error) {
@@ -345,7 +224,6 @@ function fetchScheduleInfo() {
         method: "GET",
         data: { type: 4 },
         success: function(data) {
-			displayUserMessage("일정 알려줘");
             displayMessage(data);
         },
         error: function(error) {
@@ -361,7 +239,6 @@ function fetchNoticeInfo() {
         method: "GET",
         data: { type: 7 },
         success: function(data) {
-			displayUserMessage("공지사항 알려줘");
             displayMessage(data);
         },
         error: function(error) {
@@ -377,25 +254,11 @@ function fetchContactDpt() {
         method: "GET",
         data: { type: 2 },
         success: function(data) {
-            displayMessage1(data);
+            displayMessage(data);
         },
         error: function(error) {
             console.error("요청하신 부서별 검색 결과를 찾을 수 없습니다.", error);
-            displayMessage1(error);
-        }
-    });
-}
-function fetchContactDptS1() {
-    $.ajax({
-        url: "/chatbot/contact/dpt/s1",
-        method: "GET",
-        data: { type: 10 },
-        success: function(data) {
-            displayMessage2(data);
-        },
-        error: function(error) {
-            console.error("요청하신 부서별 검색 결과를 찾을 수 없습니다.", error);
-            displayMessage2(error);
+            displayMessage(error);
         }
     });
 }
