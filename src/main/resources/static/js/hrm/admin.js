@@ -42,7 +42,7 @@ function addEmployee() {
         success: function(response) {
             alert("직원이 성공적으로 추가되었습니다.");
             addEmployeeToTable(response);
-            addEmployeeToOrgChart(response);
+            /*addEmployeeToOrgChart(response);*/
         },
         error: function(error) {
             alert("직원 추가 중 오류가 발생했습니다.");
@@ -50,7 +50,7 @@ function addEmployee() {
     });
 }
 
-function addEmployeeToOrgChart(employee) {
+/*function addEmployeeToOrgChart(employee) {
     const teamClasses = {
         1000: '.sales-team',
         1003: '.marketing-team',
@@ -74,7 +74,7 @@ function addEmployeeToOrgChart(employee) {
     } else {
         console.error('Unknown team code.');
     }
-}
+}*/
 
 function addEmployeeToTable(employee) {
     const tableBody = document.getElementById("employee-table-body");
@@ -128,6 +128,7 @@ function editEmployee(button) {
         cell.dataset.originalValue = originalValue;
 
         if (i === 4) { // 부서코드 셀
+            console.log('부서 코드:', originalValue); // 디버깅
             cell.innerHTML = `<select>${createSelectOptions(departmentMap, originalValue)}</select>`;
         } else if (i === 2) { // 권한 셀
             cell.innerHTML = `<select>${createSelectOptions(roleNameMap, originalValue)}</select>`;
@@ -144,6 +145,7 @@ function editEmployee(button) {
         <button onclick="cancelEdit(this)">취소</button>
     `;
 }
+
 
 function cancelEdit(button) {
     const row = button.parentElement.parentElement;
@@ -234,3 +236,4 @@ document.addEventListener('DOMContentLoaded', function() {
 
     updateDepartmentNames();
 });
+

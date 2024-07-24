@@ -8,8 +8,8 @@ th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
 	<link rel="stylesheet" href="/css/admin/admin.css">
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 	<script src="/js/hrm/admin.js"></script>
-	<title>인사관리</title>
 	<script src="/js/hrm/detail.js"></script>
+	<title>인사관리</title>
 </head>
 <body>
 	<main class="admin">
@@ -27,88 +27,23 @@ th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
 	                    <span>MIRCALE</span>	
 	                </div>
 	                <ul class="dep">
-	                <li>
-						<div class="depName">영업부</div>
-							<div class="emp">
-								<span class="empName" onclick="showEmployeeDetail('김한솔')">김한솔</span>
-							</div>
-		                        <ul class="team">
-		                            <li th:each="dto : ${list}">
-		                            	<div class="teamName" id="depCode">영업팀</div>
-		                                <div class="emp">
-		                                    <span class="empName" th:text="${dto.name}" 
-		                                          th:onclick="'showEmployeeDetail(' + ${dto.name} + ')'"></span>
-		                                    <span class="bar">|</span>
-		                                    <span class="empRank" th:text="${dto.position}"></span>    
-		                                </div>
-		                            </li>
-		                        </ul>
-		                    </li>
-	                    <li>
-	                        <div class="depName">관리부</div>
-	                        <div class="emp">
-	                        	<span class="empName" onclick="showEmployeeDetail('박세나')">박세나</span>
-							</div>
-	                        <ul>
-	                            <li class="planning-team">
-	                                <div class="teamName">기획팀</div>
-	                                <div class="emp">
-	                                	<span class="empName" onclick="showEmployeeDetail('김도영')">김도영</span>	 
-	                                	<span class="bar">|</span>
-	                                	<span class="empRank">팀장</span>	
-	                                </div>
-	                                <div class="emp">
-	                                	<span class="empName">손현준</span>	 
-	                                	<span class="bar">|</span>
-	                                	<span class="empRank">과장</span>
-	                                </div>
-	                                <div class="emp">
-	                                	<span class="empName">임수현</span>	 
-	                                	<span class="bar">|</span>
-	                                	<span class="empRank">대리</span>	
-	                                </div>
-	                                <div class="emp">
-	                                	<span class="empName" onclick="showEmployeeDetail('윤민석')">윤민석</span>	 
-	                                	<span class="bar">|</span>
-	                                	<span class="empRank">사원</span>
-	                                </div>
-	                            </li>
-	                            <li class="stage-production-team">
-	                                <div class="teamName">무대연출팀</div>
-	                                <div class="emp">
-	                                	<span class="empName" onclick="showEmployeeDetail('전용준')">전용준</span>
-	                                	<span class="bar">|</span>
-	                                	<span class="empRank">팀장</span>
-	                                </div>
-	                                <div class="emp">
-	                                	<span class="empName">김준형</span>	 
-	                                	<span class="bar">|</span>
-	                                	<span class="empRank">대리</span>	
-	                                </div>
-	                                <div class="emp">
-	                                	<span class="empName">염가은</span>	 
-	                                	<span class="bar">|</span>
-	                                	<span class="empRank">부장</span>
-	                                </div>
-	                                <div class="emp">
-	                                	<span class="empName">이지훈</span>	 
-	                                	<span class="bar">|</span>
-	                                	<span class="empRank">차장</span>
-	                                </div>
-	                                <div class="emp">
-	                                	<span class="empName">이현호</span>	 
-	                                	<span class="bar">|</span>
-	                                	<span class="empRank">사원</span>
-	                                </div>
-	                                <div class="emp">
-	                                	<span class="empName" onclick="showEmployeeDetail('최재영')">최재영</span>
-	                                	<span class="bar">|</span>
-	                                	<span class="empRank">사원</span>
-	                                </div>
-	                            </li>
-	                        </ul>
-	                    </li>
-	                </ul>
+                        <li class="depLi">
+                            <ul class="teams">
+                                <li class="teamLi" th:each="teamEntry : ${groupedEmployees}">
+                                    <div class="teamName" th:text="${teamEntry.key}">팀 이름</div>
+                                    <ul class="teamMembers">
+                                        <li class="empLi" th:each="employee : ${teamEntry.value}">
+                                            <div class="emp">
+                                                <span class="empName" th:text="${employee.name}">사원 이름</span>
+                                                <span class="bar">|</span>
+                                                <span class="empRank" th:text="${employee.position}">직급</span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
 	            </li>
 	        </ul>
 	    </div>

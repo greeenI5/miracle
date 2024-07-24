@@ -85,3 +85,44 @@ function closeTooltip() {
     const tooltip = document.getElementById('tooltip');
     tooltip.classList.remove('show-tooltip');
 }
+
+
+// 포지션을 한국어로 변환하는 함수
+function getPositionInKorean(position) {
+	const positions = {
+		"EMPLOYEE": "사원",
+		"ASSISTANT_MANAGER": "대리",
+		"MANAGER": "과장",
+		"DEPUTY_GENERAL_MANAGER": "차장",
+		"GENERAL_MANAGER": "부장",
+		"TEAM_LEADER": "팀장"
+	};
+	return positions[position] || position; // 기본값 반환
+}
+
+// 페이지 로드 시 포지션을 한국어로 변환
+$(document).ready(function() {
+	$('.empRank').each(function() {
+		const position = $(this).text();
+		$(this).text(getPositionInKorean(position));
+	});
+});
+
+
+function getDepCodeInKorean(depCode) {
+	const depCodes = {
+		"1000": "영업팀",
+		"1003": "마케팅팀",
+		"1004": "기획팀",
+		"1005": "무대연출팀"
+	};
+	return depCodes[depCode] || depCode; // 기본값 반환
+}
+
+// 페이지 로드 시 포지션을 한국어로 변환
+$(document).ready(function() {
+	$('.teamName').each(function() {
+		const depCode = $(this).text();
+		$(this).text(getDepCodeInKorean(depCode));
+	});
+});

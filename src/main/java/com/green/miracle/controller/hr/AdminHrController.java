@@ -1,6 +1,5 @@
 package com.green.miracle.controller.hr;
 
-import com.green.miracle.domain.dto.AdminHrListDTO;
 import com.green.miracle.domain.dto.AdminHrSaveDTO;
 import com.green.miracle.domain.dto.AdminHrUpdate;
 import com.green.miracle.service.AdminHrService;
@@ -8,8 +7,6 @@ import com.green.miracle.service.AdminHrService;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,7 +15,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 @ToString
@@ -30,9 +26,8 @@ public class AdminHrController {
 
     @GetMapping("/admin/hr")
     public String list(Model model) {
-    	System.out.println(model);
-        service.HrListProcess(model);
-        return "views/admin/hrm";
+        service.HrListProcess(model);  // 그룹화된 사원 목록을 처리
+        return "views/admin/hrm";  // Thymeleaf 템플릿의 경로
     }
     
     
