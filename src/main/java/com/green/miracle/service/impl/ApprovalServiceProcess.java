@@ -1,10 +1,9 @@
 package com.green.miracle.service.impl;
 
-import java.util.List;
-
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import com.green.miracle.domain.dto.ApprovalChangeDTO;
 import com.green.miracle.domain.entity.PerformancePlanEntity;
 import com.green.miracle.domain.repository.ApprovalEntityRepository;
 import com.green.miracle.service.ApprovalService;
@@ -40,26 +39,9 @@ public class ApprovalServiceProcess implements ApprovalService{
 	}
 	/*/////////////////*/
 	@Override
-	public boolean updateData(Long planNo, int approval) {
-		// TODO Auto-generated method stub
-		return false;
+	public void savePlan(PerformancePlanEntity plan) {
+		repository.save(plan);
+		
 	}
 	/*////////////////*/
-	/*
-	// approval 컬럼이 1인 데이터를 반환하는 메서드
-    public List<PerformancePlanEntity> findByApprovalStatus(int approvalStatus) {
-        return repository.findByApproval(approvalStatus);
-    }
-    
-    public boolean updateData(Long id, int newValue) {
-        DataEntity data = dataRepository.findById(id).orElse(null);
-        if (data == null) {
-            return false;
-        }
-        data.setIntValue(newValue); // int 값 업데이트
-        dataRepository.save(data);
-        return true;
-    }
-    
-	*/
 }

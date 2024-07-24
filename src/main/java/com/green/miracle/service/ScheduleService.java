@@ -10,8 +10,4 @@ import com.green.miracle.domain.entity.ScheduleEntity;
 public interface ScheduleService {
 	
 
-	void saveProcess(ScheduleCreateDTO dto);
-
-
-	void findProcess(ScheduleEntity scheduleEntity, Model model);
 }

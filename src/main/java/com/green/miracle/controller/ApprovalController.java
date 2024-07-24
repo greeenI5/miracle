@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.green.miracle.domain.dto.ApprovalChangeDTO;
 import com.green.miracle.domain.entity.PerType;
 import com.green.miracle.domain.entity.PerformancePlanEntity;
 import com.green.miracle.service.ApprovalService;
@@ -52,16 +53,16 @@ public class ApprovalController {
         return "views/approval/request-view";
     }
 	
-	@PostMapping("/update/{id}")
-    public String updateData(@PathVariable("planNo") Long planNo,
-                             @RequestParam("newApproval") int approval,
-                             RedirectAttributes redirectAttributes) {
-        boolean isUpdated = service.updateData(planNo, approval);
-        if (isUpdated) {
-            redirectAttributes.addFlashAttribute("message", "Data updated successfully!");
-        } else {
-            redirectAttributes.addFlashAttribute("message", "Failed to update data.");
-        }
+	@PostMapping("/plan/{planNo}")
+    public String approvalBTN(@PathVariable("planNo") Long planNo, ApprovalChangeDTO dto) {
+		 PerformancePlanEntity plan = service.findPlanById(planNo);
+		 
+		 if (plan != null) {
+		        // DTO를 사용하여 Plan을 업데이트
+		        plan.setApproval(dto.getApproval());
+		        service.savePlan(plan);  // 변경된 Plan을 저장
+		    }
+		
         return "redirect:/admin/approval/plan/request"; // 업데이트 후 리다이렉트할 페이지
     }
 	

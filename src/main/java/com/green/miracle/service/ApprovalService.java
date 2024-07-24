@@ -14,6 +14,6 @@ public interface ApprovalService {
 
 	PerformancePlanEntity findPlanById(long planNo);
 
-	boolean updateData(Long planNo, int approval);
+	void savePlan(PerformancePlanEntity plan);
 
 }

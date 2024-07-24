@@ -13,7 +13,7 @@
         position: relative; /* 가이드 라인 위치를 위해 추가 */
 }
 
-.content-top {
+.content-left {
     text-align: left;
     margin-bottom: 20mm;
     max-width: 350px;
@@ -51,14 +51,14 @@
     margin: 0;
 }
 
-.content-left {
+.content-right {
     display: flex;
     flex-direction: column;
     max-width: 350px;
 }
 
 .form-group {
-    margin-bottom: 10mm;
+    margin-bottom: 9mm;
 }
 
 label {
