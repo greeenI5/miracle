@@ -6,6 +6,8 @@ import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.green.miracle.domain.dto.ApprovalChangeDTO;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -67,5 +69,10 @@ public class PerformancePlanEntity {
 	@Column(nullable=true)
 	@ColumnDefault("0")
 	private int approval; //승인여부
+
+	public PerformancePlanEntity update(ApprovalChangeDTO dto) {
+		this.approval=dto.getApproval();
+		return this;
+	}
 
 }
