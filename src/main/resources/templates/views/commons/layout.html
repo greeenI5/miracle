@@ -43,7 +43,7 @@ th:fragment="layout(pHead,pMain)">
 			<li><a href="/notices"><i class="ri-community-line"></i> <span>게시판</span></a></li>
 			<li><a href="/schedule"><i class="ri-calendar-2-line"></i> <span>개인일정</span></a></li>
 			<li><a href="/performance/plan"><i class="ri-calendar-schedule-line"></i> <span>공연기획</span></a></li>
-			<li><a href="/mails"><i class="ri-mail-line"></i><span>메일함</span></a></li>
+			<li><a th:href="@{'https://auth.worksmobile.com/oauth2/v2.0/authorize?client_id=' + ${@environment.getProperty('naver.client.id')} + '&redirect_uri=' + ${@environment.getProperty('naver.client.redirect-uri')} + '&scope=' + ${@environment.getProperty('naver.client.scope')} + '&response_type=code&state=mail.read'}"><i class="ri-mail-line"></i><span>메일함</span></a></li>
 			<li><a href="/hr"><i class="ri-account-box-line"></i> <span>조직도</span></a></li>
 			<li><a href="/admin/approval/plan/request"><i class="ri-clipboard-line"></i> <span>전자결재</span></a></li>
 			<li><a href="/logout"> <i class="ri-logout-box-r-line"></i><span>로그아웃</span></a></li>

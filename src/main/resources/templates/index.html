@@ -12,17 +12,17 @@ th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
         	<div class="card-top flex">
         		<div class="profile-pic"><div class="user-image"></div></div>
         		<div class = "info">
-		            <p class="name" th:text="|${emp.name} 사원|">사원이름</p>
+		            <a class="name" href="/mypage" th:text="|${emp.name} 사원|">사원이름</a>
 		            <p class="department" th:text="${dep.depName}">기획팀</p>
 	            </div>
             </div>
         </div>
         
         <div class="item2">
-			<div class="container-header">
+			<a class="container-header" href="/performance/plan">
 	            <h2>공연일정</h2>
-	            <a href="/performance/plan"><i class="ri-arrow-right-s-line circle"></i></a>
-	        </div>
+	            <i class="ri-arrow-right-s-line circle"></i>
+	        </a>
 	        <div class="content-container">
 		        <div class="post-container" >
 			        <div class="exhibition" th:each="plan: ${plans}">
@@ -40,10 +40,10 @@ th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
 		</div>
 		
         <div class="item3">
-        	<div class="container-header">
+        	<a class="container-header" href="/schedule">
 	            <h2>개인일정</h2>
-	            <a href="/schedule"><i class="ri-arrow-right-s-line circle"></i></a>
-	        </div>
+	            <i class="ri-arrow-right-s-line circle"></i>
+	        </a>
 	        <div class="flex">
 				<div class="calendar">
 					<div class="calendar-header">
@@ -78,7 +78,7 @@ th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
 			                <span th:text="${schedule.schTitle}" class="check-label">일정</span>
 			            </label>
 			        </div>
-			        <div th:if="${#lists.isEmpty(schedules)}" class="no-schedule">일정이 없습니다.</div>
+			        <div th:if="${#lists.isEmpty(schedules)}" class="checklist">일정이 없습니다.</div>
 			        <button class="schedule-button" onclick="saveChecklist()">확인</button>
 			    </div>
 			</div>  
@@ -111,15 +111,15 @@ th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
         </div>
         
         <div class="item5">
-        	<div class="container-header">
+        	<a class="container-header" href="/notices">
 	            <h2>공지사항</h2>
-	            <a href="/notices"><i class="ri-arrow-right-s-line circle"></i></a>
-	        </div>
+	            <i class="ri-arrow-right-s-line circle"></i>
+	        </a>
 	        <ul class="notices" th:each="notice : ${notices}">
-	            <li class="notice-item">
+	            <li class="notice-item" >
 	            	<div class="flex">
 		                <div class="tag">알림</div>
-		                <div class="text" th:text="${notice.noticeTitle}">제목</div>
+		                <a class="text" th:href="|/boards/${notice.noticeNo}|" th:text="${notice.noticeTitle}">제목</a>
 	                </div>
 	                <span class="date" th:text="${notice.writeAt}">날짜</span>
 	            </li>
@@ -127,15 +127,15 @@ th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
         </div>
         
         <div class="item6">
-	        <div class="container-header">
+	        <a class="container-header" href="/boards">
 	            <h2>자유 게시판</h2>
-	            <a href="/boards"><i class="ri-arrow-right-s-line circle"></i></a>
-	        </div>
+	            <i class="ri-arrow-right-s-line circle"></i>
+	        </a>
 	        <ul class="notices" th:each="board : ${boards}">
 	            <li class="notice-item">
 	            	<div class="flex">
 		                <div class="tag">알림</div>
-		                <div class="text" th:text="${board.boardTitle}">제목</div>
+		                <a class="text" th:href="|/boards/${board.boardNo}|" th:text="${board.boardTitle}">제목</a>
 	                </div>
 	                <span class="date" th:text="${board.writeAt}">날짜</span>
 	            </li>

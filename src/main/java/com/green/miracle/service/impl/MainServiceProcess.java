@@ -37,30 +37,24 @@ public class MainServiceProcess implements MainService{
 	private final DepartmentEntityRepository departmentRep;
 	private final PlanEntityRepository planRep;
 	
-	
+	//홈화면에 띄울 DB연동
 	@Override
 	public void findAllProcess(Model model, CustomUserDetails user) {
 		EmployeeEntity employee = employeeRep.findByEmail(user.getEmail()).orElseThrow();
 		
 		//model.addAttribute("emp", employee); //GlobalControllerAdvice에 추가
 		model.addAttribute("dep", departmentRep.findByDepCode(employee.getDepartment().getDepCode()));
-		model.addAttribute("notices", noticeRep.findAll());
-		model.addAttribute("boards", boardRep.findAll());
-		model.addAttribute("notices", noticeRep.findAll());
-	    model.addAttribute("boards", boardRep.findAll());
+		model.addAttribute("notices", noticeRep.findAll().stream()
+											.limit(5)
+											.collect(Collectors.toList()));
+		model.addAttribute("boards", boardRep.findAll().stream()
+											.limit(5)
+											.collect(Collectors.toList()));
 	    model.addAttribute("plans", planRep.findAll().stream()
 	    									.limit(2)
 	    									.collect(Collectors.toList()));
 	}
 	
-	/*
-	@Override
-	public void scheduleProcess(Model model, LocalDate cilckDate, CustomUserDetails user) {
-		EmployeeEntity employee = employeeRep.findByEmail(user.getEmail()).orElseThrow();
-		model.addAttribute("schedules", scheduleRep.findByEmployeeAndStartAt(employee, cilckDate));
-	}
-	*/
-
 	
 	@Override
 	public void scheduleProcess(Model model, LocalDate cilckDate, CustomUserDetails user) {
@@ -84,7 +78,8 @@ public class MainServiceProcess implements MainService{
 	        .collect(Collectors.toList());
 	}
 	
-
+	
+	//로그인 세션 (자동 로그아웃까지 남은 시간 계산)
 	@Override
 	public void sessionTime(Model model, HttpSession session) {
 		Instant creationTime = Instant.ofEpochMilli(session.getCreationTime()); //세션생성시간 (Instant 객체로)
