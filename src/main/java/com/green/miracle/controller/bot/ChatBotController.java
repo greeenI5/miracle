@@ -51,6 +51,14 @@ public class ChatBotController {
     public List<ChatBotCategoryDTO> getNotice(@RequestParam("type") long type) {
         return chatBotService.getNoticeByType(type);
     }
+    @GetMapping("/chatbot/contact/dpt")
+    public List<ChatBotCategoryDTO> getContentDpt(@RequestParam("type") long type) {
+        return chatBotService.getContentByType(type);
+    }
+    @GetMapping("/chatbot/contact/dpt/s1")
+    public List<ChatBotCategoryDTO> fetchContactDptS1(@RequestParam("type") long type) {
+        return chatBotService.getContentByType(type);
+    }
 }
 
 

@@ -82,6 +82,6 @@ class MiracleApplicationTests {
 				.build();
 		scheduleRepository.save(schedule);
 	}
-	
+
 
 }

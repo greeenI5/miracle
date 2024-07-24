@@ -123,6 +123,19 @@
 	color: var(--main-navy-grey);
 	font-size: 12px;
 }
+.user-time{
+	padding-top: 20px;
+	padding-right: 5px;
+	vertical-align: text-bottom;
+	color: var(--main-navy-grey);
+	font-size: 12px;
+}
+.bot-time{
+	padding-left: 5px;
+	vertical-align: text-bottom;
+	color: var(--main-navy-grey);
+	font-size: 12px;
+}
 
 #bot-icon img{
 	width: 30px;
@@ -144,15 +157,19 @@
 }
 
 .user-message>p{
+	display: flex;
 	background-color: var(--main-grey);
 	border-radius: 5px;
 	box-shadow: 0 1px 1px 0 rgb(0 0 0 / 10%);
 	color: #333333;
 	padding: 6px 10px;
 	margin-top: 5px;
+	font-size: 14px;
 }
-.bot-message>p,
+
 .part>p{
+	display: flex;
+	flex-direction: column;
 	background-color: var(--sub-navy);
 	border-radius: 5px;
 	box-shadow: 0 1px 1px 0 rgb(0 0 0 / 10%);
@@ -191,7 +208,9 @@
     background-color: var(--sub-navy); /* 호버 시 배경색 변경 */
 }
 
-.bot-sub-category {
+.child-category,
+.grand-child-category {
+	display: flex;
 	width: 120px;
     background-color: white; /* 배경색 */
     color: #333333; /* 글자색 */
@@ -205,9 +224,12 @@
     border-radius: 10px; /* 모서리 둥글게 */
 }
 
-.bot-sub-category:hover {
+.child-category:hover,
+.grand-child-category:hover {
 	background-color: var(--sub-navy); /* 호버 시 배경색 변경 */
 }
+
+
 
 #bot-footer {
     border-top: solid var(--main-navy) 1.5px;
