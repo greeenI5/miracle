@@ -99,6 +99,7 @@
 	display:flex;
 	align-items: center;
 	margin-top: 3px;
+	margin-right: 8px;
 	width:30px;
 	height:30px;
 	background-size: cover;
@@ -131,8 +132,8 @@
 	font-size: 12px;
 }
 .bot-time{
+	display: flex;
 	padding-left: 5px;
-	vertical-align: text-bottom;
 	color: var(--main-navy-grey);
 	font-size: 12px;
 }
@@ -145,9 +146,12 @@
 }
 
 .user-message{
+	
 	display: flex;
 	justify-content: flex-end;
 	margin-right: 10px;
+	margin-top: 10px;
+	margin-bottom: 20px;
 }
 .bot-message{
 	display: flex;
@@ -167,16 +171,62 @@
 	font-size: 14px;
 }
 
-.part>p{
+.user-message>p {
+	position: relative;
+	background: var(--main-grey);
+	border-radius: .4em;
+}
+
+.user-message>p:after {
+	content: '';
+	position: absolute;
+	right: 0;
+	top: 50%;
+	width: 0;
+	height: 0;
+	border: 7px solid transparent;
+	border-left-color: var(--main-grey);
+	border-right: 0;
+	margin-top: -7px;
+	margin-right: -6px;
+}
+
+.message-wrap{
 	display: flex;
-	flex-direction: column;
-	background-color: var(--sub-navy);
-	border-radius: 5px;
-	box-shadow: 0 1px 1px 0 rgb(0 0 0 / 10%);
-	color: #333333;
-	padding: 6px 10px;
-	margin-top: 5px;
+	
+	background-color: var(--sub-grey);
+	border-radius: 10px;
 	font-size: 14px;
+	color: #333333;
+	
+}
+.salesteam{
+	display: block;
+	margin: 3px;
+}
+
+.part>p {
+	position: relative;
+	background: var(--sub-navy);
+	border-radius: .4em;
+	padding: 6px 10px;
+	color: #333333;
+	font-size: 14px;
+	box-shadow: 0 1px 1px 0 rgb(0 0 0 / 10%);
+}
+
+.part>p:after {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 50%;
+	width: 0;
+	height: 0;
+	border: 7px solid transparent;
+	border-right-color: var(--sub-navy);
+	border-left: 0;
+	margin-top: -7px;
+	margin-left: -6px;
 }
 
 
