@@ -50,9 +50,9 @@ public class NoticeController {
 	}
 
 	@PutMapping("/notices/{no}")
-	public String update(@PathVariable("no") long no, @ModelAttribute NoticeUpdateDTO dto) {
-		System.out.println(">>>>"+dto);
-		service.updateProcess(no, dto);
+	public String update(@PathVariable("no") long no, @ModelAttribute NoticeUpdateDTO dto, @AuthenticationPrincipal CustomUserDetails user) {
+		//System.out.println(">>>>"+dto);
+		service.updateProcess(no, dto, user);
 		return "redirect:/notices/{no}";
 	}
 

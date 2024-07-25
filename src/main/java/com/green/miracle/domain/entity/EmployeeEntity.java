@@ -50,7 +50,7 @@ public class EmployeeEntity {
 	@Column(nullable = false)
 	private String name; // 사원명
 
-	@Column(nullable = false, unique = true)
+	@Column(nullable = false)
 	private String email; // 이메일
 
 	@Column(nullable = false)
@@ -100,8 +100,8 @@ public class EmployeeEntity {
 				.depCode(department.getDepCode()) // DepartmentEntity의 코드를 가져와서 설정
 				.phone(phone).build();
 	}
-	
-	public EmployeeDTO toListdto() {
+
+public EmployeeDTO toListdto() {
 		return EmployeeDTO.builder()
 							.name(name).position(position)
 							.depCode(department.getDepCode()) // DepartmentEntity의 코드를 가져와서 설정
@@ -133,5 +133,5 @@ public class EmployeeEntity {
 				.depCode(department.getDepCode())
 				.build();
 	}
-	
+
 }

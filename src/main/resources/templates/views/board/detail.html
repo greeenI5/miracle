@@ -50,16 +50,14 @@
 						</div>
 					</li>
 					<ul class="update-post-header">
-						<li th:text="${detail.boardNo}" class="update-post-no">번호</li>
 						<li th:text="${detail.boardTitle}" class="update-post-title">제목</li>
 						<li>
 							<dl class="update-post-date">
-								<dd th:text="${detail.writeAt}"></dd>
+								<dd th:text="${detail.employee.getName()} + ' | ' + ${detail.writeAt}">작성자 및 작성일</dd>
 							</dl>
 						</li>
 					</ul>
 					<li th:utext="${detail.boardContent}" class="update-post-content">내용</li>
-
 				</ul>
 			</div>
 
@@ -73,7 +71,7 @@
 						<button type="button" onclick="btnCancelClicked()" class="delete-btn">취소</button>
 					</li>
 					<ul class="update-post-header">
-						<li th:text="${detail.boardNo}" class="update-post-no">번호</li>
+						<li th:text="${detail.employee.getName}" class="update-post-no">작성자</li>
 						<li class="update-post-title">
 							<input name="boardTitle" type="text" th:value="${detail.boardTitle}"
 								class="update-input-title">

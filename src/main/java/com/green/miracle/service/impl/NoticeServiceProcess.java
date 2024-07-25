@@ -45,7 +45,8 @@ public class NoticeServiceProcess implements NoticeService {
 
 	@Override
 	@Transactional
-	public void updateProcess(long no, NoticeUpdateDTO dto) {
+	public void updateProcess(long no, NoticeUpdateDTO dto, CustomUserDetails user) {
+		dto.setEmployee(empRepository.findByEmail(user.getEmail()).orElseThrow());
 		repository.findById(no).orElseThrow().update(dto);
 	}
 

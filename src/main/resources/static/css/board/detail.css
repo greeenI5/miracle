@@ -16,21 +16,28 @@
 .right-section {
 	width: 1220px;
 	padding: 40px;
-	overflow-y: auto;
 }
 
 #default-mode {
-	width: 1220px;
+	width: 1150px;
 }
 
 .update-post-header {
+	width: 1150px;
 	border-top: 2px solid var(--black);
 	border-bottom: 1px solid var(--main-grey);
 }
 
-.update-post-no, .update-post-title, .update-post-date {
-	font-size: 24px;
-	padding: 10px;
+.update-post-title {
+	white-space: pre-wrap;
+	font-size: 28px;
+	padding: 30px;
+}
+
+.update-post-date {
+	
+	font-size: 16px;
+	padding: 10px 30px;
 }
 
 /* 제목 수정 입력박스*/
@@ -42,23 +49,31 @@
 }
 
 .update-post-content {
+	white-space: pre-wrap;
 	margin-top: 20px;
-	padding: 20px;
+	padding: 30px;
 	width: 100%;
 	font-size: 18px;
 }
 
 /* 내용 수정 입력박스*/
 #update-mode>ul>li:nth-child(3)>textarea {
-	width: 1200px;
+	width: 1100px;
+	height: 600px;
 	font-size: 18px;
 	border: 1px solid var(--main-grey);
 	border-radius: 5px;
 }
 
+#update-mode > ul > ul > li.update-post-title > input {
+	width: 100%;
+}
+
 /* 수정 및 삭제 버튼 영역 */
 .update-btn-area {
+	width: 1150px;
 	padding-bottom: 15px;
+	text-align: right;
 }
 
 .write-btn {
@@ -72,6 +87,8 @@
 .write-btn:hover {
 	background-color: var(--sub-navy);
 }
+
+
 
 .update-btn {
 	margin-top: 5px;

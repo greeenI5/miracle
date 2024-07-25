@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.green.miracle.domain.dto.EmployeeUpdateDTO;
 import com.green.miracle.security.CustomUserDetails;
@@ -21,15 +22,16 @@ public class MyPageController {
 	
 	@GetMapping("/mypage")
 	public String list(Model model, @AuthenticationPrincipal CustomUserDetails user) {
+		System.out.println(user);
+		System.out.println(model);
 		service.readProcess(model, user);
 		return "views/user/mypage";
 	}
 	
+	@ResponseBody
 	@PutMapping("/mypage")
-	public String update(@RequestBody EmployeeUpdateDTO dto, @AuthenticationPrincipal CustomUserDetails user) {
-		System.out.println(">>>>>"+dto);
+	public void update(@RequestBody EmployeeUpdateDTO dto, @AuthenticationPrincipal CustomUserDetails user) {
 		service.updateProcess(dto, user);
-		return "redirect:/mypage";
 	}
 	
 }
