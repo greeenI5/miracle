@@ -13,6 +13,6 @@ import com.green.miracle.domain.entity.ScheduleEntity;
 @Repository
 public interface ScheduleEntityRepository extends JpaRepository<ScheduleEntity, Long>{
 
-	List<ScheduleEntity> findByEmployeeAndStartAt(EmployeeEntity employee, LocalDate cilckDate);
-	
+	List<ScheduleEntity> findByEmployeeAndStartAt(EmployeeEntity employee, LocalDate startAt);
+    List<ScheduleEntity> findByStartAtBetween(LocalDate startAt, LocalDate finishAt);
 }

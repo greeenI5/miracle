@@ -98,3 +98,7 @@ tbody tr {
 tbody tr:nth-child(n+11) {
     display: none; /* 10번째 이후의 항목 숨기기 */
 }
+
+tbody td a{
+	color: var(--black);
+}
