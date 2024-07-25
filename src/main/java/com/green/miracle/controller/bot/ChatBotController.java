@@ -1,6 +1,7 @@
 package com.green.miracle.controller.bot;
 
 
+import com.green.miracle.domain.dto.ChatBotAnswerDTO;
 import com.green.miracle.domain.dto.ChatBotCategoryDTO;
 import com.green.miracle.domain.entity.ChatBotCategoryEntity;
 import com.green.miracle.service.ChatBotService;
@@ -59,6 +60,21 @@ public class ChatBotController {
     public List<ChatBotCategoryDTO> fetchContactDptS1(@RequestParam("type") long type) {
         return chatBotService.getContentByType(type);
     }
+    
+
+    @MessageMapping("/search")
+    public void question(ChatBotQuestionDTO dto) {
+        System.out.println(">>>search:" + dto);
+        long key = dto.getKey();
+       
+        String response = chatBotService.getAnswer(dto.getKeyword())
+                .map(ChatBotAnswerDTO::getContent)
+                .orElse("Sorry, I don't understand the question.");
+
+        messagingTemplate.convertAndSend("/topic/bot/" + key, response);
+    }
+    
+
 }
 
 

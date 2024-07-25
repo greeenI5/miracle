@@ -4,6 +4,10 @@ package com.green.miracle.domain.entity;
 
 import org.hibernate.annotations.DynamicUpdate;
 
+import com.green.miracle.controller.bot.ChatBotQuestionDTO;
+import com.green.miracle.domain.dto.ChatBotAnswerDTO;
+import com.green.miracle.domain.dto.ChatBotCategoryDTO;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,5 +36,11 @@ public class ChatBotAnswerEntity {
 	
 	@Column(columnDefinition = "text", nullable = false)
 	private String content;// 대답
+	
+	public ChatBotAnswerDTO toChatBotAnswerDTO() {
+		return ChatBotAnswerDTO.builder()
+				.answerNo(answerNo).keyword(keyword).content(content)
+				.build();
+	}
 
 }
