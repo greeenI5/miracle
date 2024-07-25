@@ -19,4 +19,6 @@ public interface AdminHrService {
 
 	void HrListProcess(Model model);
 	
+	void detailProcess(long empNo, Model model);
+	
 }

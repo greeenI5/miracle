@@ -24,12 +24,18 @@ public class AdminHrController {
 
     private final AdminHrService service;
 
-    @GetMapping("/admin/hr")
+    @GetMapping("/hr")
     public String list(Model model) {
         service.HrListProcess(model);  // 그룹화된 사원 목록을 처리
         return "views/admin/hrm";  // Thymeleaf 템플릿의 경로
     }
     
+    @GetMapping("/hr/{empNo}")
+	public String detail(@PathVariable("empNo") long empNo, Model model) {
+		System.out.println(model);
+		service.detailProcess(empNo, model);
+		return "views/admin/detail";
+	}
     
     @GetMapping("/admin/hr/mgm")
     public String mgmList(@RequestParam(value = "pageNumber", defaultValue = "0") int pageNumber, Model model) {

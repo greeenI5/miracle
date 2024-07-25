@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>사원 상세 정보</title>
+    <link rel="stylesheet" href="/css/emp/detail.css">
+    <script th:src="@{/js/hrm/detail.js}"></script>
+</head>
+<body>
+    <div class="details-card" id="details-card">
+        <img src="/images/hrm/profile.png" alt="프로필 사진">
+        <div class="details-info">
+            <div class="department" th:text="${employee.depCode}">부서 코드</div>
+            <div class="name" th:text="${employee.name}">이름</div>
+            <div>
+                <span id="font">직급:</span>
+                <span id="font" class="position" th:text="${employee.position}">직급</span>
+            </div>
+            <div>
+                <span id="font">전화:</span>
+                <span id="font" class="phone" th:text="${employee.phone}">전화</span>
+            </div>
+            <div>
+                <span id="font">이메일:</span>
+                <span id="font" class="email" th:text="${employee.email}">이메일</span>
+            </div>
+            <button onclick="closeTooltip()">닫기</button>
+        </div>
+    </div>
+</body>
+</html>
