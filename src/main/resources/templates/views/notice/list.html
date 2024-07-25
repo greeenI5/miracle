@@ -79,7 +79,7 @@
 						</li>
 					</ul>
 					<div>
-						<button class="write-btn"><a href="/admin/notices/form">글쓰기</a></button>
+						<button sec:authorize="hasRole('ROLE_ADMIN')" class="write-btn"><a href="/admin/notices/form">글쓰기</a></button>
 					</div>
 					
 				</div>

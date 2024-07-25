@@ -70,6 +70,16 @@ body > main > div > p > span {
 	cursor: pointer;
 }
 
-#save-button, #fix-button, #cancel-button {
+#save-button {
+	border-radius: 3px;
+	background-color: var(--main-navy);
+	color: white;
+}
+
+#save-button:hover {
+	background-color: var(--sub-navy);
+}
+
+#save-button, #fix-button, #cancel-button, #submit-button {
 	cursor: pointer;
 }

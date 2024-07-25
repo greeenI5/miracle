@@ -1,15 +1,16 @@
 @charset "UTF-8";
+
 @import url("/css/mail/sidebar.css");
 
 .content {
-    display: flex;
-    height: 100%;
+	display: flex;
+	height: 100%;
 }
 
 .left-box {
 	padding-right: 30px;
-    border-right: 1px solid var(--sub-grey);
-    box-shadow: 5px 0 5px rgba(0, 0, 0, 0.1);
+	border-right: 1px solid var(--sub-grey);
+	box-shadow: 5px 0 5px rgba(0, 0, 0, 0.1);
 }
 
 h2 {
@@ -17,113 +18,125 @@ h2 {
 	margin-top: -15px;
 	margin-left: 15px;
 	font-size: 24px;
-	
 }
-
-
 
 h4 {
 	min-width: 200px;
 	font-size: 36px;
 }
 
-
 /* 좌우 나누는 바 */
 .right-section {
-
-    padding: 20px;
-    overflow-y: auto; /* 섹션이 넘치면 스크롤 */
+	padding: 20px;
+	overflow-y: auto; /* 섹션이 넘치면 스크롤 */
 }
 
 /* 날짜 선택 달력 */
 .datepicker-wrap {
-    position: relative;
-    padding-left: 60px;
-    display: flex;
-    align-items: center;
+	position: relative;
+	padding-left: 60px;
+	display: flex;
+	align-items: center;
 }
+
 #selectedDate {
 	font-size: 14px;
 	padding: 5px 10px;
 	border: 2px solid var(--main-grey);
 }
+
 #datePickerButton {
 	height: 40px;
 	padding: 3px;
 	border: none;
 	cursor: pointer;
 }
+
 #datePickerButton:hover {
-    background-color: var(--sub-navy);
-}
-#datepicker {
-    display: none; /* 초기에 숨겨진 상태 */
-    position: absolute;
-    background-color: #fff;
-    border: 1px solid var(--main-grey);
-    padding: 10px;
-    z-index: 9999;
-    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
-    top: 85%;
-}
-#datepicker .ui-datepicker-header {
-    padding: 5px;
-    background-color: var(--sub-grey);
-    border-bottom: 1px solid var(--main-grey);
-}
-#datepicker .ui-datepicker-calendar {
-    width: 100%;
-}
-#datepicker .ui-datepicker-calendar th,
-#datepicker .ui-datepicker-calendar td {
-    text-align: center;
-    padding: 5px;
-    border: none;
-}
-#datepicker .ui-datepicker-calendar .ui-state-default {
-    background-color: transparent;
-    border: none;
-}
-#datepicker .ui-datepicker-calendar .ui-state-hover {
-    background-color: var(--sub-grey); /* 호버 시 배경색 회색으로 변경 */
-    cursor: pointer;
-}
-#datepicker .ui-datepicker-calendar .ui-state-active {
-    background-color: var(--sub-grey);
-    color: #333;
-}
-#datepicker .ui-datepicker-buttonpane {
-    margin-top: 10px;
-    text-align: center;
-    border-top: 1px solid var(--main-grey);
-    padding-top: 5px;
-}
-#datepicker .ui-datepicker-buttonpane button {
-    margin: 0 5px;
-    padding: 5px 10px;
-    background-color: var(--sub-grey);
-    color: #333;
-    border: none;
-    cursor: pointer;
-}
-#datepicker .ui-datepicker-close {
-    display: none; /* 닫기 버튼 숨기기 */
+	background-color: var(--sub-navy);
 }
 
+#datepicker {
+	display: none; /* 초기에 숨겨진 상태 */
+	position: absolute;
+	background-color: #fff;
+	border: 1px solid var(--main-grey);
+	padding: 10px;
+	z-index: 9999;
+	box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+	top: 85%;
+}
+
+#datepicker .ui-datepicker-header {
+	padding: 5px;
+	background-color: var(--sub-grey);
+	border-bottom: 1px solid var(--main-grey);
+}
+
+#datepicker .ui-datepicker-calendar {
+	width: 100%;
+}
+
+#datepicker .ui-datepicker-calendar th, #datepicker .ui-datepicker-calendar td
+	{
+	text-align: center;
+	padding: 5px;
+	border: none;
+}
+
+#datepicker .ui-datepicker-calendar .ui-state-default {
+	background-color: transparent;
+	border: none;
+}
+
+#datepicker .ui-datepicker-calendar .ui-state-hover {
+	background-color: var(--sub-grey); /* 호버 시 배경색 회색으로 변경 */
+	cursor: pointer;
+}
+
+#datepicker .ui-datepicker-calendar .ui-state-active {
+	background-color: var(--sub-grey);
+	color: #333;
+}
+
+#datepicker .ui-datepicker-buttonpane {
+	margin-top: 10px;
+	text-align: center;
+	border-top: 1px solid var(--main-grey);
+	padding-top: 5px;
+}
+
+#datepicker .ui-datepicker-buttonpane button {
+	margin: 0 5px;
+	padding: 5px 10px;
+	background-color: var(--sub-grey);
+	color: #333;
+	border: none;
+	cursor: pointer;
+}
+
+#datepicker .ui-datepicker-close {
+	display: none; /* 닫기 버튼 숨기기 */
+}
 
 #notice-tbody {
+	overflow: hidden; /* 넘치는 내용 숨김 */
+	max-width: 762.5px;
+	display: block;
 	width: auto;
 	padding: 15px;
 	text-align: center;
 }
 
-
+#notice-tbody>a {
+	color: var(--black);
+}
 
 #notice-table {
 	width: 1220px;
 }
 
-.no .view-count{
+.no .view-count {
 	width: 150px;
 }
 
@@ -137,15 +150,15 @@ h4 {
 
 .post-title {
 	display: grid;
-    grid-template-columns: 1fr 5fr 1fr 1fr;
+	grid-template-columns: 1fr 5fr 1fr 1fr;
 	border-bottom: 1px solid var(--sub-grey);
 }
 
 /* 공지사항 글목록 전체 */
 .post-body {
 	display: grid;
-    grid-template-columns: 1fr 5fr 1fr 1fr;
-	white-space: nowrap; /* 텍스트가 한 줄로 유지되도록 설정 */
+	grid-template-columns: 1fr 5fr 1fr 1fr;
+	/* white-space: nowrap; 텍스트가 한 줄로 유지되도록 설정 */
 }
 
 .post-body:hover {
@@ -153,9 +166,9 @@ h4 {
 	cursor: pointer;
 }
 
-body > main > div > div.right-section > div > div > form > div {
-    display: flex; /* 플렉스박스 사용하여 아이템 정렬 */
-    align-items: center; /* 아이템을 세로로 가운데 정렬 */
+body>main>div>div.right-section>div>div>form>div {
+	display: flex; /* 플렉스박스 사용하여 아이템 정렬 */
+	align-items: center; /* 아이템을 세로로 가운데 정렬 */
 }
 
 /* 검색어 입력 박스 영역 */
@@ -174,13 +187,13 @@ body > main > div > div.right-section > div > div > form > div {
 }
 
 /* 검색창 배경색깔 */
-body > main > div > div.right-section > div > div > form > div {
+body>main>div>div.right-section>div>div>form>div {
 	width: 100%;
 	padding: 15px 0px;
 	background-color: var(--sub-grey);
 }
 
-body > main > div > div.right-section > div {
+body>main>div>div.right-section>div {
 	padding: 45px;
 }
 
@@ -193,20 +206,19 @@ body > main > div > div.right-section > div {
 	height: 36px;
 }
 
-#content-box > form > div > button
-{
+#content-box>form>div>button {
 	font-size: 16px;
-    color: #333;
-    margin-left: 5px;
-    border: none;
-    height: 36px;
+	color: #333;
+	margin-left: 5px;
+	border: none;
+	height: 36px;
 }
 
 .btn {
 	cursor: pointer;
 }
 
-#content-box > form > div > button:hover {
+#content-box>form>div>button:hover {
 	background-color: var(--sub-navy);
 }
 
@@ -216,14 +228,12 @@ body > main > div > div.right-section > div {
 	height: 100%;
 }
 
-
-
 .write-btn {
 	border: none;
-    background-color: var(--main-grey);
-    border-radius: 10px;
-    padding: 8px;
-    cursor: pointer;
+	background-color: var(--main-grey);
+	border-radius: 10px;
+	padding: 8px;
+	cursor: pointer;
 }
 
 .write-btn:hover {

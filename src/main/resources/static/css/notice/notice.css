@@ -120,10 +120,16 @@ h4 {
 }
 
 #notice-tbody {
+	overflow: hidden; /* 넘치는 내용 숨김 */
+	max-width: 762.5px;
 	display: block;
 	width: auto;
 	padding: 15px;
 	text-align: center;
+}
+
+#notice-tbody>a {
+	color: var(--black);
 }
 
 #notice-table {
@@ -144,16 +150,17 @@ h4 {
 
 .post-title {
 	display: grid;
-    grid-template-columns: 1fr 5fr 1fr 1fr;
+	grid-template-columns: 1fr 5fr 1fr 1fr;
 	border-bottom: 1px solid var(--sub-grey);
 }
 
 /* 공지사항 글목록 전체 */
 .post-body {
 	display: grid;
-    grid-template-columns: 1fr 5fr 1fr 1fr;
-	white-space: nowrap; /* 텍스트가 한 줄로 유지되도록 설정 */
+	grid-template-columns: 1fr 5fr 1fr 1fr;
+	/* white-space: nowrap; 텍스트가 한 줄로 유지되도록 설정 */
 }
+
 .post-body:hover {
 	background-color: var(--sub-grey);
 	cursor: pointer;
@@ -220,8 +227,6 @@ body>main>div>div.right-section>div {
 	width: 1220px;
 	height: 100%;
 }
-
-
 
 .write-btn {
 	border: none;
