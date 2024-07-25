@@ -4,6 +4,7 @@ th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
 <head>
 	<link rel="stylesheet" href="/css/mail/list.css">
 	<script type="text/javascript">
+	//검색기능
 	document.addEventListener("DOMContentLoaded", function() {
 	    const searchForm = document.getElementById("search-form");
 	    const searchInput = document.getElementById("search");
@@ -52,14 +53,14 @@ th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
 				<form id="search-form">
                     <div class="search-wrap">
                         <input id="search" type="search" placeholder="검색어를 입력해주세요.">
-                        <button class="btn" type="submit">검색</button>
+                        <button class="search-btn" type="submit">검색</button>
                     </div>
                 </form>
-		        <div>
-		            <span> 전체 메일</span>
-		            <span th:text="${receiveMailFolder.totalCount}"></span>
-		            <span> / 안 읽은 메일</span>
+		        <div class="mail-read-account">
+		            <span> 안 읽은 메일</span>
 		            <span th:text="${receiveMailFolder.unreadCount}"></span>
+		            <span> / 전체 메일</span>
+		            <span th:text="${receiveMailFolder.totalCount}"></span>
 		        </div>
 		        <div th:utext="${emails}"></div>
 		        <div th:utext="${error}"></div>
@@ -76,11 +77,16 @@ th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
 			            <tr th:each="receiveMail:${receiveMailFolder.mails}">
 			            	<td><input type="checkbox"></td>
 							<td th:text="|${receiveMail.from.name} (${receiveMail.from.email})|">보낸 사람</td>
-							<td><a th:text="${receiveMail.subject}" href="/">제목</a></td>
+							<td><a th:text="${receiveMail.subject}" th:href="@{'https://auth.worksmobile.com/oauth2/v2.0/authorize?client_id=' + ${@environment.getProperty('naver.client.id')} + '&redirect_uri=' + ${@environment.getProperty('naver.client.redirect-uri')} + '&scope=' + ${@environment.getProperty('naver.client.scope')} + '&response_type=code&state=mail.detail-' + ${receiveMail.mailId}}">제목</a></td>
 							<td th:text="${receiveMail.dateFormatting()}">날짜</td>
 						</tr>
 		            </tbody>
 		        </table>
+		        <div class="page-nation">
+		        	<i class="ri-arrow-left-s-line"></i>
+		        	<a>1</a>
+		        	<i class="ri-arrow-right-s-line"></i>
+		        </div>
 		    </div>
 		</div>
 	</div>

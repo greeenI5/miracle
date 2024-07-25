@@ -10,7 +10,7 @@ h2 {
 
 body > main > div > div.right-box > div > h4{
 	font-size: 36px;
-	margin: 20px 0;
+	margin: 45px 0;
 }
 
 
@@ -19,7 +19,7 @@ body > main > div > div.right-box > div > h4{
 }
 
 .main-content {
-    width: 80%;
+    width: 100%;
     margin-left: 15px;
 }
 .toolbar {
@@ -52,7 +52,7 @@ body > main > div > div.right-box > div > h4{
     margin-left: 100px;
     box-sizing: border-box; /* 패딩을 포함한 전체 너비 계산 */
 }
-#content-box .btn {
+.search-btn {
     display: inline-block;
     width: 60px;
     height: 30px;
@@ -65,9 +65,15 @@ body > main > div > div.right-box > div > h4{
     cursor: pointer;
     box-sizing: border-box; /* 패딩을 포함한 전체 너비 계산 */
 }
-
-#content-box .btn:hover {
+.search-btn:hover {
     background-color: var(--main-navy-grey);
+}
+
+.mail-read-account{
+	padding: 15px 10px;
+}
+.mail-read-account > span {
+	font-weight: 500;
 }
 
 .email-list {
@@ -84,4 +90,31 @@ body > main > div > div.right-box > div > h4{
 }
 .email-list tr:hover {
     background-color: #f1f1f1;
+}
+
+
+/*테이블*/
+tr > th:nth-child(2){
+	width: 400px;
+}
+tr > th:nth-child(3){
+	width: 550px;
+}
+tr > th:nth-child(4){
+	width: 200px;
+}
+
+
+.page-nation{
+	display: flex;
+    justify-content: center;
+    margin: 10px 0;
+}
+.page-nation > i {
+	font-size: 22px;
+	cursor: pointer;
+}
+.page-nation > a {
+	margin: 0 15px;
+	cursor: pointer;
 }

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
+<head>
+	<link rel="stylesheet" href="/css/mail/list.css">
+	<link rel="stylesheet" href="/css/mail/mail-detail.css">
+</head>
+<main>
+	<div class="content">
+		<!-- Left section -->
+        <div class="left-box">
+        	<p class="sub-title">메일함</p>
+			<th:block  th:insert="~{views/mail/sidebar}"/>
+		</div>
+		
+		<!-- Right section -->
+		<div class="right-section">
+			<div id="default-mode">
+				<ul class="update-post-box">
+					<li class="update-btn-area">
+						<div>
+							<a th:href="@{'https://auth.worksmobile.com/oauth2/v2.0/authorize?client_id=' + ${@environment.getProperty('naver.client.id')} + '&redirect_uri=' + ${@environment.getProperty('naver.client.redirect-uri')} + '&scope=' + ${@environment.getProperty('naver.client.scope')} + '&response_type=code&state=mail.read'}" class="delete-btn">돌아가기</a>
+						</div>
+					</li>
+					<ul class="update-post-header">
+						<li th:text="${mailDetail.mail.subject}" class="update-post-title">제목</li>
+						<li>
+							<dl class="update-post-date">
+								<dd th:text="${mailDetail.mail.from.name} + ' (' + ${mailDetail.mail.from.email} + ')  |  ' + ${mailDetail.mail.dateFormatting()}">작성자 및 작성일</dd>
+							</dl>
+						</li>
+					</ul>
+					<li th:utext="${mailDetail.mail.body}" class="update-post-content">내용</li>
+
+				</ul>
+			</div>
+		</div>
+	</div>
+</main>
+</html>

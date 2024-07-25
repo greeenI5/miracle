@@ -19,8 +19,22 @@ public class MailController {
 	private final MailService service;
 	
 	@GetMapping("/oauth2/code")
-	public String redirectUri(@RequestParam("code") String code, Model model, @AuthenticationPrincipal CustomUserDetails user) throws Exception {
-		service.mailRead(code, model, user);
+	public String redirectUri(@RequestParam("code") String code, @RequestParam("state") String state, Model model, @AuthenticationPrincipal CustomUserDetails user) throws Exception {
+		int mailId = 0;
+		if (state.contains("-")) {
+            String[] parts = state.split("-");
+            state = parts[0];
+            mailId = Integer.parseInt(parts[1]);
+        };
+		
+		if(state.equals("mail.read")) {
+			service.mailRead(code, model, user);
+			return "views/mail/mail-list";
+		}else if(state.equals("mail.detail")) {
+			service.mailDetail(code, model, user, mailId);
+			return "views/mail/mail-detail";
+		}
+		
 		return "views/mail/mail-list";
 	}
 	

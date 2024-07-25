@@ -29,6 +29,7 @@ main {
 #header .logo {
     font-size: 24px;
     font-weight: bold;
+    color: white !important;
 }
 #header .user-info {
     display: flex;

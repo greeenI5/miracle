@@ -57,7 +57,6 @@ a:visited, a:active{
 
 #left-section>.wrap {
 	min-width: 220px;
-	min-height: calc(100vh - 100px);
 }
 
 #left-section>.wrap>ul {

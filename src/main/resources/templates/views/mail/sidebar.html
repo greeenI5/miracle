@@ -3,7 +3,7 @@
 	<div class="wrap">
 		<a href="/" class="write-menu">메일 쓰기</a>
 		<ul class="sub-menu">
-			<li> <a href="/">받은메일함</a> </li>
+			<li> <a th:href="@{'https://auth.worksmobile.com/oauth2/v2.0/authorize?client_id=' + ${@environment.getProperty('naver.client.id')} + '&redirect_uri=' + ${@environment.getProperty('naver.client.redirect-uri')} + '&scope=' + ${@environment.getProperty('naver.client.scope')} + '&response_type=code&state=mail.read'}">받은메일함</a> </li>
 			<li> <a href="/">안읽은메일함</a> </li>
 			<li> <a href="/">보낸메일함</a> </li>
 			<li> <a href="/">중요메일함</a> </li>
