@@ -10,6 +10,7 @@ import lombok.Setter;
 @Setter
 @Builder
 public class HrDetailDTO {
+	private long empNo;
     private String name; // 사원명
     private String email; // 이메일
     private String phone; // 핸드폰번호

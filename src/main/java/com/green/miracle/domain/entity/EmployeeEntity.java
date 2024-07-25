@@ -101,8 +101,8 @@ public class EmployeeEntity {
 				.phone(phone).build();
 	}
 
-public EmployeeDTO toListdto() {
-		return EmployeeDTO.builder()
+	public EmployeeDTO toListdto() {
+		return EmployeeDTO.builder().empNo(empNo)
 							.name(name).position(position)
 							.depCode(department.getDepCode()) // DepartmentEntity의 코드를 가져와서 설정
 							.build();
@@ -128,7 +128,7 @@ public EmployeeDTO toListdto() {
 
 	public HrDetailDTO toHrDetailDTO() {
 		return HrDetailDTO.builder()
-				.name(name).email(email)
+				.empNo(empNo).name(name).email(email)
 				.phone(phone).position(position)
 				.depCode(department.getDepCode())
 				.build();

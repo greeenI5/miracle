@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 import com.green.miracle.domain.dto.AdminHrSaveDTO;
 import com.green.miracle.domain.dto.AdminHrUpdate;
 import com.green.miracle.domain.dto.EmployeeDTO;
+import com.green.miracle.domain.dto.HrDetailDTO;
 import com.green.miracle.domain.entity.DepartmentEntity;
 import com.green.miracle.domain.entity.EmployeeEntity;
 import com.green.miracle.domain.repository.DepartmentEntityRepository;
@@ -47,6 +48,20 @@ public class AdminHrServiceProcess implements AdminHrService {
 
         // 모델에 그룹화된 사원 목록을 추가
         model.addAttribute("groupedEmployees", groupedEmployees);
+    }
+	
+	@Override
+    public void detailProcess(long empNo, Model model) {
+        try {
+            EmployeeEntity result = repository.findById(empNo)
+                    .orElseThrow(() -> new RuntimeException("Employee not found"));
+
+            HrDetailDTO employeeDTO = result.toHrDetailDTO();
+            model.addAttribute("employee", employeeDTO);
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            model.addAttribute("error", "직원 정보를 찾을 수 없습니다.");
+        }
     }
 	
 	//페이지네이션과 리스트

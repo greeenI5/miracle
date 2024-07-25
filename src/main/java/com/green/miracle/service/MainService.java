@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.ui.Model;
 
 import com.green.miracle.domain.dto.DateRequestDTO;
-import com.green.miracle.domain.dto.scheduleDTO;
+import com.green.miracle.domain.dto.ScheduleDTO;
 import com.green.miracle.security.CustomUserDetails;
 
 import jakarta.servlet.http.HttpSession;
@@ -19,7 +19,7 @@ public interface MainService {
 
 	void scheduleProcess(Model model, LocalDate cilckDate, CustomUserDetails user);
 
-	List<scheduleDTO> scheduleProcess2(LocalDate clickDate, CustomUserDetails user);
+	List<ScheduleDTO> scheduleProcess2(LocalDate clickDate, CustomUserDetails user);
 
 	
 

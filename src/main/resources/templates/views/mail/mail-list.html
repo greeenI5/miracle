@@ -3,6 +3,38 @@
 th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
 <head>
 	<link rel="stylesheet" href="/css/mail/list.css">
+	<script type="text/javascript">
+	document.addEventListener("DOMContentLoaded", function() {
+	    const searchForm = document.getElementById("search-form");
+	    const searchInput = document.getElementById("search");
+	    const planList = document.getElementById("plan-list");
+
+	    searchForm.addEventListener("submit", function(event) {
+	        event.preventDefault();
+	        const query = searchInput.value.toLowerCase();
+	        filterTable(query);
+	    });
+
+	    function filterTable(query) {
+	        const rows = planList.querySelectorAll("tr");
+
+	        rows.forEach(row => {
+	            const cells = row.getElementsByTagName("td");
+	            let shouldDisplay = false;
+
+	            for (let i = 0; i < cells.length; i++) {
+	                const cellText = cells[i].textContent.toLowerCase();
+	                if (cellText.includes(query)) {
+	                    shouldDisplay = true;
+	                    break;
+	                }
+	            }
+
+	            row.style.display = shouldDisplay ? "" : "none";
+	        });
+	    }
+	});
+	</script>
 </head>
 <main>
 	<div class="content">
@@ -16,8 +48,14 @@ th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
 		<div class="right-box">
 			<h2 class="add-home">HOME > 글쓰기</h2>
 			<div class="main-content">
+				<h4>받은 메일함</h4>
+				<form id="search-form">
+                    <div class="search-wrap">
+                        <input id="search" type="search" placeholder="검색어를 입력해주세요.">
+                        <button class="btn" type="submit">검색</button>
+                    </div>
+                </form>
 		        <div>
-		            <span>받은 메일함 </span>
 		            <span> 전체 메일</span>
 		            <span th:text="${receiveMailFolder.totalCount}"></span>
 		            <span> / 안 읽은 메일</span>
@@ -34,12 +72,12 @@ th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
 		                    <th>날짜</th>
 		                </tr>
 		            </thead>
-		            <tbody>
+		            <tbody id="plan-list">
 			            <tr th:each="receiveMail:${receiveMailFolder.mails}">
 			            	<td><input type="checkbox"></td>
 							<td th:text="|${receiveMail.from.name} (${receiveMail.from.email})|">보낸 사람</td>
-							<td th:text="${receiveMail.subject}">제목</td>
-							<td th:text="${receiveMail.sentTime}">날짜</td>
+							<td><a th:text="${receiveMail.subject}" href="/">제목</a></td>
+							<td th:text="${receiveMail.dateFormatting()}">날짜</td>
 						</tr>
 		            </tbody>
 		        </table>

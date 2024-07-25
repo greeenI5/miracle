@@ -10,10 +10,17 @@ i {
 	font-size : 20px;
 	color: var(--sub-grey);
 }
-::placeholder, select {
+::placeholder{
+    color: #cccccc !important;
+    font-family: "Noto Sans KR", sans-serif;
+    letter-spacing: 1px;
+    font-weight: 500;
+}
+select {
     color: var(--sub-grey);
     font-family: "Noto Sans KR", sans-serif;
     letter-spacing: 1px;
+    font-weight: 500;
 }
 button {
 	font-family: "Noto Sans KR", sans-serif;
@@ -37,20 +44,26 @@ button {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    transform: scale(1.25);
+}
+
+
+.logo {
+    font-size: 50px;
+    font-weight: bold;
+    color: white !important;
+    position: relative;
 }
 
 .logo::before{
 	content:"";
 	display:block;
-	width: 40px;
-    height: 9px;
+	width: 51px;
+    height: 10px;
     background-color: var(--logo-red);
-    margin-left: 95px;
-}
-.logo {
-    font-size: 36px;
-    font-weight: bold;
-    margin-bottom: 20px;
+    margin-left: 66px;
+    position: absolute;
+    top: 3px;
 }
 
 .login-form {
@@ -100,7 +113,7 @@ button {
 }
 
 .login-button:hover {
-    background-color: var(--sub-grey);
+    background-color: var(--main-grey);
 }
 
 #error-msg {

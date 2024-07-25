@@ -111,29 +111,114 @@ function btnMsgSendClicked() {
         return; // 입력 필드가 비어 있으면 아무 작업도 하지 않음
     }
     displayUserMessage(question);
-
+    //구독
+	        stompClient.subscribe(`/topic/bot/${key}`, (content) => {
+            var msgObj = content.body;
+            var tag = `
+                  <div class="msg bot flex">
+                            <div id="b-icon"></div>
+                            <div class="message">
+                                <div class="bot-message part">
+                                    <p>${msgObj}</p>
+                                </div>
+                                <div class="time">${time}</div>
+                            </div>
+                        </div>
+                        <div id="messageDisplay"></div>
+                        `;
+                let messageContainer = document.getElementById('messageDisplay');
+                
+                messageContainer.innerHTML += tag;
+        });
     // 서버로 질문 전송
-    stompClient.send("/app/search", {}, JSON.stringify({ question: question }));
+    var data = {
+       	key: key,
+        keyword: question,
+        content: "" // 사용자 이름을 가져오는 함수
+    };
+    stompClient.send("/bot/search", {}, JSON.stringify(data));
     // 입력 필드 비우기
     document.getElementById('question').value = '';
-}
 
+}
 // 사용자의 메시지를 화면에 출력
 function displayUserMessage(content) {
     let messageContainer = document.getElementById('messageDisplay');
     let tag = `
     <div class="user-message">
-    	<div class="user-time">${time}</div>
+    	 <div class="user-time">${time}</div>
         <p>${content}</p>
     </div>
     `;
     messageContainer.innerHTML += tag;
-    
     scrollToBottom(messageContainer); // 스크롤을 제일 아래로 이동
 }
 
-// 봇의 메시지를 화면에 출력-1
+
+
+// 봇의 메시지를 화면에 출력-연락처
 function displayMessage(message) {
+    let messageContainer = document.getElementById('messageDisplay');
+
+    let tag = "";
+    message.forEach(function(dto) {
+        tag += `
+            <div>
+                <button class="child-category" data-content="${dto.content}"> <p>${dto.content}</p> </button>
+            </div>
+        `;
+    });
+    let tag1 = `
+    <div class="flex">
+        <div id="b-icon"></div>
+        <div class="part">
+        	<p>메뉴를 선택해주세요.</p>
+        	<div class="bot-time">${time}</div>
+        	<div class="button-container">${tag}</div>
+        </div>
+    </div>
+    `;
+    messageContainer.innerHTML += tag1;
+    scrollToBottom(tag1); // 스크롤을 제일 아래로 이동
+
+    // 버튼 클릭 이벤트 리스너 추가
+	let buttons = document.querySelectorAll('.child-category');
+		buttons.forEach((button, index) => {
+    	button.addEventListener('click', function() {
+        // 클릭된 버튼의 content 추출
+        let content = button.getAttribute('data-content');
+        // 사용자 메시지로 출력
+        displayUserMessage(content);
+
+        // 인덱스를 사용하여 각각의 버튼에 다른 이벤트 처리
+        if (index === 0) {
+            // 첫 번째 버튼 클릭 시의 작업
+            console.log("첫 번째 버튼 클릭됨");
+            fetchContactDpt()
+        } else if (index === 1) {
+            // 두 번째 버튼 클릭 시의 작업
+            console.log("두 번째 버튼 클릭됨");
+			searchNameMessage();
+        }
+    });
+});
+
+    
+}
+function searchNameMessage() {
+	let messageContainer = document.getElementById('messageDisplay');
+ 	let tag = `
+ 		<div class="bot-message part">
+ 			<div id="b-icon"></div>
+   			<p>이름을 검색해보세요.</p>
+   			<div class="bot-time flex">${time}</div>
+		 </div>
+			`;
+			 messageContainer.innerHTML += tag;    
+    			scrollToBottom(messageContainer); // 스크롤을 제일 아래로 이동
+}
+// 봇의 메시지를 화면에 출력-일정
+function displayMessage3(message) {
     let messageContainer = document.getElementById('messageDisplay');
 
     let tag = "";
@@ -169,23 +254,107 @@ function displayMessage(message) {
         if (index === 0) {
             // 첫 번째 버튼 클릭 시의 작업
             console.log("첫 번째 버튼 클릭됨");
-            fetchContactDpt()
+            searchScheduleMessage1();
         } else if (index === 1) {
             // 두 번째 버튼 클릭 시의 작업
             console.log("두 번째 버튼 클릭됨");
-			searchNameMessage();
+			searchScheduleMessage2();
         }
     });
 });
 
     scrollToBottom(messageContainer); // 스크롤을 제일 아래로 이동
 }
-function searchNameMessage() {
+function searchScheduleMessage1() {
 	let messageContainer = document.getElementById('messageDisplay');
  	let tag = `
  		<div class="bot-message part">
  			<div id="b-icon"></div>
-   			<p>이름을 검색해보세요.</p>
+   			<p>개인일정이 없습니다.</p>
+   			<div class="bot-time">${time}</div>
+		 </div>
+			`;
+			 messageContainer.innerHTML += tag;    
+    			scrollToBottom(messageContainer); // 스크롤을 제일 아래로 이동
+}
+function searchScheduleMessage2() {
+	let messageContainer = document.getElementById('messageDisplay');
+ 	let tag = `
+ 		<div class="bot-message part">
+ 			<div id="b-icon"></div>
+   			<p>공연일정이 없습니다.</p>
+   			<div class="bot-time">${time}</div>
+		 </div>
+			`;
+			 messageContainer.innerHTML += tag;    
+    			scrollToBottom(messageContainer); // 스크롤을 제일 아래로 이동
+}
+// 봇의 메시지를 화면에 출력-공지
+function displayMessage4(message) {
+    let messageContainer = document.getElementById('messageDisplay');
+
+    let tag = "";
+    message.forEach(function(dto) {
+        tag += `
+            <div>
+                <button class="child-category" data-content="${dto.content}"> <p>${dto.content}</p> </button>
+            </div>
+        `;
+    });
+    let tag1 = `
+    <div class="flex">
+        <div id="b-icon"></div>
+        <div class="part">
+        	<p>메뉴를 선택해주세요.</p>
+        	<div class="bot-time">${time}</div>
+        	<div class="button-container">${tag}</div>
+        </div>
+    </div>
+    `;
+    messageContainer.innerHTML += tag1;
+
+    // 버튼 클릭 이벤트 리스너 추가
+	let buttons = document.querySelectorAll('.child-category');
+		buttons.forEach((button, index) => {
+    	button.addEventListener('click', function() {
+        // 클릭된 버튼의 content 추출
+        let content = button.getAttribute('data-content');
+        // 사용자 메시지로 출력
+        displayUserMessage(content);
+
+        // 인덱스를 사용하여 각각의 버튼에 다른 이벤트 처리
+        if (index === 0) {
+            // 첫 번째 버튼 클릭 시의 작업
+            console.log("첫 번째 버튼 클릭됨");
+            searchNoticeMessage1();
+        } else if (index === 1) {
+            // 두 번째 버튼 클릭 시의 작업
+            console.log("두 번째 버튼 클릭됨");
+			searchNoticeMessage2();
+        }
+    });
+});
+
+    scrollToBottom(messageContainer); // 스크롤을 제일 아래로 이동
+}
+function searchNoticeMessage1() {
+	let messageContainer = document.getElementById('messageDisplay');
+ 	let tag = `
+ 		<div class="bot-message part">
+ 			<div id="b-icon"></div>
+   			<p>오늘의 공지사항이 없습니다.</p>
+   			<div class="bot-time">${time}</div>
+		 </div>
+			`;
+			 messageContainer.innerHTML += tag;    
+    			scrollToBottom(messageContainer); // 스크롤을 제일 아래로 이동
+}
+function searchNoticeMessage2() {
+	let messageContainer = document.getElementById('messageDisplay');
+ 	let tag = `
+ 		<div class="bot-message part">
+ 			<div id="b-icon"></div>
+   			<p>중요 공지사항이 없습니다.</p>
    			<div class="bot-time">${time}</div>
 		 </div>
 			`;
@@ -261,10 +430,14 @@ function displayMessage2(message) {
     <div class="flex">
         <div id="b-icon"></div>
         <div class="part">
+        
         	<p>영업팀의 연락처입니다.</p>
+       
         	<div class="bot-time">${time}</div>
-        	<div class="button-container">${tag}</div>
-        	<button >되돌아가기</button>
+        <div class="message-wrap">
+        	<div class="salesteam">${tag}</div>
+         </div>
+        	
         </div>
     </div>
     `;
@@ -309,6 +482,7 @@ function sendMessage(message) {
         messageContainer.innerHTML += message;
         scrollToBottom(messageContainer); // 스크롤을 제일 아래로 이동
     }
+
 }
 
 // 스크롤을 항상 아래로 이동시키는 함수
@@ -346,11 +520,11 @@ function fetchScheduleInfo() {
         data: { type: 4 },
         success: function(data) {
 			displayUserMessage("일정 알려줘");
-            displayMessage(data);
+            displayMessage3(data);
         },
         error: function(error) {
             console.error("요청하신 일정을 찾을 수 없습니다.", error);
-            displayMessage(error);
+            displayMessage3(error);
         }
     });
 }
@@ -362,11 +536,11 @@ function fetchNoticeInfo() {
         data: { type: 7 },
         success: function(data) {
 			displayUserMessage("공지사항 알려줘");
-            displayMessage(data);
+            displayMessage4(data);
         },
         error: function(error) {
             console.error("요청하신 공지를 찾을 수 없습니다.", error);
-            displayMessage(error);
+            displayMessage4(error);
         }
     });
 }
@@ -394,8 +568,9 @@ function fetchContactDptS1() {
             displayMessage2(data);
         },
         error: function(error) {
-            console.error("요청하신 부서별 검색 결과를 찾을 수 없습니다.", error);
+            console.error("요청하신 검색 결과를 찾을 수 없습니다.", error);
             displayMessage2(error);
         }
     });
 }
+

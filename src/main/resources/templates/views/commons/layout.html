@@ -33,7 +33,8 @@ th:fragment="layout(pHead,pMain)">
 				<span>자동 로그아웃</span>
 				<span id="remaining-time" th:text="${remainingTime}"></span>
 				<i class="ri-account-circle-line"></i>
-				<a href="/mypage" class="username" th:text="${emp.name}">사원이름</a>
+				<a sec:authorize="!hasRole('ROLE_ADMIN')" href="/mypage" class="username" th:text="${emp.name}">사원이름</a>
+				<a sec:authorize="hasRole('ROLE_ADMIN')" class="username" th:text="${emp.name}">사원이름</a>
 			</div>
 		</div>
 	</div>
@@ -45,7 +46,8 @@ th:fragment="layout(pHead,pMain)">
 			<li><a href="/performance/plan"><i class="ri-calendar-schedule-line"></i> <span>공연기획</span></a></li>
 			<li><a th:href="@{'https://auth.worksmobile.com/oauth2/v2.0/authorize?client_id=' + ${@environment.getProperty('naver.client.id')} + '&redirect_uri=' + ${@environment.getProperty('naver.client.redirect-uri')} + '&scope=' + ${@environment.getProperty('naver.client.scope')} + '&response_type=code&state=mail.read'}"><i class="ri-mail-line"></i><span>메일함</span></a></li>
 			<li><a href="/hr"><i class="ri-account-box-line"></i> <span>조직도</span></a></li>
-			<li><a href="/admin/approval/plan/request"><i class="ri-clipboard-line"></i> <span>전자결재</span></a></li>
+			<li sec:authorize="hasRole('ROLE_ADMIN')"><a href="/admin/approval/plan/request"><i class="ri-clipboard-line"></i> <span>전자결재</span></a></li>
+			<li sec:authorize="!hasRole('ROLE_ADMIN')" onclick="alert('해당 페이지에 들어갈 권한이 없습니다.'); return false;"><a><i class="ri-clipboard-line"></i> <span>전자결재</span></a></li>
 			<li><a href="/logout"> <i class="ri-logout-box-r-line"></i><span>로그아웃</span></a></li>
 		</ul>
 	</nav>

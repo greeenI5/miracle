@@ -1,128 +1,90 @@
-/**
- * 
- */
-
-/*백엔드 기능 구현 후 확인해보기*/
+// CSRF 토큰 설정
 const token = document.querySelector('meta[name="_csrf"]').getAttribute('content');
 const header = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
 
-
-document.addEventListener("DOMContentLoaded", function() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const empName = urlParams.get('empName');
-    
-    if (empName) {
-        // URL 쿼리 문자열에 empName을 포함한 GET 요청
-        fetch(`/employeeDetail?empName=${encodeURIComponent(empName)}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                [header]: token // CSRF 토큰 헤더 추가
-            }
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json(); // 응답을 JSON으로 변환
-        })
-        .then(data => {
-            // 서버에서 반환된 데이터로 HTML 업데이트
-            updateEmployeeDetail(data);
-            showEmployeeDetail(empName);  // 사원 정보 로드 후 툴팁을 보여주는 로직 호출
-        })
-        .catch(error => console.error('Error loading employee details:', error));
-    }
+// 페이지 로드 시 포지션과 부서를 한국어로 변환
+$(document).ready(function() {
+    $('.empRank').each(function() {
+        const position = $(this).text();
+        $(this).text(getPositionInKorean(position));
+    });
+    $('.teamName').each(function() {
+        const depCode = $(this).text();
+        $(this).text(getDepCodeInKorean(depCode));
+    });
 });
 
-function showEmployeeDetail(empName) {
-    const tooltip = document.getElementById('tooltip');
-    
-    // 동적으로 가져온 HTML에서 사원 정보를 파싱
-    const employee = {
-        name: document.querySelector('.name').textContent,
-        department: document.querySelector('.department').textContent,
-        position: document.querySelector('.position').textContent,
-        phone: document.querySelector('.phone').textContent,
-        email: document.querySelector('.email').textContent
-    };
-
-    if (employee) {
-        if (tooltip.classList.contains('show-tooltip')) {
-            tooltip.innerHTML = `
-                <div class="details-card">
-                    <img src="../images/hrm/profile.png" alt="${employee.name}">
-                    <div class="details-info">
-                        <div class="name">${employee.name}</div>
-                        <div class="department">${employee.department}</div>
-                        <div class="position"><span>직급 :</span> ${employee.position}</div>
-                        <div><span>전화번호 :</span> ${employee.phone}</div>
-                        <div><span>이메일 :</span> ${employee.email}</div>
-                    </div>
-                    <button onclick="closeTooltip()">닫기</button>
-                </div>
-            `;
-        } else {
-            tooltip.innerHTML = `
-                <div class="details-card">
-                    <img src="../images/hrm/profile.png" alt="${employee.name}">
-                    <div class="details-info">
-                        <div class="name">${employee.name}</div>
-                        <div class="department">${employee.department}</div>
-                        <div class="position"><span>직급 :</span> ${employee.position}</div>
-                        <div><span>전화번호 :</span> ${employee.phone}</div>
-                        <div><span>이메일 :</span> ${employee.email}</div>
-                    </div>
-                    <button onclick="closeTooltip()">닫기</button>
-                </div>
-            `;
-            tooltip.classList.add('show-tooltip');
+// 사원 상세 정보를 로드하는 함수
+function loadEmployeeDetail(empNo, event) {
+    fetch(`/hr/${encodeURIComponent(empNo)}`, {
+        method: 'GET',
+        headers: {
+            'Accept': 'text/html',  // 서버가 HTML을 반환하도록 요청
+            [header]: token
         }
-    }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.text();  // HTML 응답을 텍스트로 처리
+    })
+    .then(data => {
+        const detailsCard = document.getElementById('tooltip');
+        detailsCard.innerHTML = data;
+        convertHtmlToKorean();  // HTML 변환 함수 호출
+        showEmployeeDetail(event);  // 이벤트를 넘겨서 클릭 위치를 사용
+    })
+    .catch(error => console.error('Error loading employee details:', error));
 }
 
+// HTML의 텍스트를 한국어로 변환하는 함수
+function convertHtmlToKorean() {
+    const tooltip = document.getElementById('tooltip');
+    tooltip.querySelectorAll('.position').forEach(element => {
+        element.textContent = getPositionInKorean(element.textContent.trim());
+    });
+    tooltip.querySelectorAll('.department').forEach(element => {
+        element.textContent = getDepCodeInKorean(element.textContent.trim());
+    });
+}
+
+// 상세 정보 툴팁을 보여주는 함수
+function showEmployeeDetail(event) {
+    const tooltip = document.getElementById('tooltip');
+    tooltip.classList.add('show-tooltip');
+    
+    // 클릭한 위치에 툴팁을 표시
+    tooltip.style.top = `${event.clientY}px`;
+    tooltip.style.left = `${event.clientX}px`;
+}
+
+// 툴팁을 닫는 함수
 function closeTooltip() {
     const tooltip = document.getElementById('tooltip');
     tooltip.classList.remove('show-tooltip');
 }
 
-
 // 포지션을 한국어로 변환하는 함수
 function getPositionInKorean(position) {
-	const positions = {
-		"EMPLOYEE": "사원",
-		"ASSISTANT_MANAGER": "대리",
-		"MANAGER": "과장",
-		"DEPUTY_GENERAL_MANAGER": "차장",
-		"GENERAL_MANAGER": "부장",
-		"TEAM_LEADER": "팀장"
-	};
-	return positions[position] || position; // 기본값 반환
+    const positions = {
+        "EMPLOYEE": "사원",
+        "ASSISTANT_MANAGER": "대리",
+        "MANAGER": "과장",
+        "DEPUTY_GENERAL_MANAGER": "차장",
+        "GENERAL_MANAGER": "부장",
+        "TEAM_LEADER": "팀장"
+    };
+    return positions[position] || position;
 }
 
-// 페이지 로드 시 포지션을 한국어로 변환
-$(document).ready(function() {
-	$('.empRank').each(function() {
-		const position = $(this).text();
-		$(this).text(getPositionInKorean(position));
-	});
-});
-
-
+// 부서 코드를 한국어로 변환하는 함수
 function getDepCodeInKorean(depCode) {
-	const depCodes = {
-		"1000": "영업팀",
-		"1003": "마케팅팀",
-		"1004": "기획팀",
-		"1005": "무대연출팀"
-	};
-	return depCodes[depCode] || depCode; // 기본값 반환
+    const depCodes = {
+        "1000": "영업부",
+        "1003": "마케팅부",
+        "1004": "기획부",
+        "1005": "무대연출부"
+    };
+    return depCodes[depCode] || depCode;
 }
-
-// 페이지 로드 시 포지션을 한국어로 변환
-$(document).ready(function() {
-	$('.teamName').each(function() {
-		const depCode = $(this).text();
-		$(this).text(getDepCodeInKorean(depCode));
-	});
-});

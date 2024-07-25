@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
-import com.green.miracle.domain.dto.scheduleDTO;
+import com.green.miracle.domain.dto.ScheduleDTO;
 import com.green.miracle.domain.entity.EmployeeEntity;
 import com.green.miracle.domain.entity.PerformancePlanEntity;
 import com.green.miracle.domain.entity.ScheduleEntity;
@@ -70,11 +70,11 @@ public class MainServiceProcess implements MainService{
 	
 	
 	@Override
-	public List<scheduleDTO> scheduleProcess2(LocalDate clickDate, CustomUserDetails user) {
+	public List<ScheduleDTO> scheduleProcess2(LocalDate clickDate, CustomUserDetails user) {
 	    EmployeeEntity employee = employeeRep.findByEmail(user.getEmail()).orElseThrow();
 	    return scheduleRep.findByEmployeeAndStartAt(employee, clickDate)
 	        .stream()
-	        .map(schedule -> new scheduleDTO(schedule.getSchTitle()))
+	        .map(schedule -> new ScheduleDTO(schedule.getSchTitle()))
 	        .collect(Collectors.toList());
 	}
 	
