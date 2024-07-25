@@ -96,10 +96,10 @@ function addEmployeeToTable(employee) {
 }
 
 const departmentMap = {
-    "1000": "영업팀",
-    "1003": "마케팅팀",
-    "1004": "기획팀",
-    "1005": "무대연출팀"
+    "1000": "영업부",
+    "1003": "마케팅부",
+    "1004": "기획부",
+    "1005": "무대연출부"
 };
 
 const roleNameMap = {
@@ -221,10 +221,10 @@ function deleteEmployee(button) {
 
 document.addEventListener('DOMContentLoaded', function() {
     const departmentMap = {
-        1000: '영업팀',
-        1003: '마케팅팀',
-        1004: '기획팀',
-        1005: '무대연출팀'
+        1000: '영업부',
+        1003: '마케팅부',
+        1004: '기획부',
+        1005: '무대연출부'
     };
 
     function updateDepartmentNames() {

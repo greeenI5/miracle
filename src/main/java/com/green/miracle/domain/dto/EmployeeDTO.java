@@ -10,7 +10,8 @@ import lombok.Setter;
 @Setter
 @Builder
 public class EmployeeDTO {
-
+	
+	private long empNo;
     private String name; // 사원명
     private Position position; // 직급
     private long depCode; // 부서코드

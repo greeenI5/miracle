@@ -8,8 +8,10 @@ body{
     border: 1px solid var(--main-navy);
     border-radius: 8px;
     padding: 16px;
+    background-color: white;
     width: 450px; /* 최대 너비 조정 */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: relative;
 }
 
 .details-card img {
@@ -60,10 +62,6 @@ body{
 .empName {
     cursor: pointer; /* 포인터 커서 추가 */
 }
-.details-card {
-    position: relative; /* position 추가 */
-    /* 나머지 스타일 유지 */
-}
 
 .details-card button {
     position: absolute; /* 위치를 절대적으로 설정 */
@@ -76,4 +74,3 @@ body{
     border-radius: 5px;
     cursor: pointer;
 }
-
