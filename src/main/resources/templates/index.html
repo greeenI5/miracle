@@ -12,7 +12,7 @@ th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
         	<div class="card-top flex">
         		<div class="profile-pic"><div class="user-image"></div></div>
         		<div class = "info">
-		            <a class="name" href="/mypage" th:text="|${emp.name} 사원|">사원이름</a>
+		            <a class="name" href="/mypage" th:text="|${emp.name} ${emp.position.roleName()}|">사원이름</a>
 		            <p class="department" th:text="${dep.depName}">부서명</p>
 	            </div>
             </div>

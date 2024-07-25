@@ -8,4 +8,6 @@ public interface MailService {
 
 	void mailRead(String code, Model model, CustomUserDetails user) throws Exception;
 
+	void mailDetail(String code, Model model, CustomUserDetails user, int mailId) throws Exception;
+
 }

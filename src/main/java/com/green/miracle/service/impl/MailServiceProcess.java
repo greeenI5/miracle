@@ -1,19 +1,18 @@
 package com.green.miracle.service.impl;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.green.miracle.service.MailService;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.green.miracle.domain.api.OpenApiUtil;
+import com.green.miracle.domain.dto.api.MailDetailDTO;
 import com.green.miracle.domain.dto.api.NaverTokenDTO;
 import com.green.miracle.domain.dto.api.ReceiveMailFolderDTO;
 import com.green.miracle.security.CustomUserDetails;
@@ -46,7 +45,7 @@ public class MailServiceProcess implements MailService{
 		Map<String, String> headers = new HashMap<>();
 		headers.put("Authorization", "Bearer "+accessToken);
 		
-		String userId = "gr.16380@greenmiracle.by-works.com"; //이걸 지금 인증된 정보에서 가져오기!
+		String userId = user.getEmail();
 		String encodedUserId = URLEncoder.encode(userId, StandardCharsets.UTF_8.toString());
 		
 		/*메일함 목록 조회
@@ -69,6 +68,35 @@ public class MailServiceProcess implements MailService{
 		//JSON 문자열 -> 자바의 객체로 변환
 		ReceiveMailFolderDTO receiveMailFolder = openApiUtil.objectMapper(receiveMailsResponseResult, new TypeReference<ReceiveMailFolderDTO>() {});
 		model.addAttribute("receiveMailFolder", receiveMailFolder);
+		
+	}
+	
+	@Override
+	public void mailDetail(String code, Model model, CustomUserDetails user, int mailId) throws Exception {
+		//접근하기 위한 토큰 생성
+		String responseResult = getAccessToken(code);
+		
+		NaverTokenDTO result = openApiUtil.objectMapper(responseResult, new TypeReference<NaverTokenDTO>() {});
+		String accessToken = result.getAccess_token();
+		String method="GET";
+		Map<String, String> headers = new HashMap<>();
+		headers.put("Authorization", "Bearer "+accessToken);
+		
+		String userId = user.getEmail();
+		String encodedUserId = URLEncoder.encode(userId, StandardCharsets.UTF_8.toString());
+		
+		//선택한 메일 detail 내용 조회
+		String apiUrl = "https://www.worksapis.com/v1.0/users/";
+		StringBuilder urlBuilder= new StringBuilder(apiUrl);
+		urlBuilder.append(encodedUserId); 
+		urlBuilder.append("/mail/"); urlBuilder.append(mailId);
+		apiUrl = urlBuilder.toString();
+		String receiveMailsResponseResult = openApiUtil.request(apiUrl, headers, method, null);
+		System.out.println("receiveMailsResponseResult: "+receiveMailsResponseResult);
+		
+		//JSON 문자열 -> 자바의 객체로 변환
+		MailDetailDTO mailDetail = openApiUtil.objectMapper(receiveMailsResponseResult, new TypeReference<MailDetailDTO>() {});
+		model.addAttribute("mailDetail", mailDetail);
 		
 	}
 	
