@@ -9,9 +9,9 @@
     display: grid;
 	grid-template-columns: repeat(6,1fr); /* 행 */
 	grid-template-rows: repeat(10,1fr); /* 열 */
-	width: 100%; 
-	height: 100%; 
-  	margin: 0 auto;
+	width: 1280px; 
+	height: 1000px; 
+  	margin: 0px;
   	padding: 20px;
 }
 
@@ -187,4 +187,8 @@
   box-shadow: 0 0 0 3px rgba(38, 143, 255, 0.5); /* 포커스 시 외부 음영 추가 */
 }
 
+.day.selected {
+    background-color: var(--sub-navy);
+    color: white;
+}
 

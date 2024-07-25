@@ -1,13 +1,20 @@
 package com.green.miracle.service;
 
-import org.springframework.stereotype.Service;
+import java.time.LocalDate;
+import java.util.List;
+
 import org.springframework.ui.Model;
 
-import com.green.miracle.domain.dto.ScheduleCreateDTO;
-import com.green.miracle.domain.entity.EmployeeEntity;
-import com.green.miracle.domain.entity.ScheduleEntity;
+import com.green.miracle.domain.dto.ScheduleReadDTO;
+import com.green.miracle.security.CustomUserDetails;
 
 public interface ScheduleService {
+
+	List<ScheduleReadDTO> scheduleChangeProcess(LocalDate clickDate, CustomUserDetails user);
+
+	void findScheduleProcess(Model model, LocalDate cilckDate, CustomUserDetails user);
+
+
 	
 
 }
