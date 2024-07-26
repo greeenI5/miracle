@@ -55,10 +55,8 @@
                 </div>
                 <div class="button-container flex">
 				    <form th:action="|/admin/approval/plan/${plan.planNo}|" method="post">
-				        <input type="hidden" name="approval" value="2" />
-				        <button type="submit">결재 승인</button>
-				        <input type="hidden" name="approval" value="1" />
-				        <button type="submit">결재 보류</button>
+				        <button type="submit" name="approval" value="2">결재 승인</button>
+  						<button type="submit" name="approval" value="1">결재 보류</button>
 				    </form>
 			    
                 </div>

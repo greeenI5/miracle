@@ -4,7 +4,6 @@ import java.time.LocalDate;
 
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.green.miracle.domain.dto.ApprovalChangeDTO;
 

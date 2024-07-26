@@ -1,11 +1,9 @@
 package com.green.miracle.controller.plan;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
@@ -20,15 +18,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.green.miracle.domain.dto.PlanCreateDTO;
-import com.green.miracle.domain.entity.EmployeeEntity;
 import com.green.miracle.domain.entity.PerType;
 import com.green.miracle.domain.entity.PerformancePlanEntity;
 import com.green.miracle.security.CustomUserDetails;
-import com.green.miracle.service.EmployeeService;
 import com.green.miracle.service.PlanService;
 import lombok.RequiredArgsConstructor;
 
@@ -38,7 +33,6 @@ import lombok.RequiredArgsConstructor;
 public class PlanController {
     
     private final PlanService service;
-    private final EmployeeService empService;
     
     @Value("${upload.path}")
     private String uploadPath;
