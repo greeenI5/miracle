@@ -12,7 +12,7 @@
 	align-content: center;
 	outline: none;
 	cursor: pointer;
-	background: var(--sub-navy);
+	background: var(--main-navy);
 	border-radius: 50%;
 	transition: all 0.2s ease;
 }
@@ -47,17 +47,19 @@
 	right: 40px;
 	bottom: 100px;
     width: 362px;
-    height: 540px;
+    height: 539px;
     transform: scale(0.5);
     opacity: 0;
     pointer-events: none;
-    overflow-y: auto; /* 스크롤 */
-    border: solid var(--sub-navy) 2px;
+    overflow: hidden;
+    /* border: solid var(--main-grey) 2px; */
     border-radius: 5.5px;
     transform-origin: bottom right;
     box-shadow: 0 32px 64px -48px rgb(0,0,0,0.5);	
     transition: all 0.1s ease;
     grid-template-rows: auto 1fr auto; 
+    
+
 }
 
 
@@ -77,11 +79,12 @@
 	justify-content: center;
     align-items: center;
     height: 50px;
-    background-color:var(--sub-navy);
+    background-color:var(--main-navy);
     color: white;
     padding: 0 15px;
     border-radius: 3px 3px 0 0;
     font-size: 24px;
+    font-weight: bold;
 }
 
 .bot-menu{
@@ -94,18 +97,21 @@
 	color: white;
 }
 
-
 #b-icon{
 	display:flex;
 	align-items: center;
 	margin-top: 3px;
 	margin-right: 8px;
+	margin-left: 5px;
 	width:30px;
 	height:30px;
 	background-size: cover;
-	background-image: url('/images/bot/chatbot.png')
+	background-image: url('/images/bot/chatbotstart.png');
+
 	
 }
+
+
 
 #bot-main {
 	width: 100%;
@@ -171,12 +177,14 @@
 	font-size: 14px;
 }
 
+/* 말풍선 */
 .user-message>p {
 	position: relative;
 	background: var(--main-grey);
 	border-radius: .4em;
 }
 
+/* 말풍선 */
 .user-message>p:after {
 	content: '';
 	position: absolute;
@@ -193,11 +201,11 @@
 
 .message-wrap{
 	display: flex;
-	
-	background-color: var(--sub-grey);
+	background-color: var(--sub-navy);
 	border-radius: 10px;
 	font-size: 14px;
 	color: #333333;
+	margin: 5px;
 	
 }
 .salesteam{
@@ -205,6 +213,7 @@
 	margin: 3px;
 }
 
+/* 말풍선 */
 .part>p {
 	position: relative;
 	background: var(--sub-navy);
@@ -213,8 +222,11 @@
 	color: #333333;
 	font-size: 14px;
 	box-shadow: 0 1px 1px 0 rgb(0 0 0 / 10%);
+	white-space: normal;
+	max-width: 215px;
+	
 }
-
+/* 말풍선 */
 .part>p:after {
 	content: '';
 	position: absolute;
@@ -233,11 +245,13 @@
 .button-container {
     display: flex;
     flex-direction: column;
-    align-items:flex-start;
     gap: 5px; /* 버튼 사이의 간격 설정 */
     margin-top: 10px; /* 상단 여백 */
-    margin-left: 40px;
+    justify-content: flex-start;
 }
+
+
+
 /* 버튼 스타일링 */
 .bot-category {
 	width: 150px;
@@ -260,13 +274,12 @@
 
 .child-category,
 .grand-child-category {
-	display: flex;
-	width: 120px;
+	
+	
     background-color: white; /* 배경색 */
     color: #333333; /* 글자색 */
     padding: 10px 10px; /* 여백 */
     text-align: center; /* 텍스트 가운데 정렬 */
- 
     display: inline; /* 인라인 블록 요소로 설정 */
     font-size: 14px; /* 폰트 크기 */
     cursor: pointer; /* 마우스 커서 변경 */
@@ -279,10 +292,8 @@
 	background-color: var(--sub-navy); /* 호버 시 배경색 변경 */
 }
 
-
-
 #bot-footer {
-    border-top: solid var(--main-navy) 1.5px;
+    
     background-color: #fff;
 	padding: 0;
 	margin: 0;
@@ -293,32 +304,39 @@
 	width: 100%;
     display: inline-flex;
     position: relative;
-    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    margin-left: 8px;
+    margin-bottom: 2px;
 }
 
 #question{
-    width: 310px;
+    width: 270px;
     height: 35px;
-    border: none;
     position: relative;
+    
 }
 
-#question:focus {
-    outline: none;
+
+input#question {
+    border: solid 2px var(--main-navy); /* 테두리 제거 */
+    border-radius: 10px; /* 모서리 둥글게 */
 }
 
 input#question:focus {
-    outline: none;
+	outline: var(--main-navy);
+
 }
 
 .btn-send{
 	display: flex;
 	justify-content: center;
+	vertical-align: middle;
 	align-items: center;
     width: 40px;
-    height: 30px;
+    height: 40px;
     background-color: white;
-	color: var(--sub-navy);
+	color: var(--main-navy);
     border: none;
     font-size: 18px;
 }

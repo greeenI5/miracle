@@ -69,7 +69,7 @@ public class ChatBotController {
        
         String response = chatBotService.getAnswer(dto.getKeyword())
                 .map(ChatBotAnswerDTO::getContent)
-                .orElse("Sorry, I don't understand the question.");
+                .orElse("알 수 없는 질문입니다.");
 
         messagingTemplate.convertAndSend("/topic/bot/" + key, response);
     }

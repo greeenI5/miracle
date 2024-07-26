@@ -7,6 +7,8 @@ var key;
 var now = new Date();
 var time = formatTime(now);
 let initialMessageShown = false; // 초기 메시지 1번만 출력되는 플래그
+let isSubscribed = false; // 구독 상태 플래그
+var botmain = document.getElementById('bot-main');
 
 function formatTime(now) {
     var ampm = (now.getHours() > 11) ? "오후" : "오전";
@@ -47,6 +49,7 @@ function connectSocket() {
     stompClient = Stomp.over(new SockJS('/ws-i5-bot'));
     stompClient.connect({}, (frame) => {
         key = new Date().getTime();
+        
         // 구독 설정
         stompClient.subscribe(`/topic/bot/${key}`, (answer) => {
             var msgObj = answer.body;
@@ -74,6 +77,7 @@ function connectSocket() {
                         `;
                 sendMessage(tag);
                 initialMessageShown = true; // 메시지가 한 번만 출력되도록 설정
+                
             }
         });
 
@@ -103,6 +107,19 @@ $(document).on("click", "#showNotice", function() {
     fetchNoticeInfo();
 });
 
+document.addEventListener('DOMContentLoaded', (event) => {
+    // 엔터 키를 눌렀을 때 메시지 전송 함수 호출
+    document.getElementById('question').addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            btnMsgSendClicked();
+        }
+    });
+
+    // 메시지 전송 버튼 클릭 이벤트 리스너
+    document.getElementById('btnMsgSend').addEventListener('click', btnMsgSendClicked);
+});
+
+
 // 메시지 전송 버튼(btnMsgSend) 클릭 시
 function btnMsgSendClicked() {
     // 입력 필드의 값을 가져와서 처리
@@ -111,27 +128,35 @@ function btnMsgSendClicked() {
         return; // 입력 필드가 비어 있으면 아무 작업도 하지 않음
     }
     displayUserMessage(question);
-    //구독
-	        stompClient.subscribe(`/topic/bot/${key}`, (content) => {
+    // 구독이 중복되지 않도록 확인
+    if (!isSubscribed) {
+        stompClient.subscribe(`/topic/bot/${key}`, (content) => {
+            console.log("Message received from server:", content.body); // 로그 추가
             var msgObj = content.body;
             var tag = `
                   <div class="msg bot flex">
-                            <div id="b-icon"></div>
-                            <div class="message">
-                                <div class="bot-message part">
-                                    <p>${msgObj}</p>
-                                </div>
-                                <div class="time">${time}</div>
+                        <div id="b-icon"></div>
+                        <div class="message">
+                            <div class="bot-message part">
+                                <p>${msgObj}</p>
                             </div>
+                            <div class="time">${time}</div>
                         </div>
-                        <div id="messageDisplay"></div>
-                        `;
-                let messageContainer = document.getElementById('messageDisplay');
-                
+                    </div>
+                    <div id="messageDisplay"></div>
+                    `;
+            let messageContainer = document.getElementById('messageDisplay');
+            if (messageContainer) {
                 messageContainer.innerHTML += tag;
+                scrollToBottom(botmain); // 스크롤을 제일 아래로 이동
+            } else {
+                console.error("messageContainer is null");
+            }
         });
+        isSubscribed = true;
+    }
     // 서버로 질문 전송
-    var data = {
+    var data = {	
        	key: key,
         keyword: question,
         content: "" // 사용자 이름을 가져오는 함수
@@ -139,7 +164,6 @@ function btnMsgSendClicked() {
     stompClient.send("/bot/search", {}, JSON.stringify(data));
     // 입력 필드 비우기
     document.getElementById('question').value = '';
-
 }
 // 사용자의 메시지를 화면에 출력
 function displayUserMessage(content) {
@@ -151,15 +175,11 @@ function displayUserMessage(content) {
     </div>
     `;
     messageContainer.innerHTML += tag;
-    scrollToBottom(messageContainer); // 스크롤을 제일 아래로 이동
+    scrollToBottom(botmain); // 스크롤을 제일 아래로 이동
 }
-
-
-
 // 봇의 메시지를 화면에 출력-연락처
 function displayMessage(message) {
     let messageContainer = document.getElementById('messageDisplay');
-
     let tag = "";
     message.forEach(function(dto) {
         tag += `
@@ -179,7 +199,7 @@ function displayMessage(message) {
     </div>
     `;
     messageContainer.innerHTML += tag1;
-    scrollToBottom(tag1); // 스크롤을 제일 아래로 이동
+    scrollToBottom(botmain); // 스크롤을 제일 아래로 이동
 
     // 버튼 클릭 이벤트 리스너 추가
 	let buttons = document.querySelectorAll('.child-category');
@@ -215,7 +235,7 @@ function searchNameMessage() {
 		 </div>
 			`;
 			 messageContainer.innerHTML += tag;    
-    			scrollToBottom(messageContainer); // 스크롤을 제일 아래로 이동
+    			scrollToBottom(botmain); // 스크롤을 제일 아래로 이동
 }
 // 봇의 메시지를 화면에 출력-일정
 function displayMessage3(message) {
@@ -263,7 +283,7 @@ function displayMessage3(message) {
     });
 });
 
-    scrollToBottom(messageContainer); // 스크롤을 제일 아래로 이동
+    scrollToBottom(botmain); // 스크롤을 제일 아래로 이동
 }
 function searchScheduleMessage1() {
 	let messageContainer = document.getElementById('messageDisplay');
@@ -275,7 +295,7 @@ function searchScheduleMessage1() {
 		 </div>
 			`;
 			 messageContainer.innerHTML += tag;    
-    			scrollToBottom(messageContainer); // 스크롤을 제일 아래로 이동
+    			scrollToBottom(botmain); // 스크롤을 제일 아래로 이동
 }
 function searchScheduleMessage2() {
 	let messageContainer = document.getElementById('messageDisplay');
@@ -287,7 +307,7 @@ function searchScheduleMessage2() {
 		 </div>
 			`;
 			 messageContainer.innerHTML += tag;    
-    			scrollToBottom(messageContainer); // 스크롤을 제일 아래로 이동
+    			scrollToBottom(botmain); // 스크롤을 제일 아래로 이동
 }
 // 봇의 메시지를 화면에 출력-공지
 function displayMessage4(message) {
@@ -335,7 +355,7 @@ function displayMessage4(message) {
     });
 });
 
-    scrollToBottom(messageContainer); // 스크롤을 제일 아래로 이동
+    scrollToBottom(botmain); // 스크롤을 제일 아래로 이동
 }
 function searchNoticeMessage1() {
 	let messageContainer = document.getElementById('messageDisplay');
@@ -347,7 +367,7 @@ function searchNoticeMessage1() {
 		 </div>
 			`;
 			 messageContainer.innerHTML += tag;    
-    			scrollToBottom(messageContainer); // 스크롤을 제일 아래로 이동
+    			scrollToBottom(botmain); // 스크롤을 제일 아래로 이동
 }
 function searchNoticeMessage2() {
 	let messageContainer = document.getElementById('messageDisplay');
@@ -359,7 +379,7 @@ function searchNoticeMessage2() {
 		 </div>
 			`;
 			 messageContainer.innerHTML += tag;    
-    			scrollToBottom(messageContainer); // 스크롤을 제일 아래로 이동
+    			scrollToBottom(botmain); // 스크롤을 제일 아래로 이동
 }
 // 봇의 메시지를 화면에 출력-child
 function displayMessage1(message) {
@@ -409,7 +429,7 @@ function displayMessage1(message) {
     });
 });
 
-    scrollToBottom(messageContainer); // 스크롤을 제일 아래로 이동
+    scrollToBottom(botmain); // 스크롤을 제일 아래로 이동
     
 }
 // 봇의 메시지를 화면에 출력-child
@@ -420,24 +440,17 @@ function displayMessage2(message) {
     message.forEach(function(dto) {
         tag += `
             <div>
-                <div class="grand-child-category1" data-content="${dto.content}"> <p>${dto.content}</p> </div>
+                <button class="child-category" data-content="${dto.content}"> <p>${dto.content}</p> </button>
             </div>
         `;
     });
-
-    // 메뉴 출력
     let tag1 = `
     <div class="flex">
         <div id="b-icon"></div>
         <div class="part">
-        
         	<p>영업팀의 연락처입니다.</p>
-       
         	<div class="bot-time">${time}</div>
-        <div class="message-wrap">
-        	<div class="salesteam">${tag}</div>
-         </div>
-        	
+        	<div class="button-container">${tag}</div>
         </div>
     </div>
     `;
@@ -455,7 +468,7 @@ function displayMessage2(message) {
         });
     });
 
-    scrollToBottom(messageContainer); // 스크롤을 제일 아래로 이동
+    scrollToBottom(botmain); // 스크롤을 제일 아래로 이동
     
 }
 // 웹소켓 연결 해제 함수
@@ -480,7 +493,7 @@ function sendMessage(message) {
     var messageContainer = document.getElementById('bot-main'); // 메시지를 표시할 컨테이너의 ID
     if (messageContainer) {
         messageContainer.innerHTML += message;
-        scrollToBottom(messageContainer); // 스크롤을 제일 아래로 이동
+        scrollToBottom(botmain); // 스크롤을 제일 아래로 이동
     }
 
 }
