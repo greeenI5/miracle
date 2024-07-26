@@ -37,6 +37,5 @@ public class MailController {
 		
 		return "views/mail/mail-list";
 	}
-	
 
 }

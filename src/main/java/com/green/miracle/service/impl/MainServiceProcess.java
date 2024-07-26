@@ -56,21 +56,23 @@ public class MainServiceProcess implements MainService{
 	}
 	
 	
+	//오늘 날짜의 일정 가져오기
 	@Override
-	public void scheduleProcess(Model model, LocalDate cilckDate, CustomUserDetails user) {
+	public void todaySchedule(Model model, CustomUserDetails user) {
 		EmployeeEntity employee = employeeRep.findByEmail(user.getEmail()).orElseThrow();
 		
-		List<ScheduleEntity> allSchedules = scheduleRep.findByEmployeeAndStartAt(employee, cilckDate);
+		LocalDate today = LocalDate.now();
+		List<ScheduleEntity> allSchedules = scheduleRep.findByEmployeeAndStartAt(employee, today);
 		List<ScheduleEntity> filterSchedules = allSchedules.stream()
-                								.filter(schedule -> schedule.getStartAt().equals(cilckDate))
+                								.filter(schedule -> schedule.getStartAt().equals(today))
                 								.limit(4) // 최대 4개까지만 가져오게 함
                 								.collect(Collectors.toList());
 		model.addAttribute("schedules", filterSchedules);
 	}
 	
-	
+	//프론트에서 선택한 날짜의 일정 가져오기
 	@Override
-	public List<ScheduleDTO> scheduleProcess2(LocalDate clickDate, CustomUserDetails user) {
+	public List<ScheduleDTO> selectedSchedule(LocalDate clickDate, CustomUserDetails user) {
 	    EmployeeEntity employee = employeeRep.findByEmail(user.getEmail()).orElseThrow();
 	    return scheduleRep.findByEmployeeAndStartAt(employee, clickDate)
 	        .stream()

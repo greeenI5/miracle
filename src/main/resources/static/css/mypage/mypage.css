@@ -47,8 +47,9 @@ body > main > div > p:nth-child(4){
 
 .profile-mainTitle {
 	font-size: 36px;
-	font-weight: bold;
-	margin-bottom: 20px;
+	font-weight: 500;
+	margin-bottom: 40px;
+	margin-top: 20px;
 }
 
 main{
