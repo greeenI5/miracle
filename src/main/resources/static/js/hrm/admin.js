@@ -236,4 +236,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     updateDepartmentNames();
 });
-
+$(document).ready(function() {
+            $('.empLi').each(function() {
+                var roles = $(this).data('roles');
+                if (roles.includes('ROLE_ADMIN')) {
+                    $(this).hide(); // ADMIN 권한을 가진 사원 숨기기
+                }
+            });
+        });

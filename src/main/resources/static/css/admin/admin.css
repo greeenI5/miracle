@@ -33,7 +33,7 @@
     top: 110px; /* 원하는 위치로 조정 */
     left: 170px; /* 원하는 위치로 조정 */
     font-size: 36px;
-    font-weight: bold;
+    font-weight: 500;
 }
 
 .orgChart .company, .depName, .teamName, .emp {

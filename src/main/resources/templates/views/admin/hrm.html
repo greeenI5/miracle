@@ -2,37 +2,38 @@
 <html xmlns:th="http://www.thymeleaf.org" 
 th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
 <head>
-	<meta name="_csrf" content="${_csrf.token}" />
-	<meta name="_csrf_header" content="${_csrf.headerName}" />
-	<link rel="stylesheet" href="/css/emp/detail.css">
-	<link rel="stylesheet" href="/css/admin/admin.css">
-	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-	<script src="/js/hrm/admin.js"></script>
-	<script src="/js/hrm/detail.js"></script>
-	<title>인사관리</title>
+    <meta name="_csrf" content="${_csrf.token}" />
+    <meta name="_csrf_header" content="${_csrf.headerName}" />
+    <link rel="stylesheet" href="/css/emp/detail.css">
+    <link rel="stylesheet" href="/css/admin/admin.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="/js/hrm/admin.js"></script>
+    <script src="/js/hrm/detail.js"></script>
+    <title>인사관리</title>
 </head>
 <body>
-	<main class="admin">
-		<header class ="title">조직도</header>
-		<form th:action="@{/admin/hr/mgm}" method="get">
+    <main class="admin">
+        <header class ="title">조직도</header>
+        <form th:action="@{/admin/hr/mgm}" method="get">
             <button type="submit" class="images" sec:authorize="hasRole('ROLE_ADMIN')">
-                <img class="setting" src="/images/hrm/user-settings-line (2).png" alt="인사관리 설정창" >
+                <img class="setting" src="/images/hrm/user-settings-line (2).png" alt="인사관리 설정창">
             </button>
         </form>
-		<div class="orgChart">
-	        <ul class="orgChartEmp">
-	            <li class="node">
-	                <div class="company">
-	                	<span class="companyName">(주)</span>	 
-	                    <span>MIRCALE</span>	
-	                </div>
-	                <ul class="dep">
+        <div class="orgChart">
+            <ul class="orgChartEmp">
+                <li class="node">
+                    <div class="company">
+                        <span class="companyName">(주)</span>    
+                        <span>MIRCALE</span>    
+                    </div>
+                    <ul class="dep">
                         <li class="depLi">
                             <ul class="teams">
                                 <li class="teamLi" th:each="teamEntry : ${groupedEmployees}">
                                     <div class="teamName" th:text="${teamEntry.key}">팀 이름</div>
                                     <ul class="teamMembers">
-                                        <li class="empLi" th:each="employee : ${teamEntry.value}">
+                                        <li class="empLi" th:each="employee : ${teamEntry.value}"
+                                            th:if="${not employee.roles.contains(T(com.green.miracle.domain.entity.Role).ADMIN)}">
                                             <div class="emp">
                                                 <span class="empName" th:text="${employee.name}" 
                                                 th:onclick="'loadEmployeeDetail(\'' + ${employee.empNo} + '\', event)'">사원 이름</span>
@@ -45,10 +46,10 @@ th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
                             </ul>
                         </li>
                     </ul>
-	            </li>
-	        </ul>
-	    </div>
-	    <div class="tooltip" id="tooltip"></div>
-	</main>
-	</body>
+                </li>
+            </ul>
+        </div>
+        <div class="tooltip" id="tooltip"></div>
+    </main>
+</body>
 </html>

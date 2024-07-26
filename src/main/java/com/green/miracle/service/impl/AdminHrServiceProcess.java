@@ -20,6 +20,7 @@ import com.green.miracle.domain.dto.EmployeeDTO;
 import com.green.miracle.domain.dto.HrDetailDTO;
 import com.green.miracle.domain.entity.DepartmentEntity;
 import com.green.miracle.domain.entity.EmployeeEntity;
+import com.green.miracle.domain.entity.Role;
 import com.green.miracle.domain.repository.DepartmentEntityRepository;
 import com.green.miracle.domain.repository.EmployeeEntityRepository;
 import com.green.miracle.service.AdminHrService;
@@ -36,19 +37,21 @@ public class AdminHrServiceProcess implements AdminHrService {
 	
 	
 	@Override
-    public void HrListProcess(Model model) {
-        // 모든 사원 목록을 조회
-        List<EmployeeDTO> empDTOs = repository.findAll().stream()
-                .map(EmployeeEntity::toListdto) // EmployeeEntity를 EmployeeDTO로 변환
-                .collect(Collectors.toList());
+	public void HrListProcess(Model model) {
+	    // 모든 사원 목록을 조회
+	    List<EmployeeDTO> empDTOs = repository.findAll().stream()
+	            .map(EmployeeEntity::toListdto) // EmployeeEntity를 EmployeeDTO로 변환
+	            .filter(employeeDTO -> !employeeDTO.getRoles().contains(Role.ADMIN)) // ADMIN 권한을 가진 사원 제외
+	            .collect(Collectors.toList());
 
-        // 부서 코드(팀 이름)별로 사원들을 그룹화
-        Map<Long, List<EmployeeDTO>> groupedEmployees = empDTOs.stream()
-                .collect(Collectors.groupingBy(EmployeeDTO::getDepCode)); // depCode를 팀 이름으로 사용
+	    // 부서 코드(팀 이름)별로 사원들을 그룹화
+	    Map<Long, List<EmployeeDTO>> groupedEmployees = empDTOs.stream()
+	            .collect(Collectors.groupingBy(EmployeeDTO::getDepCode)); // depCode를 팀 이름으로 사용
 
-        // 모델에 그룹화된 사원 목록을 추가
-        model.addAttribute("groupedEmployees", groupedEmployees);
-    }
+	    // 모델에 그룹화된 사원 목록을 추가
+	    model.addAttribute("groupedEmployees", groupedEmployees);
+	}
+
 	
 	@Override
     public void detailProcess(long empNo, Model model) {
