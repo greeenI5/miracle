@@ -82,9 +82,12 @@ public class MainServiceProcess implements MainService{
 	//로그인 세션 (자동 로그아웃까지 남은 시간 계산)
 	@Override
 	public void sessionTime(Model model, HttpSession session) {
-		Instant creationTime = Instant.ofEpochMilli(session.getCreationTime()); //세션생성시간 (Instant 객체로)
+		session.setAttribute("LAST_ACCESS_TIME", Instant.now());
+		
+		Instant lastAccessTime = Instant.now();
+		lastAccessTime = (Instant) session.getAttribute("LAST_ACCESS_TIME");
 		Instant now = Instant.now(); //현재시간
-		Duration duration = Duration.between(creationTime, now);
+		Duration duration = Duration.between(lastAccessTime, now);
 		
 		long sessionTimeout = session.getMaxInactiveInterval(); //세션 타임아웃 시간 (초단위)
 		long elapsedSeconds = duration.getSeconds(); //경과시간 (초단위)
@@ -99,6 +102,5 @@ public class MainServiceProcess implements MainService{
         model.addAttribute("remainingTime", remainingTimeFormatted);
 		
 	}
-
 	
 }

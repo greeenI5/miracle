@@ -140,10 +140,14 @@ setInterval(updateCurrentTime, 1000); // 1초마다 시간 업데이트
 	function updateScheduleList(schedules) {
 	    const scheduleContainer = document.querySelector('.checklist');
 	    scheduleContainer.innerHTML = ''; // 기존 일정 목록 초기화
-	
+		
 	    if (schedules.length > 0) {
 	        const maxSchedules = 4;
 	        const count = Math.min(schedules.length, maxSchedules); // 최대 4개 또는 일정 배열의 길이 중 작은 값
+	        
+	        if(document.querySelectorAll('.no-schedule').length != 0){
+				document.querySelector('.no-schedule').innerHTML = '';
+			}
 	
 	        for (let i = 0; i < count; i++) {
 	            const schedule = schedules[i];
@@ -155,8 +159,8 @@ setInterval(updateCurrentTime, 1000); // 1초마다 시간 업데이트
 	            `;
 	            scheduleContainer.appendChild(listItem);
 	        }
-	    } else {
-	        scheduleContainer.innerHTML = '<div class="checklist">일정이 없습니다.</div>';
+	    } else if(document.querySelectorAll('.no-schedule').length === 0) {
+	        scheduleContainer.innerHTML = '<div class="checklist no-schedule">일정이 없습니다.</div>';
 	    }
 	}	
 }
@@ -227,8 +231,9 @@ function activateButton(button) {
             endButton.style.border = '2px solid var(--main-navy)'
             startButton.disabled = true;
             endButton.disabled = false;
+            recordStartTime(); //출근 시간 기록
         }
-    } else {
+    } else if (button === endButton) {
         if (confirm('정말 퇴근하시겠습니까?')) {
             startButton.style.color = 'var(--main-navy)';
             startButton.style.border = '2px solid var(--main-navy)'
@@ -236,6 +241,7 @@ function activateButton(button) {
             endButton.style.border = '2px solid var(--main-grey)'
             startButton.disabled = true;
             endButton.disabled = true;
+            recordEndTime(); //퇴근 시간 기록 
         }
     }
 }
