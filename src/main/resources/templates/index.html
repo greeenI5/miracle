@@ -12,27 +12,36 @@ th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
         	<div class="card-top flex">
         		<div class="profile-pic"><div class="user-image"></div></div>
         		<div class = "info">
-		            <a class="name" href="/mypage" th:text="|${emp.name} ${emp.position.roleName()}|">사원이름</a>
-		            <p class="department" th:text="${dep.depName}">부서명</p>
+		            <a sec:authorize="hasRole('ROLE_EMP')" class="name" href="/mypage" th:text="|${emp.name} ${emp.position.roleName()}|">사원이름</a>
+		            <a sec:authorize="hasRole('ROLE_ADMIN')" class="name">관리자 계정</a>
+		            <p sec:authorize="hasRole('ROLE_EMP')" class="department" th:text="${dep.depName}">부서명</p>
 	            </div>
             </div>
         </div>
         
         <div class="item2">
 			<a class="container-header" href="/performance/plan">
-	            <h2>공연일정</h2>
+	            <h2>공연 기획안</h2>
 	            <i class="ri-arrow-right-s-line circle"></i>
 	        </a>
 	        <div class="content-container">
 		        <div class="post-container" >
-			        <div class="exhibition" th:each="plan: ${plans}">
-			            <img src="/images/poster/poster2.jpg">
-			            <div class="details">
+			        <div class="exhibition" th:each="plan, iterStat: ${plans}">
+			            <img src="/images/poster/poster6.png" th:if="${iterStat.index == 0}">
+			            <div class="details" th:if="${iterStat.index == 0}">
 			                <h2 th:text="${plan.PerType.typeName()}">장르</h2>
 			                <p th:text="${plan.perTitle}">포스터 제목</p>
 			                <p th:text="${plan.finishAt}">종료일</p>
 			                <p th:text="${plan.location}">공연장소</p>
-			                <button class="detail-btn">상세보기</button>
+			                <a th:href="|/performance/plan/${plan.planNo}|"><button class="detail-btn">상세보기</button></a>
+			            </div>
+			            <img src="/images/poster/poster5.jpg" th:if="${iterStat.index == 1}">
+			            <div class="details" th:if="${iterStat.index == 1}">
+			                <h2 th:text="${plan.PerType.typeName()}">장르</h2>
+			                <p th:text="${plan.perTitle}">포스터 제목</p>
+			                <p th:text="${plan.finishAt}">종료일</p>
+			                <p th:text="${plan.location}">공연장소</p>
+			                <a th:href="|/performance/plan/${plan.planNo}|"><button class="detail-btn">상세보기</button></a>
 			            </div>
 			        </div>
 			    </div>
@@ -78,7 +87,7 @@ th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
 			                <span th:text="${schedule.schTitle}" class="check-label">일정</span>
 			            </label>
 			        </div>
-			        <div th:if="${#lists.isEmpty(schedules)}" class="checklist">일정이 없습니다.</div>
+			        <div th:if="${#lists.isEmpty(schedules)}" class="checklist no-schedule">일정이 없습니다.</div>
 			        <button class="schedule-button" onclick="saveChecklist()">확인</button>
 			    </div>
 			</div>  
@@ -86,26 +95,17 @@ th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
         
         <div class="item4">
         	<div class="mail-container">
-		        <a class="section" href="/">
+		        <a class="section" href="/performance/plan">
+		            <i class="ri-calendar-schedule-line mail-icon"></i>
+		            <span class="mail-text">기획안 작성</span>
+		        </a>
+		        <a class="section" href="https://auth.worksmobile.com/oauth2/v2.0/authorize?client_id=aMb6jmuQ7njATZqZgRx7&redirect_uri=http://localhost:8080/oauth2/code&scope=directory,directory.read,orgunit,orgunit.read,mail,mail.read&response_type=code&state=mail.read">
 		            <i class="ri-mail-unread-line mail-icon"></i>
-		            <div>
-		              <span class="mail-text">받은 메일함</span>
-		              <span class="mail-number">99</span>
-		            </div>
+		            <span class="mail-text">메일함</span>
 		        </a>
-		        <a class="section" href="/">
-		            <i class="ri-mail-add-line mail-icon"></i>
-		            <div>
-		              <span class="mail-text">내게 쓴 메일함</span>
-		              <span class="mail-number">0</span>
-		            </div>
-		        </a>
-		        <a class="section" href="/">
-		            <i class="ri-mail-star-line mail-icon"></i>
-		            <div>
-		              <span class="mail-text">중요 메일함</span>
-		              <span class="mail-number">15</span>
-		            </div>
+		        <a class="section" href="/hr">
+		            <i class="ri-account-box-line mail-icon"></i>
+		            <span class="mail-text">주소록</span>
 		        </a>
 		    </div>
         </div>
@@ -147,11 +147,11 @@ th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
 	            <p class="current-date" id="current-date">2021-12-01 (수)</p>
                 <p class="time-text" id="current-time">17:24:09</p>
             </div>
-            <div class="left-time-bar">
+            <div sec:authorize="hasRole('ROLE_EMP')" class="left-time-bar">
             	<div class="buttons">
-                <button class="button" id="start-work-button" onclick="activateButton(this); recordStartTime()">출근하기</button>
-                <button class="button" id="end-work-button" onclick="activateButton(this); recordEndTime()">퇴근하기</button>
-            </div>
+                <button class="button" id="start-work-button" onclick="activateButton(this);">출근하기</button>
+                <button class="button" id="end-work-button" onclick="activateButton(this);" disabled="disabled">퇴근하기</button>
+            	</div>
             	<div class="record-time">
             		<div class="working-start flex between">
             			<span>출근시간</span>
