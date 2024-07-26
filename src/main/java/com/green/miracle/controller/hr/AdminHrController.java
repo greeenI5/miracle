@@ -27,6 +27,7 @@ public class AdminHrController {
     @GetMapping("/hr")
     public String list(Model model) {
         service.HrListProcess(model);  // 그룹화된 사원 목록을 처리
+        System.out.println(model);
         return "views/admin/hrm";  // Thymeleaf 템플릿의 경로
     }
     
