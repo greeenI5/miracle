@@ -47,7 +47,7 @@ $(function() {
 // 웹소켓 연결 함수
 function connectSocket() {
     stompClient = Stomp.over(new SockJS('/ws-i5-bot'));
-    stompClient.connect({}, (frame) => {
+    stompClient.connect({}, () => {
         key = new Date().getTime();
         
         // 구독 설정
@@ -77,7 +77,6 @@ function connectSocket() {
                         `;
                 sendMessage(tag);
                 initialMessageShown = true; // 메시지가 한 번만 출력되도록 설정
-                
             }
         });
 
@@ -85,7 +84,7 @@ function connectSocket() {
         var data = {
             key: key,
             content: "hello",
-            name: "" // principa.getName 이름의 값으로 넣으면 될듯...
+            name: "" 
         };
         // 접속하자마자 연결 시도
         stompClient.send("/bot/hello", {}, JSON.stringify(data));
@@ -107,7 +106,7 @@ $(document).on("click", "#showNotice", function() {
     fetchNoticeInfo();
 });
 
-document.addEventListener('DOMContentLoaded', (event) => {
+document.addEventListener('DOMContentLoaded', () => {
     // 엔터 키를 눌렀을 때 메시지 전송 함수 호출
     document.getElementById('question').addEventListener('keypress', function (e) {
         if (e.key === 'Enter') {
@@ -228,11 +227,14 @@ function displayMessage(message) {
 function searchNameMessage() {
 	let messageContainer = document.getElementById('messageDisplay');
  	let tag = `
- 		<div class="bot-message part">
- 			<div id="b-icon"></div>
-   			<p>이름을 검색해보세요.</p>
-   			<div class="bot-time flex">${time}</div>
-		 </div>
+
+	<div class="flex">
+    	<div id="b-icon"></div>
+        <div class="part">
+       		<p>이름을 검색해보세요.</p>
+        	<div class="bot-time">${time}</div>	
+       	</div>
+    </div>
 			`;
 			 messageContainer.innerHTML += tag;    
     			scrollToBottom(botmain); // 스크롤을 제일 아래로 이동
@@ -288,11 +290,13 @@ function displayMessage3(message) {
 function searchScheduleMessage1() {
 	let messageContainer = document.getElementById('messageDisplay');
  	let tag = `
- 		<div class="bot-message part">
- 			<div id="b-icon"></div>
-   			<p>개인일정이 없습니다.</p>
-   			<div class="bot-time">${time}</div>
-		 </div>
+	<div class="flex">
+    	<div id="b-icon"></div>
+        <div class="part">
+       		<p>개인일정이 없습니다.</p>
+        	<div class="bot-time">${time}</div>	
+       	</div>
+    </div>
 			`;
 			 messageContainer.innerHTML += tag;    
     			scrollToBottom(botmain); // 스크롤을 제일 아래로 이동
@@ -300,11 +304,13 @@ function searchScheduleMessage1() {
 function searchScheduleMessage2() {
 	let messageContainer = document.getElementById('messageDisplay');
  	let tag = `
- 		<div class="bot-message part">
- 			<div id="b-icon"></div>
-   			<p>공연일정이 없습니다.</p>
-   			<div class="bot-time">${time}</div>
-		 </div>
+	<div class="flex">
+    	<div id="b-icon"></div>
+        <div class="part">
+       		<p>공연일정이 없습니다.</p>
+        	<div class="bot-time">${time}</div>	
+       	</div>
+    </div>
 			`;
 			 messageContainer.innerHTML += tag;    
     			scrollToBottom(botmain); // 스크롤을 제일 아래로 이동
@@ -360,11 +366,13 @@ function displayMessage4(message) {
 function searchNoticeMessage1() {
 	let messageContainer = document.getElementById('messageDisplay');
  	let tag = `
- 		<div class="bot-message part">
- 			<div id="b-icon"></div>
-   			<p>오늘의 공지사항이 없습니다.</p>
-   			<div class="bot-time">${time}</div>
-		 </div>
+	<div class="flex">
+    	<div id="b-icon"></div>
+        <div class="part">
+       		<p>오늘의 공지사항이 없습니다.</p>
+        	<div class="bot-time">${time}</div>	
+       	</div>
+    </div>
 			`;
 			 messageContainer.innerHTML += tag;    
     			scrollToBottom(botmain); // 스크롤을 제일 아래로 이동
@@ -372,11 +380,13 @@ function searchNoticeMessage1() {
 function searchNoticeMessage2() {
 	let messageContainer = document.getElementById('messageDisplay');
  	let tag = `
- 		<div class="bot-message part">
- 			<div id="b-icon"></div>
-   			<p>중요 공지사항이 없습니다.</p>
-   			<div class="bot-time">${time}</div>
-		 </div>
+	<div class="flex">
+    	<div id="b-icon"></div>
+        <div class="part">
+       		<p>중요 공지사항이 없습니다.</p>
+        	<div class="bot-time">${time}</div>	
+       	</div>
+    </div>
 			`;
 			 messageContainer.innerHTML += tag;    
     			scrollToBottom(botmain); // 스크롤을 제일 아래로 이동
@@ -440,7 +450,7 @@ function displayMessage2(message) {
     message.forEach(function(dto) {
         tag += `
             <div>
-                <button class="child-category" data-content="${dto.content}"> <p>${dto.content}</p> </button>
+                <button class="great-grand-child-category" data-content="${dto.content}"> <p>${dto.content}</p> </button>
             </div>
         `;
     });

@@ -273,7 +273,8 @@
 }
 
 .child-category,
-.grand-child-category {
+.grand-child-category,
+.great-grand-child-category {
 	
 	
     background-color: white; /* 배경색 */
@@ -288,7 +289,8 @@
 }
 
 .child-category:hover,
-.grand-child-category:hover {
+.grand-child-category:hover,
+.great-grand-child-category:hover {
 	background-color: var(--sub-navy); /* 호버 시 배경색 변경 */
 }
 

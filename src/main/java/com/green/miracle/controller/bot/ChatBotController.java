@@ -30,8 +30,7 @@ public class ChatBotController {
     private final SimpMessagingTemplate messagingTemplate;
     private final ChatBotService chatBotService;
     
-	@MessageMapping("/hello") // '/bot/question'
-	//@SendTo("/topic/bot/"+key) - ResponseBody와 같은역할
+	@MessageMapping("/hello")
 	public void hello(Question dto) {
 		System.out.println(">>>hello:"+dto);
 		long key=dto.getKey();
