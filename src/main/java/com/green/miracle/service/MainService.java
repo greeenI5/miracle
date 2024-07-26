@@ -17,9 +17,9 @@ public interface MainService {
 
 	void sessionTime(Model model, HttpSession session);
 
-	void scheduleProcess(Model model, LocalDate cilckDate, CustomUserDetails user);
+	void todaySchedule(Model model, CustomUserDetails user);
 
-	List<ScheduleDTO> scheduleProcess2(LocalDate clickDate, CustomUserDetails user);
+	List<ScheduleDTO> selectedSchedule(LocalDate clickDate, CustomUserDetails user);
 
 	
 

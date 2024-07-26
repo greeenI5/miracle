@@ -26,21 +26,19 @@ public class MainController {
 	
 	@GetMapping("/")
 	public String list(Model model, @AuthenticationPrincipal CustomUserDetails user) {
+		
 		//service.sessionTime(model, session); //GlobalControllerAdvice에 추가
         service.findAllProcess(model, user);
+        service.todaySchedule(model, user);
         
-        LocalDate cilckDate = LocalDate.now();
-        service.scheduleProcess(model, cilckDate, user);
 		return "index";
 	}
-	
 	
 	@PostMapping("/api/date")
 	@ResponseBody
 	public List<ScheduleDTO> date(@RequestBody DateRequestDTO dateRequest, @AuthenticationPrincipal CustomUserDetails user) {
 		LocalDate clickDate = dateRequest.getDate();
-		return service.scheduleProcess2(clickDate, user);
+		return service.selectedSchedule(clickDate, user);
 	}
 	
-
 }
