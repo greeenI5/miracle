@@ -37,19 +37,21 @@
                 </div>
                 
                 <form id="memo-form" th:each="schedule: ${schedules}">
-                    <label for="start-date">시작일:</label>
-                    <input th:value="${schedule.startAt}" type="date" id="start-date" name="startAt" required>
-                    <label for="end-date">종료일:</label>
-                    <input th:value="${schedule.finishAt}" type="date" id="end-date" name="finishAt" required>
-                    <hr>
-                    <div class="memo-section">
-                        <label for="memo-title">메모 제목:</label>
-                        <input th:value="${schedule.schTitle}" type="text" id="memo-title" name="schTitle" placeholder="메모 제목 입력" required>
-                        <label for="memo-content">메모 내용:</label>
-                        <textarea th:text="${schedule.schContent}" id="memo-content" name="schContent" placeholder="메모 내용 입력" required></textarea>
-                        <button id="save-memo" type="button">메모 저장</button>
-                    </div>
-                </form>
+				    <input type="hidden" id="action-mode" name="actionMode" value="save">
+				    <label for="start-date">시작일:</label>
+				    <input th:value="${schedule.startAt}" type="date" id="start-date" name="startAt" required>
+				    <label for="end-date">종료일:</label>
+				    <input th:value="${schedule.finishAt}" type="date" id="end-date" name="finishAt" required>
+				    <hr>
+				    <div class="memo-section">
+				        <label for="memo-title">메모 제목:</label>
+				        <input th:value="${schedule.schTitle}" type="text" id="memo-title" name="schTitle" placeholder="메모 제목 입력" required>
+				        <label for="memo-content">메모 내용:</label>
+				        <textarea th:text="${schedule.schContent}" id="memo-content" name="schContent" placeholder="메모 내용 입력" required></textarea>
+				        <button id="save-memo" type="submit">메모 저장</button>
+				    </div>
+				</form>
+
                 
             </div>
         </section>

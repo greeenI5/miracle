@@ -8,6 +8,7 @@ import com.green.miracle.domain.entity.PerformancePlanEntity;
 import com.green.miracle.domain.repository.ApprovalEntityRepository;
 import com.green.miracle.service.ApprovalService;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -39,9 +40,10 @@ public class ApprovalServiceProcess implements ApprovalService{
 	}
 	/*/////////////////*/
 	@Override
-	public void savePlan(PerformancePlanEntity plan) {
-		repository.save(plan);
+	@Transactional
+	public void changeApprovalProcess(Long planNo, ApprovalChangeDTO dto) {
 		
+		repository.findById(planNo).orElseThrow().update(dto);
 	}
 	/*////////////////*/
 }

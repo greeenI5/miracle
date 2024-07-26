@@ -7,7 +7,9 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import com.green.miracle.domain.dto.ScheduleChangeDTO;
 import com.green.miracle.domain.dto.ScheduleReadDTO;
+import com.green.miracle.domain.dto.ScheduleSaveDTO;
 import com.green.miracle.domain.entity.EmployeeEntity;
 import com.green.miracle.domain.entity.ScheduleEntity;
 import com.green.miracle.domain.repository.EmployeeEntityRepository;
@@ -15,6 +17,7 @@ import com.green.miracle.domain.repository.ScheduleEntityRepository;
 import com.green.miracle.security.CustomUserDetails;
 import com.green.miracle.service.ScheduleService;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -24,6 +27,8 @@ public class ScheduleServiceProcess implements ScheduleService{
 	private final ScheduleEntityRepository repository; //생성자 DI > 테이블에 접근한 레파지토리가 필요
 	private final EmployeeEntityRepository empRepository;
 	
+	/* ///////////////////////////////////////////////////////////////////// */
+	/* ///////////////////////////////////////////////////////////////////// */
 	@Override
 	public void findScheduleProcess(Model model, LocalDate cilckDate, CustomUserDetails user) {
 		EmployeeEntity employee = empRepository.findByEmail(user.getEmail()).orElseThrow();
@@ -47,6 +52,32 @@ public class ScheduleServiceProcess implements ScheduleService{
 				//순서 *중요
 				.collect(Collectors.toList());
 	}
+	/* ///////////////////////////////////////////////////////////////////// */
+	/* ///////////////////////////////////////////////////////////////////// */
+	@Override
+	public void saveMemo(ScheduleSaveDTO dto, CustomUserDetails user) {
+		EmployeeEntity employee = empRepository.findByEmail(user.getEmail()).orElseThrow();
+		ScheduleEntity schedule = dto.toEntity();
+		schedule.setEmployee(employee);
+		repository.save(schedule);
+	}
+
+	@Override
+	public boolean existsByStartAtAndFinishAtAndSchTitle(LocalDate startAt, LocalDate finishAt, String schTitle) {
+		
+		return repository.existsByStartAtAndFinishAtAndSchTitle(startAt, finishAt, schTitle);
+	}
+
+	@Override
+	@Transactional
+	public void updateProcess(Long schNo, ScheduleChangeDTO dto) {
+		
+		repository.findById(schNo).orElseThrow().update(dto);
+		
+	}
+
+
+
 
 	
 	

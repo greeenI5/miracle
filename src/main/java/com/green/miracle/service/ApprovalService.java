@@ -2,6 +2,7 @@ package com.green.miracle.service;
 
 import org.springframework.ui.Model;
 
+import com.green.miracle.domain.dto.ApprovalChangeDTO;
 import com.green.miracle.domain.entity.PerformancePlanEntity;
 
 public interface ApprovalService {
@@ -14,6 +15,6 @@ public interface ApprovalService {
 
 	PerformancePlanEntity findPlanById(long planNo);
 
-	void savePlan(PerformancePlanEntity plan);
+	void changeApprovalProcess(Long planNo, ApprovalChangeDTO dto);
 
 }

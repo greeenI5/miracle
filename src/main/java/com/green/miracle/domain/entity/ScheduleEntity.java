@@ -1,6 +1,9 @@
 package com.green.miracle.domain.entity;
 
 import java.time.LocalDate;
+
+import com.green.miracle.domain.dto.ScheduleChangeDTO;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -42,5 +45,14 @@ public class ScheduleEntity {
 	@Column(nullable=false)//not null
 	private String schTitle; //일정제목
 	
-	private String schContent; //일정내용
+	@Builder.Default
+	private String schContent = ""; //일정내용
+
+	public ScheduleEntity update(ScheduleChangeDTO dto) {
+		this.startAt=dto.getStartAt();
+		this.finishAt=dto.getFinishAt();
+		this.schTitle=dto.getSchTitle();
+		this.schContent=dto.getSchContent();
+		return this;	
+	}
 }

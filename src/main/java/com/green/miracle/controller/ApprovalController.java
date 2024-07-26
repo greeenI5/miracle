@@ -6,8 +6,6 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.green.miracle.domain.dto.ApprovalChangeDTO;
 import com.green.miracle.domain.entity.PerType;
@@ -15,8 +13,6 @@ import com.green.miracle.domain.entity.PerformancePlanEntity;
 import com.green.miracle.service.ApprovalService;
 import lombok.RequiredArgsConstructor;
 
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -53,18 +49,15 @@ public class ApprovalController {
         return "views/approval/request-view";
     }
 	
+	
 	@PostMapping("/plan/{planNo}")
     public String approvalBTN(@PathVariable("planNo") Long planNo, ApprovalChangeDTO dto) {
-		 PerformancePlanEntity plan = service.findPlanById(planNo);
-		 
-		 if (plan != null) {
-		        // DTO를 사용하여 Plan을 업데이트
-		        plan.setApproval(dto.getApproval());
-		        service.savePlan(plan);  // 변경된 Plan을 저장
-		    }
 		
-        return "redirect:/admin/approval/plan/request"; // 업데이트 후 리다이렉트할 페이지
+		 service.changeApprovalProcess(planNo,dto);
+
+		 return "redirect:/admin/approval/plan/request"; // 업데이트 후 리다이렉트할 페이지
     }
+    
 	
 	/*////////////////////////////////////////*/
 	/*                  보  류                 */
