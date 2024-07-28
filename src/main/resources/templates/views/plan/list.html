@@ -17,36 +17,38 @@
             </div>
         </section>
         <section class="content-right">
-			<div class="location">HOME > 기획목록</div>
-                <div id="content-box">
-					<div class="list-name">기획서</div>
-                    <form id="search-form">
-                        <div class="search-wrap">
-                            <input id="search" type="search" placeholder="검색어를 입력해주세요.">
-                            <button class="btn" type="submit">검색</button>
-                        </div>
-                    </form>
-                    <table>
-                        <thead>
-                            <tr class="post-body">
-                                <th class="no">번호</th>
-                                <th>프로젝트명</th>
-                                <th>기획자</th>
-                                <th>작성일자</th>
-                            </tr>
-                        </thead>
-                        <tbody id="plan-list">
-							<tr th:each="plan : ${plans}">
-                                <td th:text="${plan.planNo}"></td>
-                                <td><a th:href="@{/performance/plan/{plan_no}(plan_no=${plan.planNo})}" class="plan-name" th:text="${plan.perTitle}"></a></td>
-                                <td th:text="${plan.employee.name}"></td>
-                                <td th:text="${plan.writeAt}"></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+            <div class="location">HOME > 기획목록</div>
+            <div id="content-box">
+                <div class="list-name">기획서</div>
+                <form id="search-form">
+                    <div class="search-wrap">
+                        <input id="search" type="search" placeholder="검색어를 입력해주세요.">
+                        <button class="btn" type="submit">검색</button>
+                    </div>
+                </form>
+                <table>
+                    <thead>
+                        <tr class="post-body">
+                            <th class="no">번호</th>
+                            <th>프로젝트명</th>
+                            <th>기획자</th>
+                            <th>작성일자</th>
+                        </tr>
+                    </thead>
+                    <tbody id="plan-list">
+                        <tr th:each="plan : ${plans}">
+                            <td th:text="${plan.planNo}"></td>
+                            <td><a th:href="@{/performance/plan/{plan_no}(plan_no=${plan.planNo})}" class="plan-name" th:text="${plan.perTitle}"></a></td>
+                            <td th:text="${plan.employee.name}"></td>
+                            <td th:text="${plan.writeAt}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- 페이지 네비게이션 -->
+                <div id="pagination" class="pagination"></div>
             </div>
         </section>
     </div>
 </main>
+
 </html>
