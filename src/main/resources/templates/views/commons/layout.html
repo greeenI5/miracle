@@ -48,6 +48,7 @@ th:fragment="layout(pHead,pMain)">
 			<li><a href="/hr"><i class="ri-account-box-line"></i> <span>조직도</span></a></li>
 			<li sec:authorize="hasRole('ROLE_ADMIN')"><a href="/admin/approval/plan/request"><i class="ri-clipboard-line"></i> <span>전자결재</span></a></li>
 			<li sec:authorize="!hasRole('ROLE_ADMIN')" onclick="alert('해당 페이지에 들어갈 권한이 없습니다.'); return false;"><a><i class="ri-clipboard-line"></i> <span>전자결재</span></a></li>
+			<li><a href="https://drive.worksmobile.com/"><i class="ri-archive-drawer-line"></i> <span>네이버웍스</span></a></li>
 			<li><a href="/logout"> <i class="ri-logout-box-r-line"></i><span>로그아웃</span></a></li>
 		</ul>
 	</nav>

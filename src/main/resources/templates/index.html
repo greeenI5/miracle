@@ -27,7 +27,7 @@ th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
 	        <div class="content-container">
 		        <div class="post-container" >
 			        <div class="exhibition" th:each="plan, iterStat: ${plans}">
-			            <img src="/images/poster/poster6.png" th:if="${iterStat.index == 0}">
+			            <img src="/images/poster/poster2.jpg" th:if="${iterStat.index == 0}">
 			            <div class="details" th:if="${iterStat.index == 0}">
 			                <h2 th:text="${plan.PerType.typeName()}">장르</h2>
 			                <p th:text="${plan.perTitle}">포스터 제목</p>
@@ -99,7 +99,7 @@ th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
 		            <i class="ri-calendar-schedule-line mail-icon"></i>
 		            <span class="mail-text">기획안 작성</span>
 		        </a>
-		        <a class="section" href="https://auth.worksmobile.com/oauth2/v2.0/authorize?client_id=aMb6jmuQ7njATZqZgRx7&redirect_uri=http://localhost:8080/oauth2/code&scope=directory,directory.read,orgunit,orgunit.read,mail,mail.read&response_type=code&state=mail.read">
+		        <a class="section" th:href="@{'https://auth.worksmobile.com/oauth2/v2.0/authorize?client_id=' + ${@environment.getProperty('naver.client.id')} + '&redirect_uri=' + ${@environment.getProperty('naver.client.redirect-uri')} + '&scope=' + ${@environment.getProperty('naver.client.scope')} + '&response_type=code&state=mail.read' + '&domain=greenmiracle'}">
 		            <i class="ri-mail-unread-line mail-icon"></i>
 		            <span class="mail-text">메일함</span>
 		        </a>

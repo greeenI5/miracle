@@ -34,6 +34,8 @@ public class MailServiceProcess implements MailService{
 	@Value("${naver.client.domain}")
 	String domainId;
 	
+	String domain = "greenmiracle";
+	
 	@Override
 	public void mailRead(String code, Model model, CustomUserDetails user) throws Exception {
 		//접근하기 위한 토큰 생성
@@ -109,6 +111,7 @@ public class MailServiceProcess implements MailService{
 		urlBuilder.append("&grant_type=authorization_code");
 		urlBuilder.append("&client_id="); urlBuilder.append(clientId);
 		urlBuilder.append("&client_secret="); urlBuilder.append(clientSecret);
+		urlBuilder.append("&domain="); urlBuilder.append(domain);
 		apiUrl = urlBuilder.toString();
 		
 		String method = "POST";
