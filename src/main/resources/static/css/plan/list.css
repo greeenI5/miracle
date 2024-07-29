@@ -98,3 +98,22 @@ tbody tr {
 tbody tr:nth-child(n+11) {
     display: none; /* 10번째 이후의 항목 숨기기 */
 }
+a {
+    color: black; /* 기본 글씨 색상 설정 */
+    text-decoration: none; /* 기본 밑줄 제거 */
+}
+
+/* 방문한 링크 스타일 */
+a:visited {
+    color: black; /* 방문한 링크 색상도 검정으로 설정 */
+}
+
+/* 마우스 오버 시 스타일 */
+a:hover {
+    color: blue; /* 마우스 오버 시 링크 색상 */
+}
+
+/* 클릭한 링크 스타일 */
+a:active {
+    color: blue; /* 클릭한 링크 색상 */
+}
